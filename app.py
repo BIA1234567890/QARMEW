@@ -58,629 +58,479 @@ def get_llm_client():
 
 # --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    # --- Local CSS just for this page (safe for other pages) ---
-    st.markdown(
-        """
-        <style>
-        /* Root wrapper for About page */
-        .about-root {
-            padding-top: 0.8rem;
-        }
+    # =========================================
+    # CSS — Premium Boutique Look & Feel
+    # =========================================
+    st.markdown("""
+    <style>
 
-        /* HERO SECTION WITH IMAGE --------------------------------------- */
-        .about-hero {
-            position: relative;
-            border-radius: 28px;
-            overflow: hidden;
-            min-height: 360px;
-            margin-bottom: 1.8rem;
-            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.75);
-            background-image:
-                linear-gradient(
-                    135deg,
-                    rgba(4, 7, 17, 0.85),
-                    rgba(15, 23, 42, 0.55),
-                    rgba(15, 23, 42, 0.35)
-                ),
-                url("hero_bg");
-            background-size: cover;
-            background-position: center;
-        }
+    /* ---- Global Wrapper ---- */
+    .about-wrapper {
+        padding: 0;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
 
-        .about-hero-inner {
-            position: relative;
-            z-index: 1;
-            padding: 2.6rem 3rem 2.4rem 3rem;
-            color: #e5e7eb;
-        }
+    /* ---- HERO SECTION ---- */
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 520px;
+        border-radius: 28px;
+        overflow: hidden;
+        margin-bottom: 60px;
 
-        .about-hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.28rem 0.95rem;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #e5e7eb;
-        }
+        background:
+            linear-gradient(
+                180deg,
+                rgba(2, 6, 23, 0.65),
+                rgba(2, 6, 23, 0.55),
+                rgba(2, 6, 23, 0.80)
+            ),
+            url("hero_bg.png");
 
-        .about-hero-pill-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 999px;
-            background: #22c55e;
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
-        }
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
 
-        .about-hero-title {
-            margin-top: 1.1rem;
-            font-size: 2.7rem;
-            line-height: 1.15;
-            letter-spacing: 0.02em;
-            font-weight: 700;
-        }
+        display: flex;
+        align-items: flex-end;
+        padding: 60px 60px;
+        color: #F1F5F9;
+    }
 
-        .about-hero-title span.accent {
-            background: linear-gradient(90deg, #0ea5e9, #22c55e, #facc15);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+    .hero-content {
+        max-width: 750px;
+    }
 
-        .about-hero-subtitle {
-            margin-top: 0.8rem;
-            max-width: 40rem;
-            font-size: 1.02rem;
-            line-height: 1.7;
-            color: #dde3ff;
-        }
+    .hero-title {
+        font-size: 3.2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 12px;
+        color: #fff;
+    }
 
-        .about-hero-metrics {
-            margin-top: 1.4rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
+    .hero-accent {
+        background: linear-gradient(90deg, #fefcf3, #e4d6b9, #ffffff);
+        -webkit-background-clip: text;
+        color: transparent;
+        font-weight: 700;
+    }
 
-        .about-hero-metric-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: #cbd5f5;
-            opacity: 0.85;
-        }
+    .hero-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: #e2e8f0;
+        margin-bottom: 26px;
+    }
 
-        .about-hero-metric-value {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #f9fafb;
-        }
+    .hero-cta {
+        display: inline-block;
+        padding: 12px 26px;
+        background: linear-gradient(90deg, #e8d8b1, #f5e7c6, #e8d8b1);
+        border-radius: 999px;
+        color: #1e293b !important;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 8px 28px rgba(255, 239, 199, 0.35);
+        transition: 0.2s ease;
+    }
 
-        .about-hero-cta-row {
-            margin-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-        }
+    .hero-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 34px rgba(255, 239, 199, 0.45);
+    }
 
-        .about-hero-cta-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.7rem;
-            border-radius: 999px;
-            border: none;
-            background: linear-gradient(135deg, #0ea5e9, #22c55e);
-            color: #0b1120 !important;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            box-shadow: 0 16px 40px rgba(34, 197, 94, 0.45);
-        }
+    /* ---- HERO SIDE CARD ---- */
+    .hero-card {
+        position: absolute;
+        right: 40px;
+        top: 40px;
+        width: 260px;
+        padding: 20px 22px;
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(14px);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
 
-        .about-hero-cta-secondary {
-            font-size: 0.9rem;
-            color: #e5e7eb;
-            max-width: 22rem;
-        }
+    .hero-card-title {
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-size: 0.75rem;
+        color: #E2E8F0;
+        margin-bottom: 6px;
+    }
 
-        /* Right-hand highlight card inside hero */
-        .about-hero-card {
-            position: absolute;
-            right: 1.7rem;
-            bottom: 1.7rem;
-            width: 260px;
-            max-width: 38%;
-            border-radius: 18px;
-            padding: 1rem 1.2rem;
-            background: radial-gradient(circle at top, rgba(56,189,248,0.45), rgba(15,23,42,0.92));
-            border: 1px solid rgba(148,163,184,0.7);
-            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
-        }
+    .hero-card-body {
+        font-size: 0.95rem;
+        color: #F8FAFC;
+        line-height: 1.4;
+    }
 
-        .about-hero-card-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: #d1d5db;
-            margin-bottom: 0.25rem;
-        }
-        .about-hero-card-main {
-            font-size: 0.98rem;
-            font-weight: 600;
-            color: #f9fafb;
-            margin-bottom: 0.35rem;
-        }
-        .about-hero-card-note {
-            font-size: 0.85rem;
-            color: #e5e7eb;
-        }
 
-        /* QUICK INFO BAND ------------------------------------------------ */
-        .about-quick-band {
-            margin-bottom: 2.0rem;
-            border-radius: 20px;
-            padding: 0.95rem 1.8rem 1.0rem 1.8rem;
-            background: linear-gradient(180deg, #020617, #020617, #020617);
-            box-shadow: 0 16px 40px rgba(15,23,42,0.6);
-        }
+    /* ---- QUICK STATS BAND ---- */
+    .quick-band {
+        width: 100%;
+        padding: 32px 40px;
+        border-radius: 20px;
+        background: linear-gradient(180deg, #faf7f0, #f2ece0);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        margin-bottom: 50px;
+    }
 
-        .about-quick-row {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.8rem;
-        }
+    .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
 
-        .about-quick-label {
-            font-size: 0.78rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: #9ca3af;
-            margin-bottom: 0.25rem;
-        }
+    .quick-label {
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: #475569;
+        letter-spacing: 0.12em;
+    }
 
-        .about-quick-value {
-            font-size: 1.02rem;
-            font-weight: 600;
-            color: #e5e7eb;
-        }
+    .quick-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
 
-        @media (max-width: 1024px) {
-            .about-quick-row {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            .about-hero-card {
-                position: static;
-                margin-top: 1.5rem;
-                width: 100%;
-                max-width: 100%;
-            }
-        }
 
-        @media (max-width: 768px) {
-            .about-hero-inner {
-                padding: 2rem 1.7rem 2.0rem 1.7rem;
-            }
-            .about-hero-title {
-                font-size: 2.1rem;
-            }
-        }
+    /* ---- SECTION TITLES ---- */
+    .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #0f172a;
+    }
 
-        /* SECTION TITLES ------------------------------------------------- */
-        .about-section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0 0 0.25rem 0;
-            color: #020617;
-        }
+    .section-subtitle {
+        font-size: 1rem;
+        color: #475569;
+        margin-bottom: 30px;
+        max-width: 680px;
+        line-height: 1.6;
+    }
 
-        .about-section-subtitle {
-            font-size: 0.96rem;
-            color: #4b5563;
-            margin-bottom: 1.8rem;
-        }
 
-        /* INFO CARDS ----------------------------------------------------- */
-        .about-card-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-bottom: 2.4rem;
-        }
+    /* ---- INFO CARDS ---- */
+    .info-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
 
-        .about-info-card {
-            flex: 1 1 240px;
-            border-radius: 18px;
-            padding: 1.3rem 1.4rem 1.2rem 1.4rem;
-            background: linear-gradient(135deg, #f9fafb, #eef2ff);
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 14px 30px rgba(15,23,42,0.12);
-        }
+    .info-card {
+        flex: 1 1 30%;
+        background: #ffffff;
+        padding: 22px 24px;
+        border-radius: 18px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
-        .about-info-card-label {
-            font-size: 0.76rem;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: #6b7280;
-            margin-bottom: 0.35rem;
-        }
+    .info-card label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #64748b;
+    }
 
-        .about-info-card-title {
-            font-size: 1.02rem;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 0.35rem;
-        }
+    .info-card h4 {
+        margin-top: 5px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #0f172a;
+    }
 
-        .about-info-card-body {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
+    .info-card p {
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.5;
+        margin-top: 8px;
+    }
 
-        /* PROCESS / JOURNEY --------------------------------------------- */
-        .about-process {
-            margin-top: 0.3rem;
-            margin-bottom: 2.6rem;
-            border-radius: 20px;
-            padding: 1.6rem 1.6rem;
-            background: radial-gradient(circle at 0% 0%, rgba(14,165,233,0.16), rgba(248,250,252,1));
-            border: 1px solid #e5e7eb;
-        }
 
-        .about-process-badge {
-            font-size: 0.76rem;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: #6b7280;
-            margin-bottom: 0.3rem;
-        }
+    /* ---- JOURNEY SECTION ---- */
+    .journey {
+        padding: 30px;
+        border-radius: 22px;
+        background: #f9f7f2;
+        border: 1px solid #e7dfcb;
+        margin-bottom: 50px;
+    }
 
-        .about-process-title {
-            font-size: 1.12rem;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 0.8rem;
-        }
+    .journey-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
 
-        .about-process-steps {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.3rem;
-        }
+    .step {
+        background: #fff;
+        padding: 18px;
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    }
 
-        .about-process-step {
-            border-radius: 16px;
-            padding: 1rem 1.05rem 0.95rem 1.05rem;
-            background: white;
-            box-shadow: 0 8px 18px rgba(148,163,184,0.35);
-        }
+    .step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e8d8b1, #fff1c7);
+        color: #1e293b;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
 
-        .about-process-step-num {
-            width: 24px;
-            height: 24px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #0ea5e9, #22c55e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #0b1120;
-            margin-bottom: 0.45rem;
-        }
+    .step-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 6px;
+    }
 
-        .about-process-step-title {
-            font-size: 0.96rem;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 0.2rem;
-        }
+    .step-text {
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.5;
+    }
 
-        .about-process-step-text {
-            font-size: 0.88rem;
-            color: #4b5563;
-        }
 
-        @media (max-width: 1024px) {
-            .about-process-steps {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
+    /* ---- CONTACT SECTION ---- */
+    .contact {
+        padding: 40px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #121a2d, #0f172a, #121a2d);
+        color: #e2e8f0;
+        box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+        display: flex;
+        gap: 40px;
+    }
 
-        @media (max-width: 768px) {
-            .about-process-steps {
-                grid-template-columns: 1fr;
-            }
-        }
+    .contact-text {
+        flex: 2;
+    }
 
-        /* CONTACT SECTION ----------------------------------------------- */
-        .about-contact {
-            margin-top: 2.2rem;
-            border-radius: 22px;
-            padding: 1.7rem 1.7rem;
-            background: linear-gradient(135deg, #020617, #020617, #020617);
-            color: #e5e7eb;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.4rem;
-            align-items: center;
-            box-shadow: 0 18px 45px rgba(15,23,42,0.8);
-        }
+    .contact h3 {
+        margin-bottom: 6px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #fff;
+    }
 
-        .about-contact-main {
-            flex: 2 1 260px;
-        }
+    .contact p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #e2e8f0;
+        margin-bottom: 8px;
+    }
 
-        .about-contact-title {
-            font-size: 1.18rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
+    .contact-card {
+        flex: 1;
+        padding: 20px;
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.18);
+    }
 
-        .about-contact-text {
-            font-size: 0.95rem;
-            color: #cbd5f5;
-            margin-bottom: 0.7rem;
-        }
+    .contact-card label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #cbd5e1;
+        letter-spacing: 0.15em;
+    }
 
-        .about-contact-tagline {
-            font-size: 0.84rem;
-            color: #a5b4fc;
-        }
+    .contact-card a {
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+    }
 
-        .about-contact-card {
-            flex: 1 1 220px;
-            border-radius: 16px;
-            padding: 1.0rem 1.1rem;
-            background: rgba(15,23,42,0.9);
-            border: 1px solid rgba(148,163,184,0.7);
-        }
+    </style>
+    """, unsafe_allow_html=True)
 
-        .about-contact-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: #9ca3af;
-            margin-bottom: 0.2rem;
-        }
+    # ============================
+    # HERO SECTION
+    # ============================
+    st.markdown("""
+    <div class="about-wrapper">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-title">
+                    Phi Investment Capital<br>
+                    <span class="hero-accent">Where discipline becomes clarity.</span>
+                </div>
 
-        .about-contact-email {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #f9fafb;
-        }
+                <div class="hero-subtitle">
+                    We build portfolios the way pilots fly aircraft—through instrumentation,
+                    checklists, and constant monitoring. No narratives, no guessing,
+                    only a repeatable process you can understand and challenge.
+                </div>
 
-        .about-contact-email a {
-            color: #f9fafb;
-            text-decoration: none;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown('<div class="about-root">', unsafe_allow_html=True)
-
-    # HERO SECTION ---------------------------------------------------
-    st.markdown(
-    """
-<div class="about-hero">
-  <div class="about-hero-title">
-    Phi Investment Capital<br/>
-    <span class="accent">where discipline meets clarity.</span>
-  </div>
-
-  <div class="about-hero-subtitle">
-    We build portfolios the way pilots fly planes: with checklists,
-    instruments and constant monitoring. No stories, no guesswork —
-    just a robust process that you can understand and challenge.
-  </div>
-
-  <div class="about-hero-metrics">
-    <div>
-      <div class="about-hero-metric-label">Approach</div>
-      <div class="about-hero-metric-value">Rule-based &amp; evidence-driven</div>
-    </div>
-
-    <div>
-      <div class="about-hero-metric-label">Universe</div>
-      <div class="about-hero-metric-value">Global multi-asset allocation</div>
-    </div>
-
-    <div>
-      <div class="about-hero-metric-label">Focus</div>
-      <div class="about-hero-metric-value">Risk first, returns second</div>
-    </div>
-  </div>
-
-  <div class="about-hero-cta-row">
-    <a class="about-hero-cta-primary" href="#contact">Book an introduction call</a>
-    <div class="about-hero-cta-secondary">
-      A single conversation to walk through the engine behind this app
-      and see how it translates your profile into a portfolio.
-    </div>
-  </div>
-
-  <div class="about-hero-card">
-    <div class="about-hero-card-title">Our promise</div>
-    <div class="about-hero-card-main">
-      Every allocation can be explained line by line.
-    </div>
-    <div class="about-hero-card-note">
-      From universe selection to constraints and backtests, nothing is a black box.
-      You see the same logic we use internally for our own capital.
-    </div>
-  </div>
-</div>
-    """,
-    unsafe_allow_html=True,
-)
-
-    # QUICK INFO BAND ------------------------------------------------
-    st.markdown(
-        """
-        <div class="about-quick-band">
-          <div class="about-quick-row">
-            <div>
-              <div class="about-quick-label">Diversified universe</div>
-              <div class="about-quick-value">7 asset classes</div>
+                <a href="#contact" class="hero-cta">Book an introduction call</a>
             </div>
-            <div>
-              <div class="about-quick-label">Portfolio style</div>
-              <div class="about-quick-value">Risk-aware, long-only</div>
+
+            <div class="hero-card">
+                <div class="hero-card-title">Our Promise</div>
+                <div class="hero-card-body">
+                    Every allocation can be explained line by line.  
+                    Nothing is a black box.  
+                    You see the exact logic we use for our own capital.
+                </div>
             </div>
-            <div>
-              <div class="about-quick-label">Process</div>
-              <div class="about-quick-value">Markowitz + robust covariances</div>
-            </div>
-            <div>
-              <div class="about-quick-label">Regime</div>
-              <div class="about-quick-value">Fully transparent &amp; auditable</div>
-            </div>
-          </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """, unsafe_allow_html=True)
 
-    # WHO WE ARE / WHAT WE DO ----------------------------------------
-    st.markdown(
-        """
-        <p class="about-section-title">Who we are &amp; what we do</p>
-        <p class="about-section-subtitle">
-          Phi Investment Capital is for investors who want institutional-grade
-          portfolio construction without marketing jargon. We combine global
-          market experience with rigorous quantitative tools and express it all
-          in a framework you can actually follow.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-        <div class="about-card-row">
-          <div class="about-info-card">
-            <div class="about-info-card-label">Philosophy</div>
-            <div class="about-info-card-title">Risk is our first language</div>
-            <div class="about-info-card-body">
-              We start with what can go wrong: liquidity, drawdowns and regime shifts.
-              Only then do we look for risk premia that survive out-of-sample tests
-              and realistic transaction costs.
+    # ============================
+    # QUICK BAND
+    # ============================
+    st.markdown("""
+    <div class="quick-band">
+        <div class="quick-grid">
+            <div>
+                <div class="quick-label">Diversified Universe</div>
+                <div class="quick-value">7 asset classes</div>
             </div>
-          </div>
 
-          <div class="about-info-card">
-            <div class="about-info-card-label">Process</div>
-            <div class="about-info-card-title">Systematic &amp; repeatable</div>
-            <div class="about-info-card-body">
-              Portfolios are built using Markowitz-style optimisation, robust covariance
-              estimation and clearly defined constraints on sectors, ESG and asset classes –
-              exactly the logic that powers this application.
+            <div>
+                <div class="quick-label">Portfolio Style</div>
+                <div class="quick-value">Risk-aware, long-only</div>
             </div>
-          </div>
 
-          <div class="about-info-card">
-            <div class="about-info-card-label">Client experience</div>
-            <div class="about-info-card-title">Radical transparency</div>
-            <div class="about-info-card-body">
-              Every key assumption – universe, estimation window, constraints and fees –
-              is visible, adjustable and testable. You see how decisions impact the
-              portfolio rather than trusting a black-box model.
+            <div>
+                <div class="quick-label">Process</div>
+                <div class="quick-value">Markowitz + robust covariances</div>
             </div>
-          </div>
+
+            <div>
+                <div class="quick-label">Regime</div>
+                <div class="quick-value">Fully transparent & auditable</div>
+            </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    </div>
+    """, unsafe_allow_html=True)
 
-    # HOW WE MANAGE CAPITAL -----------------------------------------
-    st.markdown(
-        """
-        <div class="about-process">
-          <div class="about-process-badge">Our journey together</div>
-          <div class="about-process-title">How we transform your profile into a portfolio</div>
+    # ============================
+    # WHO WE ARE
+    # ============================
+    st.markdown("""
+    <div class="section-title">Who we are & what we do</div>
+    <div class="section-subtitle">
+        Phi Investment Capital serves investors who demand institutional-grade portfolio
+        construction paired with full transparency. Our DNA blends global markets experience
+        with a rigorous quantitative framework.
+    </div>
 
-          <div class="about-process-steps">
-            <div class="about-process-step">
-              <div class="about-process-step-num">1</div>
-              <div class="about-process-step-title">Understand your objectives</div>
-              <div class="about-process-step-text">
-                We translate your goals, constraints and tolerance for losses into a
-                quantitative risk profile. The questionnaire in this app is the digital
-                version of that first conversation.
-              </div>
-            </div>
-
-            <div class="about-process-step">
-              <div class="about-process-step-num">2</div>
-              <div class="about-process-step-title">Design the investable universe</div>
-              <div class="about-process-step-text">
-                Together we choose the equity universe, complementary asset classes,
-                sector and ESG filters, and any exclusions that matter to you.
-              </div>
-            </div>
-
-            <div class="about-process-step">
-              <div class="about-process-step-num">3</div>
-              <div class="about-process-step-title">Optimise with discipline</div>
-              <div class="about-process-step-text">
-                Using historical data, robust statistics and realistic constraints,
-                we search for allocations that balance expected return with volatility
-                and drawdown – not just headline performance.
-              </div>
-            </div>
-
-            <div class="about-process-step">
-              <div class="about-process-step-num">4</div>
-              <div class="about-process-step-title">Monitor &amp; adapt</div>
-              <div class="about-process-step-text">
-                Portfolios are re-estimated and rebalanced on a clear schedule. When
-                markets change, the process adapts – while the underlying discipline
-                and transparency remain intact.
-              </div>
-            </div>
-          </div>
+    <div class="info-row">
+        <div class="info-card">
+            <label>Philosophy</label>
+            <h4>Risk is our first language</h4>
+            <p>
+                We start with what can go wrong—liquidity, drawdowns, structural breaks.
+                Only then do we seek risk premia that survive real-world frictions.
+            </p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
-    # CONTACT SECTION -----------------------------------------------
-    st.markdown(
-        """
-        <div id="contact" class="about-contact">
-          <div class="about-contact-main">
-            <div class="about-contact-title">Let’s talk about your portfolio</div>
-            <div class="about-contact-text">
-              If this philosophy resonates with you, we would be pleased to walk you
-              through the application live, using your own constraints and objectives
-              as an example.
-            </div>
-            <div class="about-contact-tagline">
-              One conversation, no obligation – simply a clear view of how a
-              systematic approach could fit your situation.
-            </div>
-          </div>
-
-          <div class="about-contact-card">
-            <div class="about-contact-label">Contact</div>
-            <div class="about-contact-email">
-              Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a><br/>
-              Or reach out through your usual relationship channel.
-            </div>
-          </div>
+        <div class="info-card">
+            <label>Process</label>
+            <h4>Systematic & repeatable</h4>
+            <p>
+                Portfolios are built using Markowitz optimization, robust statistics,
+                and explicit constraints. No guesswork. No narratives.
+            </p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        <div class="info-card">
+            <label>Client experience</label>
+            <h4>Radical transparency</h4>
+            <p>
+                Every assumption—universe, filters, constraints, fees—is visible and testable.
+                You see how decisions impact your results.
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ============================
+    # JOURNEY SECTION
+    # ============================
+    st.markdown("""
+    <div class="journey">
+        <div class="section-title">How we transform your profile into a portfolio</div>
+
+        <div class="journey-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-title">Understand Your Objectives</div>
+                <div class="step-text">
+                    Your goals and your tolerance for losses become a quantitative risk profile.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-title">Design the Universe</div>
+                <div class="step-text">
+                    Together we choose sectors, ESG filters, asset classes, and exclusions.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-title">Optimize with Discipline</div>
+                <div class="step-text">
+                    Using robust statistics, we search for allocations balancing return and risk.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-title">Monitor & Adapt</div>
+                <div class="step-text">
+                    Re-estimation, rebalancing, regime recognition—always rule-based.
+                </div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ============================
+    # CONTACT SECTION
+    # ============================
+    st.markdown("""
+    <div id="contact" class="contact">
+        <div class="contact-text">
+            <h3>Let’s talk about your portfolio</h3>
+            <p>
+                If our philosophy resonates with you, we would be pleased to review your objectives 
+                live and walk through the application together.
+            </p>
+            <p class="small">
+                One conversation. No obligation.  
+                A clear view of how a systematic process fits your situation.
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <label>Contact</label>
+            <p>Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a></p>
+        </div>
+    </div>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
