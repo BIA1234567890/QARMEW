@@ -23,7 +23,7 @@ ABOUT_CSS = """
 <style>
 /* Overall page background */
 body {
-    background-color: #060b20;
+    background-color: #020617; /* very dark navy */
 }
 
 /* Wider content feeling */
@@ -37,20 +37,20 @@ body {
     border-radius: 18px;
     padding: 2.5rem 2.75rem;
     margin-bottom: 1.8rem;
-    background: radial-gradient(circle at 0% 0%, #0000ff 0%, #8200de 25%, #060b20 70%);
-    color: #ffffff;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    background: radial-gradient(circle at 0% 0%, #0b1120 0%, #020617 55%, #020617 100%);
+    color: #f9fafb;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
     position: relative;
     overflow: hidden;
 }
 
-/* Soft glow chips behind hero */
+/* Soft glow chips behind hero – very subtle */
 .hero-glow {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.10), transparent 55%),
-        radial-gradient(circle at 80% 120%, rgba(0, 235, 255, 0.15), transparent 60%);
+        radial-gradient(circle at 10% -10%, rgba(148, 163, 184, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(56, 189, 248, 0.18), transparent 60%);
     pointer-events: none;
 }
 
@@ -67,16 +67,17 @@ body {
     gap: 0.35rem;
     padding: 0.15rem 0.75rem;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: rgba(15, 23, 42, 0.85);
     font-size: 0.8rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    color: #e5e7eb;
 }
 
-/* Gradient text accent */
+/* Gradient text accent – more muted, finance style */
 .hero-title span.accent {
-    background: linear-gradient(90deg, #00ebff, #ff3378, #fff700);
+    background: linear-gradient(90deg, #38bdf8, #22c55e);
     -webkit-background-clip: text;
     color: transparent;
 }
@@ -85,7 +86,7 @@ body {
 .hero-subtitle {
     max-width: 40rem;
     margin-top: 0.75rem;
-    color: rgba(240, 244, 255, 0.90);
+    color: #e5e7eb;
     font-size: 0.95rem;
 }
 
@@ -96,6 +97,7 @@ body {
     gap: 0.75rem 1.5rem;
     margin-top: 1.25rem;
     font-size: 0.9rem;
+    color: #cbd5f5;
 }
 .hero-bullets span {
     display: inline-flex;
@@ -106,7 +108,7 @@ body {
     width: 7px;
     height: 7px;
     border-radius: 999px;
-    background: #00dbaf;
+    background: #22c55e; /* soft green accent */
 }
 
 /* Call-to-action buttons in hero */
@@ -120,7 +122,7 @@ body {
     border-radius: 999px;
     padding: 0.45rem 1.35rem;
     border: none;
-    background: linear-gradient(135deg, #00ebff, #00dbaf);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
     color: #020617;
     font-weight: 600;
     font-size: 0.9rem;
@@ -128,8 +130,8 @@ body {
 .hero-btn-secondary {
     border-radius: 999px;
     padding: 0.45rem 1.35rem;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: transparent;
+    border: 1px solid #4b5563;
+    background: #020617;
     color: #e5e7eb;
     font-size: 0.9rem;
 }
@@ -139,7 +141,8 @@ body {
     margin-top: 0.5rem;
     margin-bottom: 1.8rem;
     border-radius: 14px;
-    background: linear-gradient(90deg, rgba(0,0,0,0.7), rgba(10,20,60,0.95));
+    background: linear-gradient(90deg, #020617, #020617);
+    border: 1px solid #1f2937;
     padding: 0.85rem 1.5rem;
 }
 .quick-band-title {
@@ -153,31 +156,31 @@ body {
     font-size: 0.76rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #d1d5db;
+    color: #9ca3af;
 }
 .quick-item-value {
     font-size: 1rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #e5e7eb;
 }
 
 /* Info cards (Who we are / What we do / How we invest) */
 .info-card {
     border-radius: 16px;
     padding: 1.4rem 1.3rem;
-    background: radial-gradient(circle at 0% 0%, rgba(130,0,222,0.16), rgba(15,23,42,0.95));
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    background: #020617;
+    border: 1px solid #1e293b;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     height: 100%;
 }
 .info-card h3 {
     font-size: 1.05rem;
-    color: #e5e7eb;
+    color: #f9fafb;
     margin-bottom: 0.45rem;
 }
 .info-card p {
     font-size: 0.88rem;
-    color: #cbd5f5;
+    color: #e5e7eb;
 }
 .info-card ul {
     margin-top: 0.5rem;
@@ -192,8 +195,8 @@ body {
     margin-bottom: 2rem;
     border-radius: 16px;
     padding: 1.5rem 1.4rem;
-    background: radial-gradient(circle at 100% 0%, rgba(255, 100, 50, 0.16), rgba(15,23,42,0.95));
-    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: #020617;
+    border: 1px solid #1f2937;
 }
 .process-badge {
     font-size: 0.75rem;
@@ -210,7 +213,7 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #00ebff, #ff3378);
+    background: #0ea5e9;
     color: #020617;
     font-size: 0.8rem;
     display: flex;
@@ -233,8 +236,8 @@ body {
     margin-top: 1.8rem;
     border-radius: 18px;
     padding: 1.3rem 1.5rem;
-    background: linear-gradient(90deg, #0000ff, #ff3378);
-    color: #ffffff;
+    background: linear-gradient(90deg, #0f172a, #020617);
+    color: #f9fafb;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -248,6 +251,7 @@ body {
 .contact-band p {
     margin: 0.15rem 0 0 0;
     font-size: 0.85rem;
+    color: #e5e7eb;
 }
 .contact-pill {
     display: inline-flex;
@@ -255,16 +259,19 @@ body {
     gap: 0.5rem;
     border-radius: 999px;
     padding: 0.4rem 0.9rem;
-    background: rgba(0,0,0,0.18);
+    background: #020617;
+    border: 1px solid #334155;
     font-size: 0.85rem;
+    color: #e5e7eb;
 }
 .contact-pill a {
-    color: #fefce8;
+    color: #e5e7eb;
     text-decoration: none;
     font-weight: 600;
 }
 </style>
 """
+
 
 def inject_about_css():
     st.markdown(ABOUT_CSS, unsafe_allow_html=True)
