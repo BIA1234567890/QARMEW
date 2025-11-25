@@ -18,264 +18,6 @@ from functions import (
     build_backtest_context_text,
 )
 
-# ---------- GLOBAL STYLE (About page) ----------
-ABOUT_CSS = """
-<style>
-/* Overall page background */
-body {
-    background-color: #020617; /* very dark navy */
-}
-
-/* Wider content feeling */
-.block-container {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-}
-
-/* Hero section */
-.hero-section {
-    border-radius: 18px;
-    padding: 2.5rem 2.75rem;
-    margin-bottom: 1.8rem;
-    background: radial-gradient(circle at 0% 0%, #0b1120 0%, #020617 55%, #020617 100%);
-    color: #f9fafb;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Soft glow chips behind hero – very subtle */
-.hero-glow {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 10% -10%, rgba(148, 163, 184, 0.18), transparent 55%),
-        radial-gradient(circle at 90% 120%, rgba(56, 189, 248, 0.18), transparent 60%);
-    pointer-events: none;
-}
-
-/* Content sits above glow */
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-/* Small “badge” on top of hero */
-.hero-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.15rem 0.75rem;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    background: rgba(15, 23, 42, 0.85);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #e5e7eb;
-}
-
-/* Gradient text accent – more muted, finance style */
-.hero-title span.accent {
-    background: linear-gradient(90deg, #38bdf8, #22c55e);
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-/* Subtitle text */
-.hero-subtitle {
-    max-width: 40rem;
-    margin-top: 0.75rem;
-    color: #e5e7eb;
-    font-size: 0.95rem;
-}
-
-/* Key bullets in hero */
-.hero-bullets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
-    margin-top: 1.25rem;
-    font-size: 0.9rem;
-    color: #cbd5f5;
-}
-.hero-bullets span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-.hero-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: #22c55e; /* soft green accent */
-}
-
-/* Call-to-action buttons in hero */
-.hero-cta {
-    margin-top: 1.6rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-.hero-btn-primary {
-    border-radius: 999px;
-    padding: 0.45rem 1.35rem;
-    border: none;
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: #020617;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-.hero-btn-secondary {
-    border-radius: 999px;
-    padding: 0.45rem 1.35rem;
-    border: 1px solid #4b5563;
-    background: #020617;
-    color: #e5e7eb;
-    font-size: 0.9rem;
-}
-
-/* Quick info band */
-.quick-band {
-    margin-top: 0.5rem;
-    margin-bottom: 1.8rem;
-    border-radius: 14px;
-    background: linear-gradient(90deg, #020617, #020617);
-    border: 1px solid #1f2937;
-    padding: 0.85rem 1.5rem;
-}
-.quick-band-title {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.75rem;
-    color: #9ca3af;
-    margin-bottom: 0.4rem;
-}
-.quick-item-label {
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-}
-.quick-item-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #e5e7eb;
-}
-
-/* Info cards (Who we are / What we do / How we invest) */
-.info-card {
-    border-radius: 16px;
-    padding: 1.4rem 1.3rem;
-    background: #020617;
-    border: 1px solid #1e293b;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-    height: 100%;
-}
-.info-card h3 {
-    font-size: 1.05rem;
-    color: #f9fafb;
-    margin-bottom: 0.45rem;
-}
-.info-card p {
-    font-size: 0.88rem;
-    color: #e5e7eb;
-}
-.info-card ul {
-    margin-top: 0.5rem;
-    padding-left: 1.1rem;
-    font-size: 0.84rem;
-    color: #9ca3af;
-}
-
-/* Process steps */
-.process-section {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 16px;
-    padding: 1.5rem 1.4rem;
-    background: #020617;
-    border: 1px solid #1f2937;
-}
-.process-badge {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #9ca3af;
-}
-.process-step {
-    margin-top: 0.8rem;
-    display: flex;
-    gap: 0.75rem;
-}
-.process-step-number {
-    width: 24px;
-    height: 24px;
-    border-radius: 999px;
-    background: #0ea5e9;
-    color: #020617;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-}
-.process-step-body h4 {
-    font-size: 0.95rem;
-    color: #e5e7eb;
-    margin-bottom: 0.15rem;
-}
-.process-step-body p {
-    font-size: 0.85rem;
-    color: #cbd5f5;
-}
-
-/* Contact CTA */
-.contact-band {
-    margin-top: 1.8rem;
-    border-radius: 18px;
-    padding: 1.3rem 1.5rem;
-    background: linear-gradient(90deg, #0f172a, #020617);
-    color: #f9fafb;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-}
-.contact-band h3 {
-    margin: 0;
-    font-size: 1rem;
-}
-.contact-band p {
-    margin: 0.15rem 0 0 0;
-    font-size: 0.85rem;
-    color: #e5e7eb;
-}
-.contact-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 999px;
-    padding: 0.4rem 0.9rem;
-    background: #020617;
-    border: 1px solid #334155;
-    font-size: 0.85rem;
-    color: #e5e7eb;
-}
-.contact-pill a {
-    color: #e5e7eb;
-    text-decoration: none;
-    font-weight: 600;
-}
-</style>
-"""
-
-
-def inject_about_css():
-    st.markdown(ABOUT_CSS, unsafe_allow_html=True)
-
 
 # --------------- GLOBAL DATA (cached) ---------------
 @st.cache_data
@@ -288,9 +30,6 @@ def main():
         page_title="QARM Portfolio Manager",
         layout="wide",
     )
-
-    # inject global CSS so About page styles are available
-    inject_about_css()
 
     st.sidebar.title("Navigation")
     page = st.sidebar.radio(
@@ -319,44 +58,467 @@ def get_llm_client():
 
 # --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    # If you have a hero image in your repo (e.g. "hero_mountains.png"),
-    # you can uncomment this and display it above the hero section:
-    # st.image("hero_mountains.png", use_column_width=True)
-
-    # ---------- HERO SECTION ----------
+    # --- Local CSS just for this page (safe for other pages) ---
     st.markdown(
         """
-        <div class="hero-section">
-          <div class="hero-glow"></div>
-          <div class="hero-content">
-            <div class="hero-pill">
-              <span>PHI INVESTMENT CAPITAL</span>
-              <span style="width:6px;height:6px;border-radius:999px;background:#00dbaf;"></span>
-              <span>Quantitative Wealth Partner</span>
-            </div>
-            <h1 class="hero-title" style="margin-top:0.75rem;margin-bottom:0.25rem;">
-              Building portfolios that<br/>
-              <span class="accent">earn your confidence</span>.
-            </h1>
-            <p class="hero-subtitle">
-              Phi Investment Capital is an independent, quantitatively driven asset &amp; risk
-              management boutique. We design institutional-grade portfolios that remain
-              understandable, transparent and aligned with the real people behind the capital.
-            </p>
+        <style>
+        /* Root wrapper for About page */
+        .about-root {
+            padding-top: 0.8rem;
+        }
 
-            <div class="hero-bullets">
-              <span><span class="hero-dot"></span> Rule-based, evidence-driven allocation</span>
-              <span><span class="hero-dot"></span> Integrated ESG and sector constraints</span>
-              <span><span class="hero-dot"></span> Clear risk/return trade-offs at every step</span>
+        /* HERO SECTION WITH IMAGE --------------------------------------- */
+        .about-hero {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            min-height: 360px;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.75);
+            background-image:
+                linear-gradient(
+                    135deg,
+                    rgba(4, 7, 17, 0.85),
+                    rgba(15, 23, 42, 0.55),
+                    rgba(15, 23, 42, 0.35)
+                ),
+                url("hero_bg.png");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 2.6rem 3rem 2.4rem 3rem;
+            color: #e5e7eb;
+        }
+
+        .about-hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.28rem 0.95rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .about-hero-pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+        }
+
+        .about-hero-title {
+            margin-top: 1.1rem;
+            font-size: 2.7rem;
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+        }
+
+        .about-hero-title span.accent {
+            background: linear-gradient(90deg, #0ea5e9, #22c55e, #facc15);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .about-hero-subtitle {
+            margin-top: 0.8rem;
+            max-width: 40rem;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: #dde3ff;
+        }
+
+        .about-hero-metrics {
+            margin-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .about-hero-metric-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #cbd5f5;
+            opacity: 0.85;
+        }
+
+        .about-hero-metric-value {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        .about-hero-cta-row {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .about-hero-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.7rem;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
+            color: #0b1120 !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 16px 40px rgba(34, 197, 94, 0.45);
+        }
+
+        .about-hero-cta-secondary {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            max-width: 22rem;
+        }
+
+        /* Right-hand highlight card inside hero */
+        .about-hero-card {
+            position: absolute;
+            right: 1.7rem;
+            bottom: 1.7rem;
+            width: 260px;
+            max-width: 38%;
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            background: radial-gradient(circle at top, rgba(56,189,248,0.45), rgba(15,23,42,0.92));
+            border: 1px solid rgba(148,163,184,0.7);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+        }
+
+        .about-hero-card-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: #d1d5db;
+            margin-bottom: 0.25rem;
+        }
+        .about-hero-card-main {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #f9fafb;
+            margin-bottom: 0.35rem;
+        }
+        .about-hero-card-note {
+            font-size: 0.85rem;
+            color: #e5e7eb;
+        }
+
+        /* QUICK INFO BAND ------------------------------------------------ */
+        .about-quick-band {
+            margin-bottom: 2.0rem;
+            border-radius: 20px;
+            padding: 0.95rem 1.8rem 1.0rem 1.8rem;
+            background: linear-gradient(180deg, #020617, #020617, #020617);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.6);
+        }
+
+        .about-quick-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.8rem;
+        }
+
+        .about-quick-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-quick-value {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        @media (max-width: 1024px) {
+            .about-quick-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .about-hero-card {
+                position: static;
+                margin-top: 1.5rem;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero-inner {
+                padding: 2rem 1.7rem 2.0rem 1.7rem;
+            }
+            .about-hero-title {
+                font-size: 2.1rem;
+            }
+        }
+
+        /* SECTION TITLES ------------------------------------------------- */
+        .about-section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            color: #020617;
+        }
+
+        .about-section-subtitle {
+            font-size: 0.96rem;
+            color: #4b5563;
+            margin-bottom: 1.8rem;
+        }
+
+        /* INFO CARDS ----------------------------------------------------- */
+        .about-card-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .about-info-card {
+            flex: 1 1 240px;
+            border-radius: 18px;
+            padding: 1.3rem 1.4rem 1.2rem 1.4rem;
+            background: linear-gradient(135deg, #f9fafb, #eef2ff);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 14px 30px rgba(15,23,42,0.12);
+        }
+
+        .about-info-card-label {
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #6b7280;
+            margin-bottom: 0.35rem;
+        }
+
+        .about-info-card-title {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.35rem;
+        }
+
+        .about-info-card-body {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* PROCESS / JOURNEY --------------------------------------------- */
+        .about-process {
+            margin-top: 0.3rem;
+            margin-bottom: 2.6rem;
+            border-radius: 20px;
+            padding: 1.6rem 1.6rem;
+            background: radial-gradient(circle at 0% 0%, rgba(14,165,233,0.16), rgba(248,250,252,1));
+            border: 1px solid #e5e7eb;
+        }
+
+        .about-process-badge {
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #6b7280;
+            margin-bottom: 0.3rem;
+        }
+
+        .about-process-title {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.8rem;
+        }
+
+        .about-process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        .about-process-step {
+            border-radius: 16px;
+            padding: 1rem 1.05rem 0.95rem 1.05rem;
+            background: white;
+            box-shadow: 0 8px 18px rgba(148,163,184,0.35);
+        }
+
+        .about-process-step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0b1120;
+            margin-bottom: 0.45rem;
+        }
+
+        .about-process-step-title {
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.2rem;
+        }
+
+        .about-process-step-text {
+            font-size: 0.88rem;
+            color: #4b5563;
+        }
+
+        @media (max-width: 1024px) {
+            .about-process-steps {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CONTACT SECTION ----------------------------------------------- */
+        .about-contact {
+            margin-top: 2.2rem;
+            border-radius: 22px;
+            padding: 1.7rem 1.7rem;
+            background: linear-gradient(135deg, #020617, #020617, #020617);
+            color: #e5e7eb;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.4rem;
+            align-items: center;
+            box-shadow: 0 18px 45px rgba(15,23,42,0.8);
+        }
+
+        .about-contact-main {
+            flex: 2 1 260px;
+        }
+
+        .about-contact-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .about-contact-text {
+            font-size: 0.95rem;
+            color: #cbd5f5;
+            margin-bottom: 0.7rem;
+        }
+
+        .about-contact-tagline {
+            font-size: 0.84rem;
+            color: #a5b4fc;
+        }
+
+        .about-contact-card {
+            flex: 1 1 220px;
+            border-radius: 16px;
+            padding: 1.0rem 1.1rem;
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.7);
+        }
+
+        .about-contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #9ca3af;
+            margin-bottom: 0.2rem;
+        }
+
+        .about-contact-email {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        .about-contact-email a {
+            color: #f9fafb;
+            text-decoration: none;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown('<div class="about-root">', unsafe_allow_html=True)
+
+    # HERO SECTION ---------------------------------------------------
+    st.markdown(
+        """
+        <div class="about-hero">
+          <div class="about-hero-inner">
+            <div class="about-hero-pill">
+              <span class="about-hero-pill-dot"></span>
+              Systematic wealth management
             </div>
 
-            <div class="hero-cta">
-              <button class="hero-btn-primary">
-                Explore the portfolio builder
-              </button>
-              <button class="hero-btn-secondary">
-                Read how our process works
-              </button>
+            <div class="about-hero-title">
+              Phi Investment Capital<br/>
+              <span class="accent">where discipline meets clarity.</span>
+            </div>
+
+            <div class="about-hero-subtitle">
+              We build portfolios the way pilots fly planes: with checklists,
+              instruments and constant monitoring. No stories, no guesswork –
+              just a robust process that you can understand and challenge.
+            </div>
+
+            <div class="about-hero-metrics">
+              <div>
+                <div class="about-hero-metric-label">Approach</div>
+                <div class="about-hero-metric-value">Rule-based &amp; evidence-driven</div>
+              </div>
+              <div>
+                <div class="about-hero-metric-label">Universe</div>
+                <div class="about-hero-metric-value">Global multi-asset allocation</div>
+              </div>
+              <div>
+                <div class="about-hero-metric-label">Focus</div>
+                <div class="about-hero-metric-value">Risk first, returns second</div>
+              </div>
+            </div>
+
+            <div class="about-hero-cta-row">
+              <a class="about-hero-cta-primary" href="#contact">Book an introduction call</a>
+              <div class="about-hero-cta-secondary">
+                A single conversation to walk through the engine behind this app
+                and see how it translates your profile into a portfolio.
+              </div>
+            </div>
+
+            <div class="about-hero-card">
+              <div class="about-hero-card-title">Our promise</div>
+              <div class="about-hero-card-main">
+                Every allocation can be explained line by line.
+              </div>
+              <div class="about-hero-card-note">
+                From universe selection to constraints and backtests, nothing is a black box.
+                You see the same research logic we use internally for our own capital.
+              </div>
             </div>
           </div>
         </div>
@@ -364,164 +526,26 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # ---------- QUICK INFO BAND ----------
-    col1, col2, col3, col4 = st.columns(4)
-    with st.container():
-        st.markdown('<div class="quick-band">', unsafe_allow_html=True)
-        st.markdown('<div class="quick-band-title">Key facts at a glance</div>', unsafe_allow_html=True)
-        with col1:
-            st.markdown(
-                """
-                <div class="quick-item-label">Diversified universe</div>
-                <div class="quick-item-value">7 asset classes</div>
-                """,
-                unsafe_allow_html=True,
-            )
-        with col2:
-            st.markdown(
-                """
-                <div class="quick-item-label">Portfolio style</div>
-                <div class="quick-item-value">Risk-aware, long-only</div>
-                """,
-                unsafe_allow_html=True,
-            )
-        with col3:
-            st.markdown(
-                """
-                <div class="quick-item-label">Process</div>
-                <div class="quick-item-value">Markowitz + robust covariances</div>
-                """,
-                unsafe_allow_html=True,
-            )
-        with col4:
-            st.markdown(
-                """
-                <div class="quick-item-label">Regime</div>
-                <div class="quick-item-value">Fully transparent &amp; auditable</div>
-                """,
-                unsafe_allow_html=True,
-            )
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    # ---------- THREE CORE PILLARS ----------
-    colA, colB, colC = st.columns(3)
-
-    with colA:
-        st.markdown(
-            """
-            <div class="info-card">
-              <h3>Who we are</h3>
-              <p>
-                We are a focused quantitative team with backgrounds in institutional portfolio
-                management, trading and academic finance. Our independence allows us to put
-                methodology and client alignment before product.
-              </p>
-              <ul>
-                <li>Independent and partner-owned</li>
-                <li>Research-driven, with simple implementation</li>
-                <li>Infrastructure built for transparency and control</li>
-              </ul>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with colB:
-        st.markdown(
-            """
-            <div class="info-card">
-              <h3>What we do</h3>
-              <p>
-                We construct diversified multi-asset portfolios across equities, fixed income,
-                commodities and alternatives, with the ability to enforce precise sector, ESG and
-                asset-class constraints.
-              </p>
-              <ul>
-                <li>Long-only allocation with strict risk budgeting</li>
-                <li>Robust covariance estimation (Ledoit–Wolf)</li>
-                <li>Client-specific constraints integrated by design</li>
-              </ul>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with colC:
-        st.markdown(
-            """
-            <div class="info-card">
-              <h3>How we invest</h3>
-              <p>
-                Every mandate begins with a clear conversation about risk: drawdowns, time horizon
-                and capacity for loss. From there, we turn preferences into a rule-set the optimizer
-                can respect — and that you can explain.
-              </p>
-              <ul>
-                <li>Risk profile translated into a risk-aversion parameter (γ)</li>
-                <li>Scenario-tested constraints before implementation</li>
-                <li>Continuous monitoring through the same framework</li>
-              </ul>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # ---------- PROCESS SECTION ----------
+    # QUICK INFO BAND ------------------------------------------------
     st.markdown(
         """
-        <div class="process-section">
-          <div class="process-badge">Our investment process</div>
-          <h3 style="margin-top:0.35rem;margin-bottom:0.4rem;color:#e5e7eb;">
-            From conviction to disciplined allocation
-          </h3>
-          <p style="font-size:0.86rem;color:#cbd5f5;margin-bottom:0.9rem;">
-            We want every client to understand not just what they own, but why their portfolio looks
-            the way it does. The app mirrors the exact process we apply when managing real capital.
-          </p>
-
-          <div class="process-step">
-            <div class="process-step-number">1</div>
-            <div class="process-step-body">
-              <h4>Define objectives and risk tolerance</h4>
-              <p>
-                We translate your answers to the risk questionnaire and your time horizon into a
-                coherent risk profile and an internal risk-aversion parameter.
-              </p>
+        <div class="about-quick-band">
+          <div class="about-quick-row">
+            <div>
+              <div class="about-quick-label">Diversified universe</div>
+              <div class="about-quick-value">7 asset classes</div>
             </div>
-          </div>
-
-          <div class="process-step">
-            <div class="process-step-number">2</div>
-            <div class="process-step-body">
-              <h4>Shape the investable universe</h4>
-              <p>
-                Together we select the equity universe (S&amp;P 500 or MSCI World) and complement it
-                with fixed income, commodities and alternatives, applying sector and ESG filters
-                where required.
-              </p>
+            <div>
+              <div class="about-quick-label">Portfolio style</div>
+              <div class="about-quick-value">Risk-aware, long-only</div>
             </div>
-          </div>
-
-          <div class="process-step">
-            <div class="process-step-number">3</div>
-            <div class="process-step-body">
-              <h4>Set constraints that reflect your beliefs</h4>
-              <p>
-                We define sensible limits by sector, ESG score, single-line exposure and asset
-                classes, balancing conviction with diversification and liquidity.
-              </p>
+            <div>
+              <div class="about-quick-label">Process</div>
+              <div class="about-quick-value">Markowitz + robust covariances</div>
             </div>
-          </div>
-
-          <div class="process-step">
-            <div class="process-step-number">4</div>
-            <div class="process-step-body">
-              <h4>Optimize, backtest and explain</h4>
-              <p>
-                The Markowitz engine with robust covariances finds the allocation that best matches
-                the defined rule-set. We then backtest, analyse drawdowns and provide a clear
-                narrative in plain language.
-              </p>
+            <div>
+              <div class="about-quick-label">Regime</div>
+              <div class="about-quick-value">Fully transparent &amp; auditable</div>
             </div>
           </div>
         </div>
@@ -529,28 +553,139 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # ---------- CONTACT / CTA BAND ----------
+    # WHO WE ARE / WHAT WE DO ----------------------------------------
     st.markdown(
         """
-        <div class="contact-band">
-          <div>
-            <h3>Ready to discuss a mandate or see a live example?</h3>
-            <p>
-              We are happy to walk you through the app with your own constraints and universe,
-              or review an existing portfolio using the same framework.
-            </p>
+        <p class="about-section-title">Who we are &amp; what we do</p>
+        <p class="about-section-subtitle">
+          Phi Investment Capital is for investors who want institutional-grade
+          portfolio construction without marketing jargon. We combine global
+          market experience with rigorous quantitative tools and express it all
+          in a framework you can actually follow.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="about-card-row">
+          <div class="about-info-card">
+            <div class="about-info-card-label">Philosophy</div>
+            <div class="about-info-card-title">Risk is our first language</div>
+            <div class="about-info-card-body">
+              We start with what can go wrong: liquidity, drawdowns and regime shifts.
+              Only then do we look for risk premia that survive out-of-sample tests
+              and realistic transaction costs.
+            </div>
           </div>
-          <div class="contact-pill">
-            <span>📧</span>
-            <span>
-              Contact us at
-              <a href="mailto:contact@phi-investment.ch">contact@phi-investment.ch</a>
-            </span>
+
+          <div class="about-info-card">
+            <div class="about-info-card-label">Process</div>
+            <div class="about-info-card-title">Systematic &amp; repeatable</div>
+            <div class="about-info-card-body">
+              Portfolios are built using Markowitz-style optimisation, robust covariance
+              estimation and clearly defined constraints on sectors, ESG and asset classes –
+              exactly the logic that powers this application.
+            </div>
+          </div>
+
+          <div class="about-info-card">
+            <div class="about-info-card-label">Client experience</div>
+            <div class="about-info-card-title">Radical transparency</div>
+            <div class="about-info-card-body">
+              Every key assumption – universe, estimation window, constraints and fees –
+              is visible, adjustable and testable. You see how decisions impact the
+              portfolio rather than trusting a black-box model.
+            </div>
           </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # HOW WE MANAGE CAPITAL -----------------------------------------
+    st.markdown(
+        """
+        <div class="about-process">
+          <div class="about-process-badge">Our journey together</div>
+          <div class="about-process-title">How we transform your profile into a portfolio</div>
+
+          <div class="about-process-steps">
+            <div class="about-process-step">
+              <div class="about-process-step-num">1</div>
+              <div class="about-process-step-title">Understand your objectives</div>
+              <div class="about-process-step-text">
+                We translate your goals, constraints and tolerance for losses into a
+                quantitative risk profile. The questionnaire in this app is the digital
+                version of that first conversation.
+              </div>
+            </div>
+
+            <div class="about-process-step">
+              <div class="about-process-step-num">2</div>
+              <div class="about-process-step-title">Design the investable universe</div>
+              <div class="about-process-step-text">
+                Together we choose the equity universe, complementary asset classes,
+                sector and ESG filters, and any exclusions that matter to you.
+              </div>
+            </div>
+
+            <div class="about-process-step">
+              <div class="about-process-step-num">3</div>
+              <div class="about-process-step-title">Optimise with discipline</div>
+              <div class="about-process-step-text">
+                Using historical data, robust statistics and realistic constraints,
+                we search for allocations that balance expected return with volatility
+                and drawdown – not just headline performance.
+              </div>
+            </div>
+
+            <div class="about-process-step">
+              <div class="about-process-step-num">4</div>
+              <div class="about-process-step-title">Monitor &amp; adapt</div>
+              <div class="about-process-step-text">
+                Portfolios are re-estimated and rebalanced on a clear schedule. When
+                markets change, the process adapts – while the underlying discipline
+                and transparency remain intact.
+              </div>
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # CONTACT SECTION -----------------------------------------------
+    st.markdown(
+        """
+        <div id="contact" class="about-contact">
+          <div class="about-contact-main">
+            <div class="about-contact-title">Let’s talk about your portfolio</div>
+            <div class="about-contact-text">
+              If this philosophy resonates with you, we would be pleased to walk you
+              through the application live, using your own constraints and objectives
+              as an example.
+            </div>
+            <div class="about-contact-tagline">
+              One conversation, no obligation – simply a clear view of how a
+              systematic approach could fit your situation.
+            </div>
+          </div>
+
+          <div class="about-contact-card">
+            <div class="about-contact-label">Contact</div>
+            <div class="about-contact-email">
+              Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a><br/>
+              Or reach out through your usual relationship channel.
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
@@ -788,62 +923,82 @@ def page_portfolio_optimization(data):
         q1 = st.slider(
             "1. Reaction to a -20% loss in one year\n"
             "1 = sell everything, 5 = buy more",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q2 = st.slider(
             "2. Comfort with large fluctuations\n"
             "1 = not at all, 5 = very comfortable",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q3 = st.slider(
             "3. Return vs risk trade-off\n"
             "1 = stable low returns, 5 = max return even with large risk",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q4 = st.slider(
             "4. Investment horizon\n"
             "1 = < 1 year, 5 = > 10 years",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q5 = st.slider(
             "5. How do you view risk?\n"
             "1 = something to avoid, 5 = essential for higher returns",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
     with col_right:
         q6 = st.slider(
             "6. Stress during market crashes\n"
             "1 = extremely stressed, 5 = not stressed at all",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q7 = st.slider(
             "7. Stability of your income/finances\n"
             "1 = very unstable, 5 = very stable",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q8 = st.slider(
             "8. Experience with investing\n"
             "1 = not familiar, 5 = very experienced",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q9 = st.slider(
             "9. Reaction to a +20% gain in one year\n"
             "1 = sell to lock gains, 5 = add significantly more money",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
         q10 = st.slider(
             "10. Share of net worth in risky assets\n"
             "1 = < 10%, 5 = > 60%",
-            min_value=1, max_value=5, value=3,
+            min_value=1,
+            max_value=5,
+            value=3,
         )
 
     scores = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
@@ -909,7 +1064,7 @@ def page_portfolio_optimization(data):
     use_custom_max = st.checkbox(
         "Enable custom maximum weight per asset",
         value=False,
-        help="By default, each asset is capped at 5%. Enable only if you understand concentration risk."
+        help="By default, each asset is capped at 5%. Enable only if you understand concentration risk.",
     )
 
     if not use_custom_max:
@@ -922,7 +1077,7 @@ def page_portfolio_optimization(data):
             max_value=0.25,
             value=0.05,
             step=0.01,
-            help="Higher caps increase concentration risk and may reduce diversification."
+            help="Higher caps increase concentration risk and may reduce diversification.",
         )
 
         st.warning(
@@ -1090,7 +1245,6 @@ def page_portfolio_optimization(data):
         asset_class_constraints = None
 
     else:
-
         asset_classes_for_constraints = ["Equity"] + selected_asset_classes_other
 
         asset_class_constraints = {}
@@ -1208,7 +1362,6 @@ def page_portfolio_optimization(data):
                 perf, summary_df, debug_weights_df = run_backtest(config, data)
                 today_res = run_today_optimization(config, data)
         except ValueError as e:
-            # This catches "Optimization failed: Positive directional derivative..." etc.
             st.error(
                 "The optimizer could not find a feasible portfolio with the current set of "
                 "constraints and per-asset limits."
@@ -1269,11 +1422,11 @@ def page_portfolio_optimization(data):
             st.subheader("Backtest Performance")
 
             if not perf.empty:
-                # 1) Compute backtest stats (for max drawdown, etc.)
+                # 1) Compute backtest stats
                 stats = compute_backtest_stats(perf)
 
                 # --------------------------------------------------------
-                # A) BUILD DATAFRAME WITH PORTFOLIO + BENCHMARKS (CUMRET)
+                # A) PORTFOLIO + BENCHMARKS (CUMRET)
                 # --------------------------------------------------------
                 returns_bench = data.get("benchmarks", None)
 
@@ -1285,17 +1438,12 @@ def page_portfolio_optimization(data):
                 else:
                     combined = pd.DataFrame({"Portfolio": perf["CumReturn"]})
 
-                # Convert index to timestamp
                 if isinstance(combined.index, pd.PeriodIndex):
                     combined.index = combined.index.to_timestamp()
 
                 chart_data = combined.reset_index().rename(columns={"Date": "Date"})
-
                 chart_data_long = chart_data.melt("Date", var_name="Series", value_name="Return")
 
-                # --------------------------------------------------------
-                # B) CUMULATIVE RETURN CHART WITH BENCHMARKS
-                # --------------------------------------------------------
                 st.markdown("**Cumulative Return of the Strategy vs Benchmarks**")
 
                 max_ret = float(chart_data_long["Return"].max()) if not chart_data_long["Return"].isna().all() else 0.0
@@ -1323,7 +1471,6 @@ def page_portfolio_optimization(data):
                     )
                 )
 
-                # Drawdown vertical lines
                 if stats and stats["max_drawdown_start"] is not None:
                     dd_start, dd_end = stats["max_drawdown_start"], stats["max_drawdown_end"]
                     vline_data = pd.DataFrame({"Date": [dd_start, dd_end], "Label": ["DD start", "DD end"]})
@@ -1349,7 +1496,7 @@ def page_portfolio_optimization(data):
                 st.markdown("---")
 
                 # --------------------------------------------------------
-                # C) SECOND CHART – PORTFOLIO WEALTH
+                # C) PORTFOLIO WEALTH
                 # --------------------------------------------------------
                 st.markdown("**Evolution of Portfolio Wealth**")
 
@@ -1414,13 +1561,12 @@ def page_portfolio_optimization(data):
                     "Generate AI Commentary on Backtest",
                     type="secondary",
                     help="Ask the Phi Investment Capital digital assistant to provide a "
-                         "client-friendly interpretation of the backtest results.",
+                    "client-friendly interpretation of the backtest results.",
                 )
 
                 if explain_btn:
                     client_llm = get_llm_client()
 
-                    # Build a textual context for the model, including client inputs
                     context_text = build_backtest_context_text(
                         stats=stats,
                         perf=perf,
@@ -1476,7 +1622,6 @@ def page_portfolio_optimization(data):
                         """
                     )
                     st.markdown(commentary)
-
             else:
                 st.warning("No valid backtest window for the selected settings.")
 
@@ -1492,16 +1637,14 @@ def page_portfolio_optimization(data):
             st.markdown("**Top 5 Holdings**")
             st.dataframe(top5)
 
-            colA, colB, colC = st.columns(3)
-            with colA:
+            colA2, colB2, colC2 = st.columns(3)
+            with colA2:
                 st.markdown("**By Asset Class**")
 
                 if not alloc_by_ac.empty:
-                    # 1️⃣ Build base DataFrame
                     df_ac = alloc_by_ac.reset_index()
                     df_ac.columns = ["AssetClass", "Weight"]
 
-                    # 2️⃣ Add asset-class min/max constraints (if any)
                     df_ac["Min"] = df_ac["AssetClass"].map(
                         lambda ac: asset_class_constraints.get(ac, {}).get("min", None)
                         if asset_class_constraints
@@ -1513,7 +1656,6 @@ def page_portfolio_optimization(data):
                         else None
                     )
 
-                    # 3️⃣ Base blue bars
                     bars_ac = (
                         alt.Chart(df_ac)
                         .mark_bar(color="#4BA3FF")
@@ -1527,7 +1669,6 @@ def page_portfolio_optimization(data):
                         )
                     )
 
-                    # 4️⃣ YEllOW tick for MIN constraint
                     min_marks_ac = (
                         alt.Chart(df_ac)
                         .mark_tick(
@@ -1544,7 +1685,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Min != null")
                     )
 
-                    # 5️⃣ RED tick for MAX constraint
                     max_marks_ac = (
                         alt.Chart(df_ac)
                         .mark_tick(
@@ -1561,7 +1701,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Max != null")
                     )
 
-                    # 6️⃣ Combine layers
                     chart_ac = (bars_ac + min_marks_ac + max_marks_ac).properties(
                         height=300
                     ).interactive()
@@ -1571,24 +1710,24 @@ def page_portfolio_optimization(data):
                 else:
                     st.info("No allocation across asset classes.")
 
-            with colB:
+            with colB2:
                 st.markdown("**Sector Breakdown (Equity)**")
 
                 if not sector_in_eq.empty:
-
-                    # 1️⃣ Build base DataFrame for chart
                     df_sector = sector_in_eq.reset_index()
                     df_sector.columns = ["Sector", "Weight"]
 
-                    # 2️⃣ Add sector min/max constraints (if any)
                     df_sector["Min"] = df_sector["Sector"].map(
-                        lambda s: sector_constraints.get(s, {}).get("min", None) if sector_constraints else None
+                        lambda s: sector_constraints.get(s, {}).get("min", None)
+                        if sector_constraints
+                        else None
                     )
                     df_sector["Max"] = df_sector["Sector"].map(
-                        lambda s: sector_constraints.get(s, {}).get("max", None) if sector_constraints else None
+                        lambda s: sector_constraints.get(s, {}).get("max", None)
+                        if sector_constraints
+                        else None
                     )
 
-                    # 3️⃣ Base bar chart
                     bars = (
                         alt.Chart(df_sector)
                         .mark_bar(color="#4BA3FF")
@@ -1602,7 +1741,6 @@ def page_portfolio_optimization(data):
                         )
                     )
 
-                    # 4️⃣ YELLOW tick for MIN constraint
                     min_marks = (
                         alt.Chart(df_sector)
                         .mark_tick(
@@ -1619,7 +1757,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Min != null")
                     )
 
-                    # 5️⃣ RED tick for MAX constraint
                     max_marks = (
                         alt.Chart(df_sector)
                         .mark_tick(
@@ -1636,7 +1773,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Max != null")
                     )
 
-                    # 6️⃣ Combine layers
                     chart_sector = (bars + min_marks + max_marks).properties(
                         height=300
                     ).interactive()
@@ -1646,24 +1782,24 @@ def page_portfolio_optimization(data):
                 else:
                     st.info("No equity allocation.")
 
-            with colC:
+            with colC2:
                 st.markdown("**ESG Breakdown (Equity)**")
 
                 if not esg_in_eq.empty:
-
-                    # 1️⃣ Build base DataFrame
                     df_esg = esg_in_eq.reset_index()
                     df_esg.columns = ["ESG", "Weight"]
 
-                    # 2️⃣ Add ESG min/max constraints (if any)
                     df_esg["Min"] = df_esg["ESG"].map(
-                        lambda s: esg_constraints.get(s, {}).get("min", None) if esg_constraints else None
+                        lambda s: esg_constraints.get(s, {}).get("min", None)
+                        if esg_constraints
+                        else None
                     )
                     df_esg["Max"] = df_esg["ESG"].map(
-                        lambda s: esg_constraints.get(s, {}).get("max", None) if esg_constraints else None
+                        lambda s: esg_constraints.get(s, {}).get("max", None)
+                        if esg_constraints
+                        else None
                     )
 
-                    # 3️⃣ Base blue bars
                     bars_esg = (
                         alt.Chart(df_esg)
                         .mark_bar(color="#4BA3FF")
@@ -1677,7 +1813,6 @@ def page_portfolio_optimization(data):
                         )
                     )
 
-                    # 4️⃣ YELLOW tick for MIN constraint
                     min_marks_esg = (
                         alt.Chart(df_esg)
                         .mark_tick(
@@ -1694,7 +1829,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Min != null")
                     )
 
-                    # 5️⃣ RED tick for MAX constraint
                     max_marks_esg = (
                         alt.Chart(df_esg)
                         .mark_tick(
@@ -1711,7 +1845,6 @@ def page_portfolio_optimization(data):
                         .transform_filter("datum.Max != null")
                     )
 
-                    # 6️⃣ Combine everything
                     chart_esg = (bars_esg + min_marks_esg + max_marks_esg).properties(
                         height=300
                     ).interactive()
@@ -1793,7 +1926,6 @@ def page_ai_assistant():
 
     client = get_llm_client()
 
-    # Initialize chat history in session_state
     if "ai_messages" not in st.session_state:
         st.session_state.ai_messages = [
             {
@@ -1851,17 +1983,13 @@ def page_ai_assistant():
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    # Chat input
     user_input = st.chat_input("Ask a question")
     if user_input:
-        # 1) Add user message to history
         st.session_state.ai_messages.append({"role": "user", "content": user_input})
 
-        # 2) Display user bubble
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        # 3) Call Groq
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 response = client.chat.completions.create(
@@ -1872,10 +2000,7 @@ def page_ai_assistant():
                 reply = response.choices[0].message.content
                 st.markdown(reply)
 
-        # 4) Save assistant reply in history
-        st.session_state.ai_messages.append(
-            {"role": "assistant", "content": reply}
-        )
+        st.session_state.ai_messages.append({"role": "assistant", "content": reply})
 
 
 if __name__ == "__main__":
