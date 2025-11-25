@@ -468,63 +468,58 @@ def page_about():
 
     # HERO SECTION ---------------------------------------------------
     st.markdown(
-        """
-        <div class="about-hero">
-          <div class="about-hero-inner">
-            <div class="about-hero-pill">
-              <span class="about-hero-pill-dot"></span>
-              Systematic wealth management
-            </div>
+    """
+<div class="about-hero">
+  <div class="about-hero-title">
+    Phi Investment Capital<br/>
+    <span class="accent">where discipline meets clarity.</span>
+  </div>
 
-            <div class="about-hero-title">
-              Phi Investment Capital<br/>
-              <span class="accent">where discipline meets clarity.</span>
-            </div>
+  <div class="about-hero-subtitle">
+    We build portfolios the way pilots fly planes: with checklists,
+    instruments and constant monitoring. No stories, no guesswork —
+    just a robust process that you can understand and challenge.
+  </div>
 
-            <div class="about-hero-subtitle">
-              We build portfolios the way pilots fly planes: with checklists,
-              instruments and constant monitoring. No stories, no guesswork –
-              just a robust process that you can understand and challenge.
-            </div>
+  <div class="about-hero-metrics">
+    <div>
+      <div class="about-hero-metric-label">Approach</div>
+      <div class="about-hero-metric-value">Rule-based &amp; evidence-driven</div>
+    </div>
 
-            <div class="about-hero-metrics">
-              <div>
-                <div class="about-hero-metric-label">Approach</div>
-                <div class="about-hero-metric-value">Rule-based &amp; evidence-driven</div>
-              </div>
-              <div>
-                <div class="about-hero-metric-label">Universe</div>
-                <div class="about-hero-metric-value">Global multi-asset allocation</div>
-              </div>
-              <div>
-                <div class="about-hero-metric-label">Focus</div>
-                <div class="about-hero-metric-value">Risk first, returns second</div>
-              </div>
-            </div>
+    <div>
+      <div class="about-hero-metric-label">Universe</div>
+      <div class="about-hero-metric-value">Global multi-asset allocation</div>
+    </div>
 
-            <div class="about-hero-cta-row">
-              <a class="about-hero-cta-primary" href="#contact">Book an introduction call</a>
-              <div class="about-hero-cta-secondary">
-                A single conversation to walk through the engine behind this app
-                and see how it translates your profile into a portfolio.
-              </div>
-            </div>
+    <div>
+      <div class="about-hero-metric-label">Focus</div>
+      <div class="about-hero-metric-value">Risk first, returns second</div>
+    </div>
+  </div>
 
-            <div class="about-hero-card">
-              <div class="about-hero-card-title">Our promise</div>
-              <div class="about-hero-card-main">
-                Every allocation can be explained line by line.
-              </div>
-              <div class="about-hero-card-note">
-                From universe selection to constraints and backtests, nothing is a black box.
-                You see the same research logic we use internally for our own capital.
-              </div>
-            </div>
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+  <div class="about-hero-cta-row">
+    <a class="about-hero-cta-primary" href="#contact">Book an introduction call</a>
+    <div class="about-hero-cta-secondary">
+      A single conversation to walk through the engine behind this app
+      and see how it translates your profile into a portfolio.
+    </div>
+  </div>
+
+  <div class="about-hero-card">
+    <div class="about-hero-card-title">Our promise</div>
+    <div class="about-hero-card-main">
+      Every allocation can be explained line by line.
+    </div>
+    <div class="about-hero-card-note">
+      From universe selection to constraints and backtests, nothing is a black box.
+      You see the same logic we use internally for our own capital.
+    </div>
+  </div>
+</div>
+    """,
+    unsafe_allow_html=True,
+)
 
     # QUICK INFO BAND ------------------------------------------------
     st.markdown(
