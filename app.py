@@ -4,17 +4,270 @@ import pandas as pd
 import altair as alt
 from groq import Groq
 
-from engine  import (
+from engine import (
     PortfolioConfig,
     load_all_data,
     run_backtest,
     run_today_optimization,
 )
 
-from functions import (validate_constraints,
-                       compute_backtest_stats,
-                       management_fee_from_wealth,
-                       build_backtest_context_text)
+from functions import (
+    validate_constraints,
+    compute_backtest_stats,
+    management_fee_from_wealth,
+    build_backtest_context_text,
+)
+
+# ---------- GLOBAL STYLE (About page) ----------
+ABOUT_CSS = """
+<style>
+/* Overall page background */
+body {
+    background-color: #060b20;
+}
+
+/* Wider content feeling */
+.block-container {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+/* Hero section */
+.hero-section {
+    border-radius: 18px;
+    padding: 2.5rem 2.75rem;
+    margin-bottom: 1.8rem;
+    background: radial-gradient(circle at 0% 0%, #0000ff 0%, #8200de 25%, #060b20 70%);
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft glow chips behind hero */
+.hero-glow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.10), transparent 55%),
+        radial-gradient(circle at 80% 120%, rgba(0, 235, 255, 0.15), transparent 60%);
+    pointer-events: none;
+}
+
+/* Content sits above glow */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Small “badge” on top of hero */
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0.25);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Gradient text accent */
+.hero-title span.accent {
+    background: linear-gradient(90deg, #00ebff, #ff3378, #fff700);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Subtitle text */
+.hero-subtitle {
+    max-width: 40rem;
+    margin-top: 0.75rem;
+    color: rgba(240, 244, 255, 0.90);
+    font-size: 0.95rem;
+}
+
+/* Key bullets in hero */
+.hero-bullets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+}
+.hero-bullets span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.hero-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #00dbaf;
+}
+
+/* Call-to-action buttons in hero */
+.hero-cta {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.hero-btn-primary {
+    border-radius: 999px;
+    padding: 0.45rem 1.35rem;
+    border: none;
+    background: linear-gradient(135deg, #00ebff, #00dbaf);
+    color: #020617;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.hero-btn-secondary {
+    border-radius: 999px;
+    padding: 0.45rem 1.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+/* Quick info band */
+.quick-band {
+    margin-top: 0.5rem;
+    margin-bottom: 1.8rem;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7), rgba(10,20,60,0.95));
+    padding: 0.85rem 1.5rem;
+}
+.quick-band-title {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-bottom: 0.4rem;
+}
+.quick-item-label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #d1d5db;
+}
+.quick-item-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Info cards (Who we are / What we do / How we invest) */
+.info-card {
+    border-radius: 16px;
+    padding: 1.4rem 1.3rem;
+    background: radial-gradient(circle at 0% 0%, rgba(130,0,222,0.16), rgba(15,23,42,0.95));
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    height: 100%;
+}
+.info-card h3 {
+    font-size: 1.05rem;
+    color: #e5e7eb;
+    margin-bottom: 0.45rem;
+}
+.info-card p {
+    font-size: 0.88rem;
+    color: #cbd5f5;
+}
+.info-card ul {
+    margin-top: 0.5rem;
+    padding-left: 1.1rem;
+    font-size: 0.84rem;
+    color: #9ca3af;
+}
+
+/* Process steps */
+.process-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem 1.4rem;
+    background: radial-gradient(circle at 100% 0%, rgba(255, 100, 50, 0.16), rgba(15,23,42,0.95));
+    border: 1px solid rgba(148, 163, 184, 0.35);
+}
+.process-badge {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9ca3af;
+}
+.process-step {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.75rem;
+}
+.process-step-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #00ebff, #ff3378);
+    color: #020617;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.process-step-body h4 {
+    font-size: 0.95rem;
+    color: #e5e7eb;
+    margin-bottom: 0.15rem;
+}
+.process-step-body p {
+    font-size: 0.85rem;
+    color: #cbd5f5;
+}
+
+/* Contact CTA */
+.contact-band {
+    margin-top: 1.8rem;
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    background: linear-gradient(90deg, #0000ff, #ff3378);
+    color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+.contact-band h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+.contact-band p {
+    margin: 0.15rem 0 0 0;
+    font-size: 0.85rem;
+}
+.contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    background: rgba(0,0,0,0.18);
+    font-size: 0.85rem;
+}
+.contact-pill a {
+    color: #fefce8;
+    text-decoration: none;
+    font-weight: 600;
+}
+</style>
+"""
+
+def inject_about_css():
+    st.markdown(ABOUT_CSS, unsafe_allow_html=True)
 
 
 # --------------- GLOBAL DATA (cached) ---------------
@@ -28,6 +281,9 @@ def main():
         page_title="QARM Portfolio Manager",
         layout="wide",
     )
+
+    # inject global CSS so About page styles are available
+    inject_about_css()
 
     st.sidebar.title("Navigation")
     page = st.sidebar.radio(
@@ -55,380 +311,210 @@ def get_llm_client():
 
 
 # --------------- PAGE 1: ABOUT US ---------------
-# --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    # --- Local CSS just for this page ---
+    # If you have a hero image in your repo (e.g. "hero_mountains.png"),
+    # you can uncomment this and display it above the hero section:
+    # st.image("hero_mountains.png", use_column_width=True)
+
+    # ---------- HERO SECTION ----------
     st.markdown(
         """
-        <style>
-        /* Page background */
-        .about-root {
-            padding-top: 1rem;
-        }
+        <div class="hero-section">
+          <div class="hero-glow"></div>
+          <div class="hero-content">
+            <div class="hero-pill">
+              <span>PHI INVESTMENT CAPITAL</span>
+              <span style="width:6px;height:6px;border-radius:999px;background:#00dbaf;"></span>
+              <span>Quantitative Wealth Partner</span>
+            </div>
+            <h1 class="hero-title" style="margin-top:0.75rem;margin-bottom:0.25rem;">
+              Building portfolios that<br/>
+              <span class="accent">earn your confidence</span>.
+            </h1>
+            <p class="hero-subtitle">
+              Phi Investment Capital is an independent, quantitatively driven asset &amp; risk
+              management boutique. We design institutional-grade portfolios that remain
+              understandable, transparent and aligned with the real people behind the capital.
+            </p>
 
-        /* HERO SECTION */
-        .hero-section {
-            background: radial-gradient(circle at top left, #0f172a 0%, #020617 45%, #111827 100%);
-            border-radius: 24px;
-            padding: 3rem 3rem 2.5rem 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
-            color: #e5e7eb;
-        }
-        .hero-title {
-            font-size: 2.6rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            margin-bottom: 0.75rem;
-        }
-        .hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.3rem 0.9rem;
-            border-radius: 999px;
-            background: rgba(15,148,136,0.12);
-            color: #5eead4;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
-        }
-        .hero-subtitle {
-            font-size: 1.05rem;
-            color: #cbd5f5;
-            max-width: 40rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .hero-metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .hero-metric {
-            min-width: 8rem;
-        }
-        .hero-metric-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #9ca3af;
-        }
-        .hero-metric-value {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #e5e7eb;
-        }
-        .hero-cta-row {
-            margin-top: 1.75rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-        }
-        .hero-cta-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.7rem 1.4rem;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #0ea5e9, #22c55e);
-            color: white !important;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
-        }
-        .hero-cta-secondary {
-            font-size: 0.9rem;
-            color: #9ca3af;
-        }
+            <div class="hero-bullets">
+              <span><span class="hero-dot"></span> Rule-based, evidence-driven allocation</span>
+              <span><span class="hero-dot"></span> Integrated ESG and sector constraints</span>
+              <span><span class="hero-dot"></span> Clear risk/return trade-offs at every step</span>
+            </div>
 
-        /* Right hero image/card */
-        .hero-card {
-            border-radius: 20px;
-            padding: 1.3rem 1.5rem;
-            background: radial-gradient(circle at top, rgba(56,189,248,0.2), rgba(15,23,42,0.9));
-            border: 1px solid rgba(148,163,184,0.35);
-            box-shadow: 0 20px 40px rgba(15,23,42,0.8);
-        }
-        .hero-card-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: #9ca3af;
-            margin-bottom: 0.5rem;
-        }
-        .hero-card-main {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #e5e7eb;
-            margin-bottom: 0.75rem;
-        }
-        .hero-card-note {
-            font-size: 0.85rem;
-            color: #9ca3af;
-        }
-
-        /* SECTION TITLES */
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0 0 0.25rem 0;
-            color: #0f172a;
-        }
-        .section-subtitle {
-            font-size: 0.95rem;
-            color: #6b7280;
-            margin-bottom: 1.8rem;
-        }
-
-        /* CARDS ROW */
-        .card-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-bottom: 2.3rem;
-        }
-        .info-card {
-            flex: 1 1 220px;
-            border-radius: 18px;
-            padding: 1.2rem 1.3rem 1.1rem 1.3rem;
-            background: linear-gradient(145deg, #f9fafb, #eff6ff);
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 10px 25px rgba(15,23,42,0.10);
-        }
-        .info-card-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: #6b7280;
-            margin-bottom: 0.35rem;
-        }
-        .info-card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.35rem;
-            color: #111827;
-        }
-        .info-card-body {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-
-        /* TIMELINE */
-        .timeline {
-            position: relative;
-            margin-top: 0.75rem;
-            margin-bottom: 2.3rem;
-        }
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 14px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(#0ea5e9, #22c55e);
-            opacity: 0.6;
-        }
-        .timeline-step {
-            position: relative;
-            padding-left: 2.8rem;
-            margin-bottom: 1.4rem;
-        }
-        .timeline-bullet {
-            position: absolute;
-            left: 7px;
-            top: 2px;
-            width: 14px;
-            height: 14px;
-            border-radius: 999px;
-            background: white;
-            border: 2px solid #0ea5e9;
-            box-shadow: 0 0 0 4px rgba(56,189,248,0.25);
-        }
-        .timeline-step-title {
-            font-size: 0.98rem;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 0.15rem;
-        }
-        .timeline-step-text {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-
-        /* CONTACT SECTION */
-        .contact-section {
-            margin-top: 2.4rem;
-            padding: 1.8rem 1.6rem;
-            border-radius: 20px;
-            background: linear-gradient(120deg, #0f172a, #1e293b);
-            color: #e5e7eb;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        .contact-main {
-            flex: 2 1 260px;
-        }
-        .contact-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.35rem;
-        }
-        .contact-text {
-            font-size: 0.95rem;
-            color: #cbd5f5;
-            margin-bottom: 0.8rem;
-        }
-        .contact-tagline {
-            font-size: 0.85rem;
-            color: #a5b4fc;
-        }
-        .contact-card {
-            flex: 1 1 220px;
-            background: rgba(15,23,42,0.75);
-            border-radius: 16px;
-            padding: 1rem 1.1rem;
-            border: 1px solid rgba(148,163,184,0.6);
-        }
-        .contact-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #9ca3af;
-            margin-bottom: 0.2rem;
-        }
-        .contact-email {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #f9fafb;
-        }
-        .contact-email a {
-            color: #f9fafb;
-            text-decoration: none;
-        }
-        </style>
+            <div class="hero-cta">
+              <button class="hero-btn-primary">
+                Explore the portfolio builder
+              </button>
+              <button class="hero-btn-secondary">
+                Read how our process works
+              </button>
+            </div>
+          </div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
 
-    # --- Layout wrapper div (for CSS targeting) ---
-    st.markdown('<div class="about-root">', unsafe_allow_html=True)
+    # ---------- QUICK INFO BAND ----------
+    col1, col2, col3, col4 = st.columns(4)
+    with st.container():
+        st.markdown('<div class="quick-band">', unsafe_allow_html=True)
+        st.markdown('<div class="quick-band-title">Key facts at a glance</div>', unsafe_allow_html=True)
+        with col1:
+            st.markdown(
+                """
+                <div class="quick-item-label">Diversified universe</div>
+                <div class="quick-item-value">7 asset classes</div>
+                """,
+                unsafe_allow_html=True,
+            )
+        with col2:
+            st.markdown(
+                """
+                <div class="quick-item-label">Portfolio style</div>
+                <div class="quick-item-value">Risk-aware, long-only</div>
+                """,
+                unsafe_allow_html=True,
+            )
+        with col3:
+            st.markdown(
+                """
+                <div class="quick-item-label">Process</div>
+                <div class="quick-item-value">Markowitz + robust covariances</div>
+                """,
+                unsafe_allow_html=True,
+            )
+        with col4:
+            st.markdown(
+                """
+                <div class="quick-item-label">Regime</div>
+                <div class="quick-item-value">Fully transparent &amp; auditable</div>
+                """,
+                unsafe_allow_html=True,
+            )
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    # HERO SECTION ---------------------------------------------------
-    hero_col1, hero_col2 = st.columns([3, 2])
+    # ---------- THREE CORE PILLARS ----------
+    colA, colB, colC = st.columns(3)
 
-    with hero_col1:
+    with colA:
         st.markdown(
             """
-            <div class="hero-section">
-              <div class="hero-pill">Quantitative • Disciplined • Transparent</div>
-              <div class="hero-title">Phi Investment Capital</div>
-              <div class="hero-subtitle">
-                We are a boutique asset &amp; risk management firm focused on
-                building transparent, rule-based portfolios that behave exactly
-                as they are designed to — in good markets and in bad ones.
-              </div>
-
-              <div class="hero-metrics">
-                <div class="hero-metric">
-                  <div class="hero-metric-label">Approach</div>
-                  <div class="hero-metric-value">Systematic &amp; evidence-based</div>
-                </div>
-                <div class="hero-metric">
-                  <div class="hero-metric-label">Universe</div>
-                  <div class="hero-metric-value">Global multi-asset</div>
-                </div>
-                <div class="hero-metric">
-                  <div class="hero-metric-label">Focus</div>
-                  <div class="hero-metric-value">Risk first, returns second</div>
-                </div>
-              </div>
-
-              <div class="hero-cta-row">
-                <a class="hero-cta-primary" href="#contact">Book an introduction call</a>
-                <div class="hero-cta-secondary">
-                  No marketing promises — just a clear view of how your capital is managed.
-                </div>
-              </div>
+            <div class="info-card">
+              <h3>Who we are</h3>
+              <p>
+                We are a focused quantitative team with backgrounds in institutional portfolio
+                management, trading and academic finance. Our independence allows us to put
+                methodology and client alignment before product.
+              </p>
+              <ul>
+                <li>Independent and partner-owned</li>
+                <li>Research-driven, with simple implementation</li>
+                <li>Infrastructure built for transparency and control</li>
+              </ul>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with hero_col2:
-        # OPTION: use your preferred hero image here instead of / along with the card.
-        # Example if you add an image file to your repo:
-        # st.image("assets/phi_hero_option2.png", use_column_width=True)
+    with colB:
         st.markdown(
             """
-            <div class="hero-section hero-card">
-              <div class="hero-card-title">Our promise</div>
-              <div class="hero-card-main">
-                Every portfolio we build can be explained line by line.
-              </div>
-              <div class="hero-card-note">
-                Behind this app is the same research process we use internally:
-                robust statistics, realistic constraints, and a constant focus
-                on drawdowns and liquidity. You see the full picture — not just a headline return.
-              </div>
+            <div class="info-card">
+              <h3>What we do</h3>
+              <p>
+                We construct diversified multi-asset portfolios across equities, fixed income,
+                commodities and alternatives, with the ability to enforce precise sector, ESG and
+                asset-class constraints.
+              </p>
+              <ul>
+                <li>Long-only allocation with strict risk budgeting</li>
+                <li>Robust covariance estimation (Ledoit–Wolf)</li>
+                <li>Client-specific constraints integrated by design</li>
+              </ul>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    # WHO WE ARE / WHAT WE DO ----------------------------------------
-    st.markdown(
-        """
-        <p class="section-title">Who we are &amp; what we do</p>
-        <p class="section-subtitle">
-          Phi Investment Capital was created for investors who want institutional-grade
-          portfolio construction without opaque black boxes. We combine global markets
-          expertise with rigorous quantitative tools and put everything inside a framework
-          you can actually understand.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
+    with colC:
+        st.markdown(
+            """
+            <div class="info-card">
+              <h3>How we invest</h3>
+              <p>
+                Every mandate begins with a clear conversation about risk: drawdowns, time horizon
+                and capacity for loss. From there, we turn preferences into a rule-set the optimizer
+                can respect — and that you can explain.
+              </p>
+              <ul>
+                <li>Risk profile translated into a risk-aversion parameter (γ)</li>
+                <li>Scenario-tested constraints before implementation</li>
+                <li>Continuous monitoring through the same framework</li>
+              </ul>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
+    # ---------- PROCESS SECTION ----------
     st.markdown(
         """
-        <div class="card-row">
-          <div class="info-card">
-            <div class="info-card-label">Philosophy</div>
-            <div class="info-card-title">Risk is the starting point</div>
-            <div class="info-card-body">
-              We do not chase stories or headlines. We start with risk, liquidity
-              and drawdowns, then search for return premia that survive out-of-sample
-              testing and transaction costs.
+        <div class="process-section">
+          <div class="process-badge">Our investment process</div>
+          <h3 style="margin-top:0.35rem;margin-bottom:0.4rem;color:#e5e7eb;">
+            From conviction to disciplined allocation
+          </h3>
+          <p style="font-size:0.86rem;color:#cbd5f5;margin-bottom:0.9rem;">
+            We want every client to understand not just what they own, but why their portfolio looks
+            the way it does. The app mirrors the exact process we apply when managing real capital.
+          </p>
+
+          <div class="process-step">
+            <div class="process-step-number">1</div>
+            <div class="process-step-body">
+              <h4>Define objectives and risk tolerance</h4>
+              <p>
+                We translate your answers to the risk questionnaire and your time horizon into a
+                coherent risk profile and an internal risk-aversion parameter.
+              </p>
             </div>
           </div>
 
-          <div class="info-card">
-            <div class="info-card-label">Process</div>
-            <div class="info-card-title">Systematic &amp; repeatable</div>
-            <div class="info-card-body">
-              Portfolios are built using Markowitz-style optimisation, robust
-              covariance estimation and clearly defined constraints on sectors,
-              ESG, and asset classes.
+          <div class="process-step">
+            <div class="process-step-number">2</div>
+            <div class="process-step-body">
+              <h4>Shape the investable universe</h4>
+              <p>
+                Together we select the equity universe (S&amp;P 500 or MSCI World) and complement it
+                with fixed income, commodities and alternatives, applying sector and ESG filters
+                where required.
+              </p>
             </div>
           </div>
 
-          <div class="info-card">
-            <div class="info-card-label">Client experience</div>
-            <div class="info-card-title">Radical transparency</div>
-            <div class="info-card-body">
-              The same engine that powers our internal research sits behind this app.
-              You can inspect assumptions, backtests and constraints — and adapt them
-              to your own preferences.
+          <div class="process-step">
+            <div class="process-step-number">3</div>
+            <div class="process-step-body">
+              <h4>Set constraints that reflect your beliefs</h4>
+              <p>
+                We define sensible limits by sector, ESG score, single-line exposure and asset
+                classes, balancing conviction with diversification and liquidity.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-step-number">4</div>
+            <div class="process-step-body">
+              <h4>Optimize, backtest and explain</h4>
+              <p>
+                The Markowitz engine with robust covariances finds the allocation that best matches
+                the defined rule-set. We then backtest, analyse drawdowns and provide a clear
+                narrative in plain language.
+              </p>
             </div>
           </div>
         </div>
@@ -436,96 +522,28 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # HOW WE MANAGE CAPITAL (TIMELINE) -------------------------------
+    # ---------- CONTACT / CTA BAND ----------
     st.markdown(
         """
-        <p class="section-title">How we manage your capital</p>
-        <p class="section-subtitle">
-          A clear, four-step journey from understanding your profile to
-          monitoring the portfolio over time.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-        <div class="timeline">
-          <div class="timeline-step">
-            <div class="timeline-bullet"></div>
-            <div class="timeline-step-title">1. Understand your objectives</div>
-            <div class="timeline-step-text">
-              We translate your constraints, horizon and drawdown tolerance into
-              a quantitative risk profile. The questionnaire inside this app is
-              a simplified version of that first conversation.
-            </div>
+        <div class="contact-band">
+          <div>
+            <h3>Ready to discuss a mandate or see a live example?</h3>
+            <p>
+              We are happy to walk you through the app with your own constraints and universe,
+              or review an existing portfolio using the same framework.
+            </p>
           </div>
-
-          <div class="timeline-step">
-            <div class="timeline-bullet"></div>
-            <div class="timeline-step-title">2. Define the investable universe</div>
-            <div class="timeline-step-text">
-              Together we decide which markets, sectors, ESG profiles and asset
-              classes should be allowed — and which should be capped or excluded.
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-bullet"></div>
-            <div class="timeline-step-title">3. Optimise with discipline</div>
-            <div class="timeline-step-text">
-              Using historical data, robust statistics and realistic constraints,
-              we search for allocations that balance expected return with volatility
-              and drawdown risk, rather than maximising return at any cost.
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-bullet"></div>
-            <div class="timeline-step-title">4. Monitor &amp; adapt</div>
-            <div class="timeline-step-text">
-              Portfolios are re-estimated and rebalanced on a pre-defined schedule.
-              When markets change, the process updates — but the discipline and
-              transparency remain the same.
-            </div>
+          <div class="contact-pill">
+            <span>📧</span>
+            <span>
+              Contact us at
+              <a href="mailto:contact@phi-investment.ch">contact@phi-investment.ch</a>
+            </span>
           </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-    # CONTACT SECTION ------------------------------------------------
-    st.markdown(
-        """
-        <div id="contact" class="contact-section">
-          <div class="contact-main">
-            <div class="contact-title">Let’s talk about your portfolio</div>
-            <div class="contact-text">
-              If this philosophy resonates with you, we would be pleased to walk
-              you through the application live, using your own constraints and
-              objectives as an example.
-            </div>
-            <div class="contact-tagline">
-              One conversation, no obligation — just clarity on how a systematic
-              approach could fit your situation.
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-label">Contact</div>
-            <div class="contact-email">
-              Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a><br/>
-              Or reach out directly from your usual relationship channel.
-            </div>
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # Close wrapper div
-    st.markdown("</div>", unsafe_allow_html=True)
-
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
@@ -1139,7 +1157,6 @@ def page_portfolio_optimization(data):
         for msg in constraint_errors:
             st.write(f"• {msg}")
 
-
     # ============================================================
     # STEP 5 – RUN OPTIMIZATION & BACKTEST
     # ============================================================
@@ -1175,7 +1192,7 @@ def page_portfolio_optimization(data):
             sector_constraints=sector_constraints,
             esg_constraints=esg_constraints,
             asset_class_constraints=asset_class_constraints,
-            initial_wealth=investment_amount
+            initial_wealth=investment_amount,
         )
 
         # 3) Run engine with friendly error handling
@@ -1195,8 +1212,6 @@ def page_portfolio_optimization(data):
                 "weight per asset. Please relax some minimum constraints or increase the maximum "
                 "weight per asset, then try again."
             )
-            # Optional: show the raw technical message for yourself
-            # st.text(f"Technical details: {e}")
             st.stop()
 
         st.success("Optimization completed.")
@@ -1241,7 +1256,6 @@ def page_portfolio_optimization(data):
         esg_constraints = r["esg_constraints"]
         asset_class_constraints = r["asset_class_constraints"]
 
-
         tab_backtest, tab_today = st.tabs(["📈 Backtest", "📌 Today's Portfolio"])
 
         with tab_backtest:
@@ -1270,7 +1284,6 @@ def page_portfolio_optimization(data):
 
                 chart_data = combined.reset_index().rename(columns={"Date": "Date"})
 
-                import altair as alt
                 chart_data_long = chart_data.melt("Date", var_name="Series", value_name="Return")
 
                 # --------------------------------------------------------
@@ -1457,7 +1470,6 @@ def page_portfolio_optimization(data):
                     )
                     st.markdown(commentary)
 
-
             else:
                 st.warning("No valid backtest window for the selected settings.")
 
@@ -1472,7 +1484,6 @@ def page_portfolio_optimization(data):
 
             st.markdown("**Top 5 Holdings**")
             st.dataframe(top5)
-
 
             colA, colB, colC = st.columns(3)
             with colA:
@@ -1715,7 +1726,7 @@ def page_portfolio_optimization(data):
                 st.dataframe(today_df)
 
 
-# --------------- PAGE 3: PORTFOLIO OPTIMIZATION ---------------
+# --------------- PAGE 3: PHI ASSISTANT ---------------
 def page_ai_assistant():
     st.title("Phi Assistant ")
 
@@ -1774,7 +1785,6 @@ def page_ai_assistant():
     )
 
     client = get_llm_client()
-
 
     # Initialize chat history in session_state
     if "ai_messages" not in st.session_state:
@@ -1844,7 +1854,7 @@ def page_ai_assistant():
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        # 3) Call OpenAI
+        # 3) Call Groq
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 response = client.chat.completions.create(
@@ -1859,10 +1869,6 @@ def page_ai_assistant():
         st.session_state.ai_messages.append(
             {"role": "assistant", "content": reply}
         )
-
-
-
-
 
 
 if __name__ == "__main__":
