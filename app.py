@@ -57,560 +57,592 @@ def get_llm_client():
 
 
 # --------------- PAGE 1: ABOUT US ---------------
-# --------------- PAGE 1: ABOUT US ---------------
 def page_about():
     # --- Local CSS just for this page ---
     st.markdown(
         """
-<style>
-body {
-    background-color: #f5f7fb;
-}
+        <style>
+        .about-root {
+            padding-top: 0.5rem;
+            padding-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
 
-/* Root wrapper */
-.about-wrapper {
-    padding-top: 0.5rem;
-    padding-bottom: 2.5rem;
-    max-width: 1120px;
-    margin: 0 auto;
-}
+        /* ---------------- HERO ---------------- */
+        .hero-wrapper {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            min-height: 340px;
+            margin-bottom: 2.2rem;
+            background:
+                linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75)),
+                url("hero_bg") center/cover no-repeat;
+            box-shadow: 0 24px 60px rgba(15,23,42,0.65);
+            color: #e5e7eb;
+        }
 
-/* HERO --------------------------------------------------- */
-.about-hero {
-    border-radius: 28px;
-    padding: 2.2rem 2.4rem;
-    background: radial-gradient(circle at 0% 0%, #e0f2fe, #eef2ff, #f5f7fb);
-    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
-    margin-bottom: 2.3rem;
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
-    gap: 2.0rem;
-    align-items: center;
-}
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 2.6rem 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+        }
 
-.about-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0.9rem;
-    border-radius: 999px;
-    background: rgba(15,23,42,0.04);
-    border: 1px solid rgba(148,163,184,0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #4b5563;
-}
+        .hero-left {
+            flex: 2 1 260px;
+        }
 
-.about-pill-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: #22c55e;
-}
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.65);
+            background: rgba(15,23,42,0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
 
-.about-hero-title {
-    margin-top: 1.0rem;
-    font-size: 2.4rem;
-    line-height: 1.15;
-    letter-spacing: 0.01em;
-    font-weight: 700;
-    color: #020617;
-}
+        .hero-pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #22c55e;
+        }
 
-.about-hero-title span.accent {
-    background: linear-gradient(90deg, #0ea5e9, #22c55e, #f97316);
-    -webkit-background-clip: text;
-    color: transparent;
-}
+        .hero-title {
+            margin-top: 1.2rem;
+            font-size: 2.6rem;
+            line-height: 1.12;
+            letter-spacing: 0.01em;
+            font-weight: 700;
+        }
 
-.about-hero-subtitle {
-    margin-top: 0.9rem;
-    font-size: 1.02rem;
-    line-height: 1.7;
-    color: #4b5563;
-    max-width: 32rem;
-}
+        .hero-title span {
+            background: linear-gradient(90deg, #38bdf8, #22c55e, #facc15);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-.about-hero-bullets {
-    margin-top: 0.9rem;
-    font-size: 0.95rem;
-    color: #4b5563;
-}
+        .hero-subtitle {
+            margin-top: 0.9rem;
+            max-width: 32rem;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: #d1d5db;
+        }
 
-.about-hero-bullets li {
-    margin-bottom: 0.25rem;
-}
+        .hero-cta-row {
+            margin-top: 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.1rem;
+            align-items: center;
+        }
 
-.about-hero-cta-row {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.9rem;
-    align-items: center;
-}
+        .hero-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.78rem 1.9rem;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #38bdf8, #22c55e);
+            color: #0b1120 !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 18px 40px rgba(34,197,94,0.45);
+        }
 
-.about-hero-cta-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.7rem 1.7rem;
-    border-radius: 999px;
-    border: none;
-    background: linear-gradient(135deg, #0ea5e9, #22c55e);
-    color: #0b1120 !important;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    box-shadow: 0 16px 40px rgba(34,197,94,0.35);
-}
+        .hero-cta-secondary {
+            font-size: 0.9rem;
+            max-width: 21rem;
+            color: #cbd5f5;
+        }
 
-.about-hero-cta-note {
-    font-size: 0.88rem;
-    color: #6b7280;
-    max-width: 20rem;
-}
+        .hero-right {
+            flex: 1.3 1 220px;
+        }
 
-/* Right side of hero */
-.about-hero-right {
-    border-radius: 22px;
-    background: #ffffff;
-    box-shadow: 0 18px 40px rgba(15,23,42,0.16);
-    padding: 1.1rem 1.2rem 1.3rem 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.95rem;
-}
+        .hero-card {
+            border-radius: 20px;
+            padding: 1.2rem 1.4rem;
+            background: radial-gradient(circle at top left,
+                        rgba(56,189,248,0.45),
+                        rgba(15,23,42,0.95));
+            border: 1px solid rgba(148,163,184,0.7);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+        }
 
-.about-hero-image {
-    border-radius: 18px;
-    overflow: hidden;
-    background: #020617;
-}
+        .hero-card-label {
+            font-size: 0.76rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #d1d5db;
+            margin-bottom: 0.4rem;
+        }
 
-.about-hero-image img {
-    width: 100%;
-    display: block;
-}
+        .hero-card-main {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: #f9fafb;
+            margin-bottom: 0.3rem;
+        }
 
-.about-hero-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9rem;
-}
+        .hero-card-text {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+        }
 
-.about-hero-metric-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: #9ca3af;
-}
+        @media (max-width: 900px) {
+            .hero-inner {
+                padding: 2.1rem 1.8rem 2.3rem 1.8rem;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
 
-.about-hero-metric-value {
-    font-size: 0.96rem;
-    font-weight: 600;
-    color: #111827;
-}
+        /* --------------- QUICK STRIP --------------- */
+        .quick-strip {
+            margin-bottom: 2.2rem;
+            border-radius: 24px;
+            padding: 1.1rem 2rem 1.2rem 2rem;
+            background: linear-gradient(120deg, #f9fafb, #fef7ec);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.12);
+        }
 
-/* SECTION TITLES ---------------------------------------- */
-.about-section-title {
-    font-size: 1.35rem;
-    font-weight: 600;
-    margin: 0 0 0.25rem 0;
-    color: #020617;
-}
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.6rem;
+        }
 
-.about-section-subtitle {
-    font-size: 0.97rem;
-    color: #4b5563;
-    margin-bottom: 1.7rem;
-}
+        .quick-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
 
-/* INFO CARDS -------------------------------------------- */
-.about-card-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
-    margin-bottom: 2.3rem;
-}
+        .quick-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #111827;
+        }
 
-.about-info-card {
-    border-radius: 18px;
-    padding: 1.3rem 1.35rem;
-    background: linear-gradient(135deg, #ffffff, #eef2ff);
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 14px 30px rgba(15,23,42,0.08);
-}
+        @media (max-width: 1024px) {
+            .quick-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
 
-.about-info-card-label {
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: #9ca3af;
-    margin-bottom: 0.3rem;
-}
+        /* --------------- SECTIONS / CARDS --------------- */
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 650;
+            color: #020617;
+            margin-bottom: 0.25rem;
+        }
 
-.about-info-card-title {
-    font-size: 1.02rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.35rem;
-}
+        .section-subtitle {
+            font-size: 0.98rem;
+            color: #4b5563;
+            margin-bottom: 1.8rem;
+            max-width: 46rem;
+        }
 
-.about-info-card-body {
-    font-size: 0.9rem;
-    color: #4b5563;
-}
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.3rem;
+            margin-bottom: 2.4rem;
+        }
 
-/* JOURNEY / PROCESS ------------------------------------- */
-.about-process {
-    border-radius: 22px;
-    padding: 1.7rem 1.7rem 1.5rem 1.7rem;
-    background: linear-gradient(135deg, #fefce8, #f5f5ff);
-    border: 1px solid #e5e7eb;
-    margin-bottom: 2.4rem;
-}
+        .info-card {
+            flex: 1 1 240px;
+            border-radius: 20px;
+            padding: 1.4rem 1.5rem 1.3rem 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #f5f7ff);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 14px 28px rgba(15,23,42,0.08);
+        }
 
-.about-process-badge {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: #9ca3af;
-    margin-bottom: 0.35rem;
-}
+        .info-card-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 0.35rem;
+        }
 
-.about-process-title {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 1.0rem;
-}
+        .info-card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.35rem;
+        }
 
-.about-process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.1rem;
-}
+        .info-card-body {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
 
-.about-process-step {
-    border-radius: 16px;
-    padding: 1.0rem 1.0rem 0.95rem 1.0rem;
-    background: #ffffff;
-    box-shadow: 0 10px 22px rgba(148,163,184,0.35);
-}
+        /* --------------- JOURNEY --------------- */
+        .journey {
+            margin-bottom: 2.7rem;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 1.7rem 1.8rem;
+            background: linear-gradient(130deg, #fef7ec, #f9fafb);
+            border: 1px solid #f3f4f6;
+        }
 
-.about-process-step-num {
-    width: 24px;
-    height: 24px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #0ea5e9, #22c55e);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #0b1120;
-    margin-bottom: 0.45rem;
-}
+        .journey-badge {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #6b7280;
+            margin-bottom: 0.35rem;
+        }
 
-.about-process-step-title {
-    font-size: 0.96rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.25rem;
-}
+        .journey-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
 
-.about-process-step-text {
-    font-size: 0.88rem;
-    color: #4b5563;
-}
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
 
-/* CONTACT BAND ------------------------------------------ */
-.about-contact {
-    border-radius: 24px;
-    padding: 1.9rem 1.9rem;
-    background: linear-gradient(135deg, #020617, #020617, #0f172a);
-    color: #e5e7eb;
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.1fr);
-    gap: 1.5rem;
-    align-items: center;
-    box-shadow: 0 22px 60px rgba(15,23,42,0.8);
-}
+        .step {
+            border-radius: 18px;
+            padding: 1rem 1.05rem 0.95rem 1.05rem;
+            background: #ffffff;
+            box-shadow: 0 10px 22px rgba(148,163,184,0.32);
+        }
 
-.about-contact-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.45rem;
-}
+        .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #38bdf8, #22c55e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0b1120;
+            margin-bottom: 0.45rem;
+        }
 
-.about-contact-text {
-    font-size: 0.95rem;
-    color: #cbd5f5;
-    margin-bottom: 0.7rem;
-}
+        .step-title {
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
 
-.about-contact-tagline {
-    font-size: 0.86rem;
-    color: #a5b4fc;
-}
+        .step-text {
+            font-size: 0.88rem;
+            color: #4b5563;
+        }
 
-.about-contact-card {
-    border-radius: 16px;
-    padding: 1.0rem 1.1rem;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid rgba(148,163,184,0.7);
-}
+        @media (max-width: 1024px) {
+            .journey-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
 
-.about-contact-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #9ca3af;
-    margin-bottom: 0.25rem;
-}
+        @media (max-width: 768px) {
+            .journey-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-.about-contact-email {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #f9fafb;
-}
+        /* --------------- CONTACT --------------- */
+        .contact {
+            margin-top: 1.2rem;
+            border-radius: 26px;
+            padding: 1.9rem 2rem 1.8rem 2rem;
+            background: linear-gradient(135deg, #020617, #020617);
+            color: #e5e7eb;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(15,23,42,0.9);
+        }
 
-.about-contact-email a {
-    color: #f9fafb;
-    text-decoration: none;
-}
+        .contact-main {
+            flex: 2 1 260px;
+        }
 
-/* RESPONSIVE -------------------------------------------- */
-@media (max-width: 1024px) {
-    .about-hero {
-        grid-template-columns: 1fr;
-    }
-    .about-card-row {
-        grid-template-columns: 1fr 1fr;
-    }
-    .about-process-steps {
-        grid-template-columns: 1fr 1fr;
-    }
-    .about-contact {
-        grid-template-columns: 1fr;
-    }
-}
+        .contact-title {
+            font-size: 1.25rem;
+            font-weight: 650;
+            margin-bottom: 0.4rem;
+        }
 
-@media (max-width: 768px) {
-    .about-hero {
-        padding: 1.8rem 1.5rem;
-    }
-    .about-hero-title {
-        font-size: 2.0rem;
-    }
-    .about-card-row {
-        grid-template-columns: 1fr;
-    }
-    .about-process-steps {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+        .contact-text {
+            font-size: 0.95rem;
+            color: #cbd5f5;
+            margin-bottom: 0.7rem;
+            max-width: 32rem;
+        }
+
+        .contact-tagline {
+            font-size: 0.85rem;
+            color: #a5b4fc;
+        }
+
+        .contact-card {
+            flex: 1 1 220px;
+            border-radius: 18px;
+            padding: 1.05rem 1.2rem;
+            background: rgba(15,23,42,0.92);
+            border: 1px solid rgba(148,163,184,0.7);
+        }
+
+        .contact-label {
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-email {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        .contact-email a {
+            color: inherit;
+            text-decoration: none;
+        }
+        </style>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="about-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="about-root">', unsafe_allow_html=True)
 
-    # HERO ---------------------------------------------------------
+    # ---------- HERO ----------
     st.markdown(
         """
-<div class="about-hero">
-  <div>
-    <div class="about-pill">
-      <span class="about-pill-dot"></span>
-      PHI INVESTMENT CAPITAL
-    </div>
+        <section class="hero-wrapper">
+          <div class="hero-inner">
+            <div class="hero-left">
+              <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                PHI INVESTMENT CAPITAL
+              </div>
+              <div class="hero-title">
+                Portfolio construction<br/>
+                <span>built like an instrument panel.</span>
+              </div>
+              <div class="hero-subtitle">
+                Phi Investment Capital focuses on one thing: turning your profile into a
+                clear, disciplined portfolio. No stories, no noise – just a process that
+                you can understand, test and challenge.
+              </div>
+              <div class="hero-cta-row">
+                <a href="#contact" class="hero-cta-primary">Book an introduction call</a>
+                <div class="hero-cta-secondary">
+                  A short conversation to walk through the engine behind this app and
+                  see how it translates your answers into an allocation.
+                </div>
+              </div>
+            </div>
 
-    <div class="about-hero-title">
-      Where disciplined<br/>
-      portfolios meet <span class="accent">clear explanations.</span>
-    </div>
-
-    <div class="about-hero-subtitle">
-      We design portfolios the way pilots fly aircraft: with instruments,
-      checklists and constant monitoring. No stories, no guesswork —
-      only a repeatable process you can understand and challenge.
-    </div>
-
-    <ul class="about-hero-bullets">
-      <li>Global, multi-asset universe with institutional data quality</li>
-      <li>Rule-based optimisation, robust risk models, transparent constraints</li>
-      <li>Every allocation can be traced back to a documented choice</li>
-    </ul>
-
-    <div class="about-hero-cta-row">
-      <a class="about-hero-cta-primary" href="#contact">
-        Book an introduction call
-      </a>
-      <div class="about-hero-cta-note">
-        A short conversation to walk through the engine behind this app and
-        see how it translates your profile into a concrete portfolio.
-      </div>
-    </div>
-  </div>
-
-  <div class="about-hero-right">
-    <div class="about-hero-image">
-      <img src="hero_bg.png" alt="Portfolio visual" />
-    </div>
-    <div class="about-hero-metrics">
-      <div>
-        <div class="about-hero-metric-label">Universe</div>
-        <div class="about-hero-metric-value">7 asset classes</div>
-      </div>
-      <div>
-        <div class="about-hero-metric-label">Approach</div>
-        <div class="about-hero-metric-value">Systematic &amp; rule-based</div>
-      </div>
-      <div>
-        <div class="about-hero-metric-label">Client experience</div>
-        <div class="about-hero-metric-value">Fully transparent</div>
-      </div>
-    </div>
-  </div>
-</div>
+            <div class="hero-right">
+              <div class="hero-card">
+                <div class="hero-card-label">Our promise</div>
+                <div class="hero-card-main">Every decision can be explained.</div>
+                <div class="hero-card-text">
+                  From universe selection to constraints and backtests, nothing is a
+                  black box. You see the same logic we use for our own capital.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         """,
         unsafe_allow_html=True,
     )
 
-    # WHO WE ARE ---------------------------------------------------
+    # ---------- QUICK STRIP ----------
     st.markdown(
         """
-<p class="about-section-title">Who we are &amp; what we do</p>
-<p class="about-section-subtitle">
-Phi Investment Capital serves investors who want institutional-grade portfolio
-construction with full transparency. Our DNA blends global markets experience
-with a rigorous quantitative framework and a strong focus on explaining every step.
-</p>
+        <section class="quick-strip">
+          <div class="quick-grid">
+            <div>
+              <div class="quick-label">Diversified universe</div>
+              <div class="quick-value">7 asset classes</div>
+            </div>
+            <div>
+              <div class="quick-label">Equity coverage</div>
+              <div class="quick-value">S&P 500 &amp; MSCI World</div>
+            </div>
+            <div>
+              <div class="quick-label">Portfolio style</div>
+              <div class="quick-value">Risk-aware, long-only</div>
+            </div>
+            <div>
+              <div class="quick-label">Process</div>
+              <div class="quick-value">Markowitz + robust covariances</div>
+            </div>
+          </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ---------- WHO WE ARE ----------
+    st.markdown(
+        """
+        <section>
+          <h2 class="section-title">Who we are &amp; what we do</h2>
+          <p class="section-subtitle">
+            Phi Investment Capital serves investors who want institutional-grade
+            portfolio construction without marketing jargon. We blend global market
+            experience with a rigorous quantitative framework and express it in a
+            way that is easy to follow.
+          </p>
+        </section>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-<div class="about-card-row">
-  <div class="about-info-card">
-    <div class="about-info-card-label">Philosophy</div>
-    <div class="about-info-card-title">Risk is our first language</div>
-    <div class="about-info-card-body">
-      We start with what can go wrong: liquidity, drawdowns and regime shifts.
-      Only after understanding your downside do we reach for return premia that
-      survive out-of-sample tests and realistic frictions.
-    </div>
-  </div>
+        <section class="info-row">
+          <article class="info-card">
+            <div class="info-card-label">Philosophy</div>
+            <div class="info-card-title">Risk is the starting point</div>
+            <div class="info-card-body">
+              We first look at what can go wrong: liquidity, drawdowns and structural
+              breaks. Only then do we seek risk premia that are robust out of sample
+              and after costs.
+            </div>
+          </article>
 
-  <div class="about-info-card">
-    <div class="about-info-card-label">Process</div>
-    <div class="about-info-card-title">Systematic &amp; repeatable</div>
-    <div class="about-info-card-body">
-      Portfolios are built using Markowitz-style optimisation, robust
-      covariance estimation and clearly defined constraints on sectors, ESG
-      and asset classes – exactly the logic that powers this application.
-    </div>
-  </div>
+          <article class="info-card">
+            <div class="info-card-label">Process</div>
+            <div class="info-card-title">Systematic &amp; repeatable</div>
+            <div class="info-card-body">
+              Portfolios are built using mean–variance optimisation, robust covariance
+              estimation and explicit constraints on sectors, ESG and asset classes –
+              exactly the engine that powers this application.
+            </div>
+          </article>
 
-  <div class="about-info-card">
-    <div class="about-info-card-label">Client experience</div>
-    <div class="about-info-card-title">Radical transparency</div>
-    <div class="about-info-card-body">
-      Every key assumption – universe, estimation window, constraints and fees –
-      is visible, adjustable and testable. Nothing is a black box; you see the
-      same logic we use for our own capital.
-    </div>
-  </div>
-</div>
+          <article class="info-card">
+            <div class="info-card-label">Client experience</div>
+            <div class="info-card-title">Transparent by design</div>
+            <div class="info-card-body">
+              Every key assumption – universe, filters, estimation window, constraints
+              and fees – is visible and adjustable. You see how each choice affects
+              the resulting portfolio.
+            </div>
+          </article>
+        </section>
         """,
         unsafe_allow_html=True,
     )
 
-    # JOURNEY / PROCESS -------------------------------------------
+    # ---------- JOURNEY ----------
     st.markdown(
         """
-<div class="about-process">
-  <div class="about-process-badge">Our journey together</div>
-  <div class="about-process-title">How we transform your profile into a portfolio</div>
+        <section class="journey">
+          <div class="journey-badge">Our journey together</div>
+          <div class="journey-title">How we transform your profile into a portfolio</div>
 
-  <div class="about-process-steps">
-    <div class="about-process-step">
-      <div class="about-process-step-num">1</div>
-      <div class="about-process-step-title">Understand your objectives</div>
-      <div class="about-process-step-text">
-        We translate your goals, constraints and tolerance for losses into a
-        quantitative risk profile. The questionnaire in this app mirrors that
-        first conversation.
-      </div>
-    </div>
+          <div class="journey-grid">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-title">Understand your objectives</div>
+              <div class="step-text">
+                We translate your goals, constraints and tolerance for losses into a
+                quantitative risk profile. The questionnaire in this app is the
+                digital version of that first discussion.
+              </div>
+            </div>
 
-    <div class="about-process-step">
-      <div class="about-process-step-num">2</div>
-      <div class="about-process-step-title">Design the universe</div>
-      <div class="about-process-step-text">
-        Together we choose equity indices, complementary asset classes, sector
-        and ESG filters, and any exclusions that matter to you.
-      </div>
-    </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-title">Design the universe</div>
+              <div class="step-text">
+                Together we choose the equity universe, complementary asset classes
+                and any ESG or exclusion rules that matter for you.
+              </div>
+            </div>
 
-    <div class="about-process-step">
-      <div class="about-process-step-num">3</div>
-      <div class="about-process-step-title">Optimise with discipline</div>
-      <div class="about-process-step-text">
-        Using historical data and robust statistics, we search for allocations
-        that balance expected return with volatility and drawdown rather than
-        chasing the highest backtest.
-      </div>
-    </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-title">Optimise with discipline</div>
+              <div class="step-text">
+                Using historical data, robust statistics and realistic constraints,
+                we search for allocations that balance expected return with
+                volatility and drawdown.
+              </div>
+            </div>
 
-    <div class="about-process-step">
-      <div class="about-process-step-num">4</div>
-      <div class="about-process-step-title">Monitor &amp; adapt</div>
-      <div class="about-process-step-text">
-        Portfolios are re-estimated and rebalanced on a clear schedule. When
-        markets change, the process adapts – while the underlying discipline
-        remains the same.
-      </div>
-    </div>
-  </div>
-</div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-title">Monitor &amp; adapt</div>
+              <div class="step-text">
+                Portfolios are reviewed on a clear schedule. When markets change, the
+                parameters are updated – but the underlying discipline stays the same.
+              </div>
+            </div>
+          </div>
+        </section>
         """,
         unsafe_allow_html=True,
     )
 
-    # CONTACT ------------------------------------------------------
+    # ---------- CONTACT ----------
     st.markdown(
         """
-<div id="contact" class="about-contact">
-  <div>
-    <div class="about-contact-title">Let’s talk about your portfolio</div>
-    <div class="about-contact-text">
-      If this philosophy resonates with you, we would be pleased to review your
-      objectives live and walk through the application together, using your own
-      constraints as an example.
-    </div>
-    <div class="about-contact-tagline">
-      One conversation, no obligation – simply a clear view of how a systematic
-      process could fit your situation.
-    </div>
-  </div>
+        <section id="contact" class="contact">
+          <div class="contact-main">
+            <div class="contact-title">Let’s talk about your portfolio</div>
+            <div class="contact-text">
+              If this philosophy resonates with you, we would be pleased to review
+              your objectives live and walk through the application together – using
+              your own constraints as an example.
+            </div>
+            <div class="contact-tagline">
+              One conversation, no obligation – simply a clear view of how a
+              systematic process could fit your situation.
+            </div>
+          </div>
 
-  <div class="about-contact-card">
-    <div class="about-contact-label">Contact</div>
-    <div class="about-contact-email">
-      Email:
-      <a href="mailto:contact@phi-investment.com">
-        contact@phi-investment.com
-      </a><br/>
-      Or reach out through your usual relationship channel.
-    </div>
-  </div>
-</div>
+          <div class="contact-card">
+            <div class="contact-label">Contact</div>
+            <div class="contact-email">
+              Email: <a href="mailto:contact@phi-investment.com">
+              contact@phi-investment.com</a><br/>
+              Or reach out through your usual relationship channel.
+            </div>
+          </div>
+        </section>
         """,
         unsafe_allow_html=True,
     )
