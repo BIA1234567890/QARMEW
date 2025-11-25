@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 from groq import Groq
 
-from engine 2 import (
+from engine  import (
     PortfolioConfig,
     load_all_data,
     run_backtest,
