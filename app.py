@@ -82,7 +82,7 @@ def page_about():
                     rgba(15, 23, 42, 0.55),
                     rgba(15, 23, 42, 0.35)
                 ),
-                url("hero_bg.png");
+                url("hero_bg");
             background-size: cover;
             background-position: center;
         }
