@@ -57,479 +57,566 @@ def get_llm_client():
 
 
 # --------------- PAGE 1: ABOUT US ---------------
+# --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    # =========================================
-    # CSS — Premium Boutique Look & Feel
-    # =========================================
-    st.markdown("""
-    <style>
+    # --- Local CSS just for this page ---
+    st.markdown(
+        """
+<style>
+body {
+    background-color: #f5f7fb;
+}
 
-    /* ---- Global Wrapper ---- */
-    .about-wrapper {
-        padding: 0;
-        margin: 0;
-        font-family: 'Inter', sans-serif;
+/* Root wrapper */
+.about-wrapper {
+    padding-top: 0.5rem;
+    padding-bottom: 2.5rem;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+/* HERO --------------------------------------------------- */
+.about-hero {
+    border-radius: 28px;
+    padding: 2.2rem 2.4rem;
+    background: radial-gradient(circle at 0% 0%, #e0f2fe, #eef2ff, #f5f7fb);
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+    margin-bottom: 2.3rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
+    gap: 2.0rem;
+    align-items: center;
+}
+
+.about-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.04);
+    border: 1px solid rgba(148,163,184,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.about-pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #22c55e;
+}
+
+.about-hero-title {
+    margin-top: 1.0rem;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    font-weight: 700;
+    color: #020617;
+}
+
+.about-hero-title span.accent {
+    background: linear-gradient(90deg, #0ea5e9, #22c55e, #f97316);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.about-hero-subtitle {
+    margin-top: 0.9rem;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: #4b5563;
+    max-width: 32rem;
+}
+
+.about-hero-bullets {
+    margin-top: 0.9rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.about-hero-bullets li {
+    margin-bottom: 0.25rem;
+}
+
+.about-hero-cta-row {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+}
+
+.about-hero-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.7rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #0ea5e9, #22c55e);
+    color: #0b1120 !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: 0 16px 40px rgba(34,197,94,0.35);
+}
+
+.about-hero-cta-note {
+    font-size: 0.88rem;
+    color: #6b7280;
+    max-width: 20rem;
+}
+
+/* Right side of hero */
+.about-hero-right {
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(15,23,42,0.16);
+    padding: 1.1rem 1.2rem 1.3rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+}
+
+.about-hero-image {
+    border-radius: 18px;
+    overflow: hidden;
+    background: #020617;
+}
+
+.about-hero-image img {
+    width: 100%;
+    display: block;
+}
+
+.about-hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.about-hero-metric-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #9ca3af;
+}
+
+.about-hero-metric-value {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* SECTION TITLES ---------------------------------------- */
+.about-section-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: #020617;
+}
+
+.about-section-subtitle {
+    font-size: 0.97rem;
+    color: #4b5563;
+    margin-bottom: 1.7rem;
+}
+
+/* INFO CARDS -------------------------------------------- */
+.about-card-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.3rem;
+}
+
+.about-info-card {
+    border-radius: 18px;
+    padding: 1.3rem 1.35rem;
+    background: linear-gradient(135deg, #ffffff, #eef2ff);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 14px 30px rgba(15,23,42,0.08);
+}
+
+.about-info-card-label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #9ca3af;
+    margin-bottom: 0.3rem;
+}
+
+.about-info-card-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.35rem;
+}
+
+.about-info-card-body {
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+/* JOURNEY / PROCESS ------------------------------------- */
+.about-process {
+    border-radius: 22px;
+    padding: 1.7rem 1.7rem 1.5rem 1.7rem;
+    background: linear-gradient(135deg, #fefce8, #f5f5ff);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 2.4rem;
+}
+
+.about-process-badge {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #9ca3af;
+    margin-bottom: 0.35rem;
+}
+
+.about-process-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.0rem;
+}
+
+.about-process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.1rem;
+}
+
+.about-process-step {
+    border-radius: 16px;
+    padding: 1.0rem 1.0rem 0.95rem 1.0rem;
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(148,163,184,0.35);
+}
+
+.about-process-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #0ea5e9, #22c55e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0b1120;
+    margin-bottom: 0.45rem;
+}
+
+.about-process-step-title {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.about-process-step-text {
+    font-size: 0.88rem;
+    color: #4b5563;
+}
+
+/* CONTACT BAND ------------------------------------------ */
+.about-contact {
+    border-radius: 24px;
+    padding: 1.9rem 1.9rem;
+    background: linear-gradient(135deg, #020617, #020617, #0f172a);
+    color: #e5e7eb;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.1fr);
+    gap: 1.5rem;
+    align-items: center;
+    box-shadow: 0 22px 60px rgba(15,23,42,0.8);
+}
+
+.about-contact-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+}
+
+.about-contact-text {
+    font-size: 0.95rem;
+    color: #cbd5f5;
+    margin-bottom: 0.7rem;
+}
+
+.about-contact-tagline {
+    font-size: 0.86rem;
+    color: #a5b4fc;
+}
+
+.about-contact-card {
+    border-radius: 16px;
+    padding: 1.0rem 1.1rem;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(148,163,184,0.7);
+}
+
+.about-contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+}
+
+.about-contact-email {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+.about-contact-email a {
+    color: #f9fafb;
+    text-decoration: none;
+}
+
+/* RESPONSIVE -------------------------------------------- */
+@media (max-width: 1024px) {
+    .about-hero {
+        grid-template-columns: 1fr;
     }
-
-    /* ---- HERO SECTION ---- */
-    .hero {
-        position: relative;
-        width: 100%;
-        height: 520px;
-        border-radius: 28px;
-        overflow: hidden;
-        margin-bottom: 60px;
-
-        background:
-            linear-gradient(
-                180deg,
-                rgba(2, 6, 23, 0.65),
-                rgba(2, 6, 23, 0.55),
-                rgba(2, 6, 23, 0.80)
-            ),
-            url("hero_bg.png");
-
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-
-        display: flex;
-        align-items: flex-end;
-        padding: 60px 60px;
-        color: #F1F5F9;
+    .about-card-row {
+        grid-template-columns: 1fr 1fr;
     }
-
-    .hero-content {
-        max-width: 750px;
+    .about-process-steps {
+        grid-template-columns: 1fr 1fr;
     }
-
-    .hero-title {
-        font-size: 3.2rem;
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 12px;
-        color: #fff;
+    .about-contact {
+        grid-template-columns: 1fr;
     }
+}
 
-    .hero-accent {
-        background: linear-gradient(90deg, #fefcf3, #e4d6b9, #ffffff);
-        -webkit-background-clip: text;
-        color: transparent;
-        font-weight: 700;
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 1.8rem 1.5rem;
     }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-        line-height: 1.75;
-        color: #e2e8f0;
-        margin-bottom: 26px;
+    .about-hero-title {
+        font-size: 2.0rem;
     }
-
-    .hero-cta {
-        display: inline-block;
-        padding: 12px 26px;
-        background: linear-gradient(90deg, #e8d8b1, #f5e7c6, #e8d8b1);
-        border-radius: 999px;
-        color: #1e293b !important;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        box-shadow: 0 8px 28px rgba(255, 239, 199, 0.35);
-        transition: 0.2s ease;
+    .about-card-row {
+        grid-template-columns: 1fr;
     }
-
-    .hero-cta:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 34px rgba(255, 239, 199, 0.45);
+    .about-process-steps {
+        grid-template-columns: 1fr;
     }
+}
+</style>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    /* ---- HERO SIDE CARD ---- */
-    .hero-card {
-        position: absolute;
-        right: 40px;
-        top: 40px;
-        width: 260px;
-        padding: 20px 22px;
-        background: rgba(15, 23, 42, 0.65);
-        backdrop-filter: blur(14px);
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    }
+    st.markdown('<div class="about-wrapper">', unsafe_allow_html=True)
 
-    .hero-card-title {
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        font-size: 0.75rem;
-        color: #E2E8F0;
-        margin-bottom: 6px;
-    }
-
-    .hero-card-body {
-        font-size: 0.95rem;
-        color: #F8FAFC;
-        line-height: 1.4;
-    }
-
-
-    /* ---- QUICK STATS BAND ---- */
-    .quick-band {
-        width: 100%;
-        padding: 32px 40px;
-        border-radius: 20px;
-        background: linear-gradient(180deg, #faf7f0, #f2ece0);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-        margin-bottom: 50px;
-    }
-
-    .quick-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-    }
-
-    .quick-label {
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        color: #475569;
-        letter-spacing: 0.12em;
-    }
-
-    .quick-value {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #1e293b;
-    }
-
-
-    /* ---- SECTION TITLES ---- */
-    .section-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: #0f172a;
-    }
-
-    .section-subtitle {
-        font-size: 1rem;
-        color: #475569;
-        margin-bottom: 30px;
-        max-width: 680px;
-        line-height: 1.6;
-    }
-
-
-    /* ---- INFO CARDS ---- */
-    .info-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-bottom: 50px;
-    }
-
-    .info-card {
-        flex: 1 1 30%;
-        background: #ffffff;
-        padding: 22px 24px;
-        border-radius: 18px;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .info-card label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: #64748b;
-    }
-
-    .info-card h4 {
-        margin-top: 5px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #0f172a;
-    }
-
-    .info-card p {
-        font-size: 0.9rem;
-        color: #475569;
-        line-height: 1.5;
-        margin-top: 8px;
-    }
-
-
-    /* ---- JOURNEY SECTION ---- */
-    .journey {
-        padding: 30px;
-        border-radius: 22px;
-        background: #f9f7f2;
-        border: 1px solid #e7dfcb;
-        margin-bottom: 50px;
-    }
-
-    .journey-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
-
-    .step {
-        background: #fff;
-        padding: 18px;
-        border-radius: 16px;
-        box-shadow: 0 10px 28px rgba(0,0,0,0.06);
-    }
-
-    .step-num {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #e8d8b1, #fff1c7);
-        color: #1e293b;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .step-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #0f172a;
-        margin-bottom: 6px;
-    }
-
-    .step-text {
-        font-size: 0.9rem;
-        color: #475569;
-        line-height: 1.5;
-    }
-
-
-    /* ---- CONTACT SECTION ---- */
-    .contact {
-        padding: 40px;
-        border-radius: 24px;
-        background: linear-gradient(135deg, #121a2d, #0f172a, #121a2d);
-        color: #e2e8f0;
-        box-shadow: 0 18px 50px rgba(0,0,0,0.45);
-        display: flex;
-        gap: 40px;
-    }
-
-    .contact-text {
-        flex: 2;
-    }
-
-    .contact h3 {
-        margin-bottom: 6px;
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #fff;
-    }
-
-    .contact p {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #e2e8f0;
-        margin-bottom: 8px;
-    }
-
-    .contact-card {
-        flex: 1;
-        padding: 20px;
-        background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(12px);
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,0.18);
-    }
-
-    .contact-card label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: #cbd5e1;
-        letter-spacing: 0.15em;
-    }
-
-    .contact-card a {
-        color: #fff;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-    # ============================
-    # HERO SECTION
-    # ============================
-    st.markdown("""
-    <div class="about-wrapper">
-        <div class="hero">
-            <div class="hero-content">
-                <div class="hero-title">
-                    Phi Investment Capital<br>
-                    <span class="hero-accent">Where discipline becomes clarity.</span>
-                </div>
-
-                <div class="hero-subtitle">
-                    We build portfolios the way pilots fly aircraft—through instrumentation,
-                    checklists, and constant monitoring. No narratives, no guessing,
-                    only a repeatable process you can understand and challenge.
-                </div>
-
-                <a href="#contact" class="hero-cta">Book an introduction call</a>
-            </div>
-
-            <div class="hero-card">
-                <div class="hero-card-title">Our Promise</div>
-                <div class="hero-card-body">
-                    Every allocation can be explained line by line.  
-                    Nothing is a black box.  
-                    You see the exact logic we use for our own capital.
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # ============================
-    # QUICK BAND
-    # ============================
-    st.markdown("""
-    <div class="quick-band">
-        <div class="quick-grid">
-            <div>
-                <div class="quick-label">Diversified Universe</div>
-                <div class="quick-value">7 asset classes</div>
-            </div>
-
-            <div>
-                <div class="quick-label">Portfolio Style</div>
-                <div class="quick-value">Risk-aware, long-only</div>
-            </div>
-
-            <div>
-                <div class="quick-label">Process</div>
-                <div class="quick-value">Markowitz + robust covariances</div>
-            </div>
-
-            <div>
-                <div class="quick-label">Regime</div>
-                <div class="quick-value">Fully transparent & auditable</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # ============================
-    # WHO WE ARE
-    # ============================
-    st.markdown("""
-    <div class="section-title">Who we are & what we do</div>
-    <div class="section-subtitle">
-        Phi Investment Capital serves investors who demand institutional-grade portfolio
-        construction paired with full transparency. Our DNA blends global markets experience
-        with a rigorous quantitative framework.
+    # HERO ---------------------------------------------------------
+    st.markdown(
+        """
+<div class="about-hero">
+  <div>
+    <div class="about-pill">
+      <span class="about-pill-dot"></span>
+      PHI INVESTMENT CAPITAL
     </div>
 
-    <div class="info-row">
-        <div class="info-card">
-            <label>Philosophy</label>
-            <h4>Risk is our first language</h4>
-            <p>
-                We start with what can go wrong—liquidity, drawdowns, structural breaks.
-                Only then do we seek risk premia that survive real-world frictions.
-            </p>
-        </div>
-
-        <div class="info-card">
-            <label>Process</label>
-            <h4>Systematic & repeatable</h4>
-            <p>
-                Portfolios are built using Markowitz optimization, robust statistics,
-                and explicit constraints. No guesswork. No narratives.
-            </p>
-        </div>
-
-        <div class="info-card">
-            <label>Client experience</label>
-            <h4>Radical transparency</h4>
-            <p>
-                Every assumption—universe, filters, constraints, fees—is visible and testable.
-                You see how decisions impact your results.
-            </p>
-        </div>
+    <div class="about-hero-title">
+      Where disciplined<br/>
+      portfolios meet <span class="accent">clear explanations.</span>
     </div>
-    """, unsafe_allow_html=True)
 
-    # ============================
-    # JOURNEY SECTION
-    # ============================
-    st.markdown("""
-    <div class="journey">
-        <div class="section-title">How we transform your profile into a portfolio</div>
-
-        <div class="journey-grid">
-            <div class="step">
-                <div class="step-num">1</div>
-                <div class="step-title">Understand Your Objectives</div>
-                <div class="step-text">
-                    Your goals and your tolerance for losses become a quantitative risk profile.
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <div class="step-title">Design the Universe</div>
-                <div class="step-text">
-                    Together we choose sectors, ESG filters, asset classes, and exclusions.
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">3</div>
-                <div class="step-title">Optimize with Discipline</div>
-                <div class="step-text">
-                    Using robust statistics, we search for allocations balancing return and risk.
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">4</div>
-                <div class="step-title">Monitor & Adapt</div>
-                <div class="step-text">
-                    Re-estimation, rebalancing, regime recognition—always rule-based.
-                </div>
-            </div>
-        </div>
+    <div class="about-hero-subtitle">
+      We design portfolios the way pilots fly aircraft: with instruments,
+      checklists and constant monitoring. No stories, no guesswork —
+      only a repeatable process you can understand and challenge.
     </div>
-    """, unsafe_allow_html=True)
 
-    # ============================
-    # CONTACT SECTION
-    # ============================
-    st.markdown("""
-    <div id="contact" class="contact">
-        <div class="contact-text">
-            <h3>Let’s talk about your portfolio</h3>
-            <p>
-                If our philosophy resonates with you, we would be pleased to review your objectives 
-                live and walk through the application together.
-            </p>
-            <p class="small">
-                One conversation. No obligation.  
-                A clear view of how a systematic process fits your situation.
-            </p>
-        </div>
+    <ul class="about-hero-bullets">
+      <li>Global, multi-asset universe with institutional data quality</li>
+      <li>Rule-based optimisation, robust risk models, transparent constraints</li>
+      <li>Every allocation can be traced back to a documented choice</li>
+    </ul>
 
-        <div class="contact-card">
-            <label>Contact</label>
-            <p>Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a></p>
-        </div>
+    <div class="about-hero-cta-row">
+      <a class="about-hero-cta-primary" href="#contact">
+        Book an introduction call
+      </a>
+      <div class="about-hero-cta-note">
+        A short conversation to walk through the engine behind this app and
+        see how it translates your profile into a concrete portfolio.
+      </div>
     </div>
+  </div>
+
+  <div class="about-hero-right">
+    <div class="about-hero-image">
+      <img src="hero_bg.png" alt="Portfolio visual" />
     </div>
-    """, unsafe_allow_html=True)
+    <div class="about-hero-metrics">
+      <div>
+        <div class="about-hero-metric-label">Universe</div>
+        <div class="about-hero-metric-value">7 asset classes</div>
+      </div>
+      <div>
+        <div class="about-hero-metric-label">Approach</div>
+        <div class="about-hero-metric-value">Systematic &amp; rule-based</div>
+      </div>
+      <div>
+        <div class="about-hero-metric-label">Client experience</div>
+        <div class="about-hero-metric-value">Fully transparent</div>
+      </div>
+    </div>
+  </div>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # WHO WE ARE ---------------------------------------------------
+    st.markdown(
+        """
+<p class="about-section-title">Who we are &amp; what we do</p>
+<p class="about-section-subtitle">
+Phi Investment Capital serves investors who want institutional-grade portfolio
+construction with full transparency. Our DNA blends global markets experience
+with a rigorous quantitative framework and a strong focus on explaining every step.
+</p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+<div class="about-card-row">
+  <div class="about-info-card">
+    <div class="about-info-card-label">Philosophy</div>
+    <div class="about-info-card-title">Risk is our first language</div>
+    <div class="about-info-card-body">
+      We start with what can go wrong: liquidity, drawdowns and regime shifts.
+      Only after understanding your downside do we reach for return premia that
+      survive out-of-sample tests and realistic frictions.
+    </div>
+  </div>
+
+  <div class="about-info-card">
+    <div class="about-info-card-label">Process</div>
+    <div class="about-info-card-title">Systematic &amp; repeatable</div>
+    <div class="about-info-card-body">
+      Portfolios are built using Markowitz-style optimisation, robust
+      covariance estimation and clearly defined constraints on sectors, ESG
+      and asset classes – exactly the logic that powers this application.
+    </div>
+  </div>
+
+  <div class="about-info-card">
+    <div class="about-info-card-label">Client experience</div>
+    <div class="about-info-card-title">Radical transparency</div>
+    <div class="about-info-card-body">
+      Every key assumption – universe, estimation window, constraints and fees –
+      is visible, adjustable and testable. Nothing is a black box; you see the
+      same logic we use for our own capital.
+    </div>
+  </div>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # JOURNEY / PROCESS -------------------------------------------
+    st.markdown(
+        """
+<div class="about-process">
+  <div class="about-process-badge">Our journey together</div>
+  <div class="about-process-title">How we transform your profile into a portfolio</div>
+
+  <div class="about-process-steps">
+    <div class="about-process-step">
+      <div class="about-process-step-num">1</div>
+      <div class="about-process-step-title">Understand your objectives</div>
+      <div class="about-process-step-text">
+        We translate your goals, constraints and tolerance for losses into a
+        quantitative risk profile. The questionnaire in this app mirrors that
+        first conversation.
+      </div>
+    </div>
+
+    <div class="about-process-step">
+      <div class="about-process-step-num">2</div>
+      <div class="about-process-step-title">Design the universe</div>
+      <div class="about-process-step-text">
+        Together we choose equity indices, complementary asset classes, sector
+        and ESG filters, and any exclusions that matter to you.
+      </div>
+    </div>
+
+    <div class="about-process-step">
+      <div class="about-process-step-num">3</div>
+      <div class="about-process-step-title">Optimise with discipline</div>
+      <div class="about-process-step-text">
+        Using historical data and robust statistics, we search for allocations
+        that balance expected return with volatility and drawdown rather than
+        chasing the highest backtest.
+      </div>
+    </div>
+
+    <div class="about-process-step">
+      <div class="about-process-step-num">4</div>
+      <div class="about-process-step-title">Monitor &amp; adapt</div>
+      <div class="about-process-step-text">
+        Portfolios are re-estimated and rebalanced on a clear schedule. When
+        markets change, the process adapts – while the underlying discipline
+        remains the same.
+      </div>
+    </div>
+  </div>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # CONTACT ------------------------------------------------------
+    st.markdown(
+        """
+<div id="contact" class="about-contact">
+  <div>
+    <div class="about-contact-title">Let’s talk about your portfolio</div>
+    <div class="about-contact-text">
+      If this philosophy resonates with you, we would be pleased to review your
+      objectives live and walk through the application together, using your own
+      constraints as an example.
+    </div>
+    <div class="about-contact-tagline">
+      One conversation, no obligation – simply a clear view of how a systematic
+      process could fit your situation.
+    </div>
+  </div>
+
+  <div class="about-contact-card">
+    <div class="about-contact-label">Contact</div>
+    <div class="about-contact-email">
+      Email:
+      <a href="mailto:contact@phi-investment.com">
+        contact@phi-investment.com
+      </a><br/>
+      Or reach out through your usual relationship channel.
+    </div>
+  </div>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
