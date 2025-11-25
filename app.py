@@ -55,27 +55,477 @@ def get_llm_client():
 
 
 # --------------- PAGE 1: ABOUT US ---------------
+# --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    st.title("Our Investment Firm")
+    # --- Local CSS just for this page ---
+    st.markdown(
+        """
+        <style>
+        /* Page background */
+        .about-root {
+            padding-top: 1rem;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            background: radial-gradient(circle at top left, #0f172a 0%, #020617 45%, #111827 100%);
+            border-radius: 24px;
+            padding: 3rem 3rem 2.5rem 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
+            color: #e5e7eb;
+        }
+        .hero-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.75rem;
+        }
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(15,148,136,0.12);
+            color: #5eead4;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.75rem;
+        }
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: #cbd5f5;
+            max-width: 40rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .hero-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .hero-metric {
+            min-width: 8rem;
+        }
+        .hero-metric-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #9ca3af;
+        }
+        .hero-metric-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+        .hero-cta-row {
+            margin-top: 1.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .hero-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
+            color: white !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+        }
+        .hero-cta-secondary {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        /* Right hero image/card */
+        .hero-card {
+            border-radius: 20px;
+            padding: 1.3rem 1.5rem;
+            background: radial-gradient(circle at top, rgba(56,189,248,0.2), rgba(15,23,42,0.9));
+            border: 1px solid rgba(148,163,184,0.35);
+            box-shadow: 0 20px 40px rgba(15,23,42,0.8);
+        }
+        .hero-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+        .hero-card-main {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 0.75rem;
+        }
+        .hero-card-note {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        /* SECTION TITLES */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            color: #0f172a;
+        }
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-bottom: 1.8rem;
+        }
+
+        /* CARDS ROW */
+        .card-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2.3rem;
+        }
+        .info-card {
+            flex: 1 1 220px;
+            border-radius: 18px;
+            padding: 1.2rem 1.3rem 1.1rem 1.3rem;
+            background: linear-gradient(145deg, #f9fafb, #eff6ff);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(15,23,42,0.10);
+        }
+        .info-card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #6b7280;
+            margin-bottom: 0.35rem;
+        }
+        .info-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: #111827;
+        }
+        .info-card-body {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            margin-top: 0.75rem;
+            margin-bottom: 2.3rem;
+        }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(#0ea5e9, #22c55e);
+            opacity: 0.6;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.8rem;
+            margin-bottom: 1.4rem;
+        }
+        .timeline-bullet {
+            position: absolute;
+            left: 7px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: white;
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(56,189,248,0.25);
+        }
+        .timeline-step-title {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.15rem;
+        }
+        .timeline-step-text {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            margin-top: 2.4rem;
+            padding: 1.8rem 1.6rem;
+            border-radius: 20px;
+            background: linear-gradient(120deg, #0f172a, #1e293b);
+            color: #e5e7eb;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .contact-main {
+            flex: 2 1 260px;
+        }
+        .contact-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+        .contact-text {
+            font-size: 0.95rem;
+            color: #cbd5f5;
+            margin-bottom: 0.8rem;
+        }
+        .contact-tagline {
+            font-size: 0.85rem;
+            color: #a5b4fc;
+        }
+        .contact-card {
+            flex: 1 1 220px;
+            background: rgba(15,23,42,0.75);
+            border-radius: 16px;
+            padding: 1rem 1.1rem;
+            border: 1px solid rgba(148,163,184,0.6);
+        }
+        .contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #9ca3af;
+            margin-bottom: 0.2rem;
+        }
+        .contact-email {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+        .contact-email a {
+            color: #f9fafb;
+            text-decoration: none;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # --- Layout wrapper div (for CSS targeting) ---
+    st.markdown('<div class="about-root">', unsafe_allow_html=True)
+
+    # HERO SECTION ---------------------------------------------------
+    hero_col1, hero_col2 = st.columns([3, 2])
+
+    with hero_col1:
+        st.markdown(
+            """
+            <div class="hero-section">
+              <div class="hero-pill">Quantitative • Disciplined • Transparent</div>
+              <div class="hero-title">Phi Investment Capital</div>
+              <div class="hero-subtitle">
+                We are a boutique asset &amp; risk management firm focused on
+                building transparent, rule-based portfolios that behave exactly
+                as they are designed to — in good markets and in bad ones.
+              </div>
+
+              <div class="hero-metrics">
+                <div class="hero-metric">
+                  <div class="hero-metric-label">Approach</div>
+                  <div class="hero-metric-value">Systematic &amp; evidence-based</div>
+                </div>
+                <div class="hero-metric">
+                  <div class="hero-metric-label">Universe</div>
+                  <div class="hero-metric-value">Global multi-asset</div>
+                </div>
+                <div class="hero-metric">
+                  <div class="hero-metric-label">Focus</div>
+                  <div class="hero-metric-value">Risk first, returns second</div>
+                </div>
+              </div>
+
+              <div class="hero-cta-row">
+                <a class="hero-cta-primary" href="#contact">Book an introduction call</a>
+                <div class="hero-cta-secondary">
+                  No marketing promises — just a clear view of how your capital is managed.
+                </div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with hero_col2:
+        # OPTION: use your preferred hero image here instead of / along with the card.
+        # Example if you add an image file to your repo:
+        # st.image("assets/phi_hero_option2.png", use_column_width=True)
+        st.markdown(
+            """
+            <div class="hero-section hero-card">
+              <div class="hero-card-title">Our promise</div>
+              <div class="hero-card-main">
+                Every portfolio we build can be explained line by line.
+              </div>
+              <div class="hero-card-note">
+                Behind this app is the same research process we use internally:
+                robust statistics, realistic constraints, and a constant focus
+                on drawdowns and liquidity. You see the full picture — not just a headline return.
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # WHO WE ARE / WHAT WE DO ----------------------------------------
+    st.markdown(
+        """
+        <p class="section-title">Who we are &amp; what we do</p>
+        <p class="section-subtitle">
+          Phi Investment Capital was created for investors who want institutional-grade
+          portfolio construction without opaque black boxes. We combine global markets
+          expertise with rigorous quantitative tools and put everything inside a framework
+          you can actually understand.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
         """
-        ### Who we are
-        We are a quantitative asset & risk management boutique.
+        <div class="card-row">
+          <div class="info-card">
+            <div class="info-card-label">Philosophy</div>
+            <div class="info-card-title">Risk is the starting point</div>
+            <div class="info-card-body">
+              We do not chase stories or headlines. We start with risk, liquidity
+              and drawdowns, then search for return premia that survive out-of-sample
+              testing and transaction costs.
+            </div>
+          </div>
 
-        Our mission is to build **transparent, rule-based portfolios**
-        tailored to each client's risk profile, constraints and ESG preferences.
+          <div class="info-card">
+            <div class="info-card-label">Process</div>
+            <div class="info-card-title">Systematic &amp; repeatable</div>
+            <div class="info-card-body">
+              Portfolios are built using Markowitz-style optimisation, robust
+              covariance estimation and clearly defined constraints on sectors,
+              ESG, and asset classes.
+            </div>
+          </div>
 
-        ### What this app does
-        - Builds a diversified multi-asset portfolio (Equity, Fixed Income, Commodities, Alternatives)
-        - Applies **sector** and **ESG** constraints inside the equity bucket
-        - Applies **asset-class** constraints at the total portfolio level
-        - Optimizes using a **Markowitz mean–variance** model with a robust covariance estimator (Ledoit–Wolf)
-        - Backtests the strategy over the selected horizon
-
-        Use the *Portfolio optimization* page from the sidebar to try it.
-        """
+          <div class="info-card">
+            <div class="info-card-label">Client experience</div>
+            <div class="info-card-title">Radical transparency</div>
+            <div class="info-card-body">
+              The same engine that powers our internal research sits behind this app.
+              You can inspect assumptions, backtests and constraints — and adapt them
+              to your own preferences.
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
+
+    # HOW WE MANAGE CAPITAL (TIMELINE) -------------------------------
+    st.markdown(
+        """
+        <p class="section-title">How we manage your capital</p>
+        <p class="section-subtitle">
+          A clear, four-step journey from understanding your profile to
+          monitoring the portfolio over time.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-bullet"></div>
+            <div class="timeline-step-title">1. Understand your objectives</div>
+            <div class="timeline-step-text">
+              We translate your constraints, horizon and drawdown tolerance into
+              a quantitative risk profile. The questionnaire inside this app is
+              a simplified version of that first conversation.
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-bullet"></div>
+            <div class="timeline-step-title">2. Define the investable universe</div>
+            <div class="timeline-step-text">
+              Together we decide which markets, sectors, ESG profiles and asset
+              classes should be allowed — and which should be capped or excluded.
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-bullet"></div>
+            <div class="timeline-step-title">3. Optimise with discipline</div>
+            <div class="timeline-step-text">
+              Using historical data, robust statistics and realistic constraints,
+              we search for allocations that balance expected return with volatility
+              and drawdown risk, rather than maximising return at any cost.
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-bullet"></div>
+            <div class="timeline-step-title">4. Monitor &amp; adapt</div>
+            <div class="timeline-step-text">
+              Portfolios are re-estimated and rebalanced on a pre-defined schedule.
+              When markets change, the process updates — but the discipline and
+              transparency remain the same.
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # CONTACT SECTION ------------------------------------------------
+    st.markdown(
+        """
+        <div id="contact" class="contact-section">
+          <div class="contact-main">
+            <div class="contact-title">Let’s talk about your portfolio</div>
+            <div class="contact-text">
+              If this philosophy resonates with you, we would be pleased to walk
+              you through the application live, using your own constraints and
+              objectives as an example.
+            </div>
+            <div class="contact-tagline">
+              One conversation, no obligation — just clarity on how a systematic
+              approach could fit your situation.
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-label">Contact</div>
+            <div class="contact-email">
+              Email: <a href="mailto:contact@phi-investment.com">contact@phi-investment.com</a><br/>
+              Or reach out directly from your usual relationship channel.
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Close wrapper div
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
