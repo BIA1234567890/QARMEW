@@ -77,7 +77,7 @@ def page_about():
     # ------------------------------------------------------
     css = f"""
     <style>
-
+"""
     body {{
         font-family: -apple-system, BlinkMacSystemFont, system-ui;
     }}
