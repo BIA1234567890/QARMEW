@@ -134,7 +134,7 @@ def page_about():
             .image-frame img {
                 border-radius: 16px;
                 object-fit: cover;
-                height: 600px;
+                height: 700px;
                 width: 100%;
             }
 
