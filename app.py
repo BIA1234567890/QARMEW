@@ -61,245 +61,217 @@ def get_llm_client():
 
 def page_about():
 
-    # =====================================================
-    # Load hero background image
-    # =====================================================
+    # ---------- Load image ----------
     def get_base64(file_path):
         with open(file_path, "rb") as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
+            return base64.b64encode(f.read()).decode()
 
     hero_image = get_base64("hero_bg.png")
 
-    # =====================================================
-    # CSS
-    # =====================================================
-    st.markdown(f"""
+    # ---------- CSS ----------
+    st.markdown(
+        """
         <style>
-        
-        /* GLOBAL */
-        .about-section {{
+
+        body, p, div {
             font-family: -apple-system, BlinkMacSystemFont, system-ui;
-            margin-bottom: 60px;
-        }}
+        }
 
-        /* HERO SECTION */
-        .hero {{
-            background-image: url("data:image/png;base64,{hero_image}");
-            background-size: cover;
-            background-position: center;
-            padding: 100px 60px;
-            border-radius: 28px;
-            color: white;
-            box-shadow: 0px 20px 45px rgba(0,0,0,0.35);
-            margin-bottom: 50px;
-        }}
-
-        .hero-title {{
-            font-size: 3rem;
+        /* TITLE STYLE */
+        .section-title {
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 0px 3px 15px rgba(0,0,0,0.5);
-        }}
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
 
-        .hero-sub {{
-            font-size: 1.2rem;
-            font-weight: 400;
-            max-width: 700px;
-            line-height: 1.6;
-            text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
-            margin-bottom: 2rem;
-        }}
-
-        .hero-btn {{
-            background: rgba(255,255,255,0.12);
-            padding: 10px 22px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.4);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            backdrop-filter: blur(6px);
-        }}
-
-        /* FEATURE CARDS */
-        .feature-container {{
+        /* 3 COLUMN WHO-WE-ARE SECTION */
+        .feature-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-            margin-top: 20px;
-        }}
+            gap: 25px;
+            margin-top: 25px;
+            margin-bottom: 40px;
+        }
 
-        .feature-card {{
-            background: white;
+        .feature-card {
+            background: #ffffff;
             padding: 28px;
             border-radius: 18px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
             border: 1px solid #e5e7eb;
-        }}
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.06);
+        }
 
-        .feature-title {{
+        .feature-title {
             font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-        }}
+            margin-bottom: 6px;
+        }
 
-        .feature-text {{
-            color: #4b5563;
+        .feature-text {
             font-size: 1rem;
-            line-height: 1.6;
-        }}
+            color: #4b5563;
+            line-height: 1.55;
+        }
 
-        /* STEPS */
-        .step-grid {{
+        /* 4 STEP GRID */
+        .step-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 22px;
+            gap: 25px;
             margin-top: 20px;
-        }}
+        }
 
-        .step-card {{
+        .step-card {
             background: white;
             padding: 26px;
             border-radius: 18px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.06);
             border: 1px solid #e5e7eb;
-        }}
+        }
 
-        .step-num {{
-            width: 36px;
-            height: 36px;
-            background: #2563eb;
+        .step-num {
+            width: 40px;
+            height: 40px;
+            background: #1e3a8a;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            margin-bottom: 0.7rem;
-        }}
+            margin-bottom: 0.8rem;
+        }
 
-        .step-title {{
+        .step-title {
             font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: .3rem;
-        }}
+            margin-bottom: 0.3rem;
+        }
 
-        .step-text {{
+        .step-text {
             font-size: 1rem;
             color: #4b5563;
-            line-height: 1.6;
-        }}
+            line-height: 1.55;
+        }
 
-        /* FOOTER CONTACT */
-        .contact {{
+        /* CONTACT BOX */
+        .contact {
             background: #0f172a;
             padding: 45px;
             color: white;
             border-radius: 22px;
             text-align: center;
-            margin-top: 45px;
-            box-shadow: 0px 18px 35px rgba(0,0,0,0.45);
-        }}
+            margin-top: 60px;
+            margin-bottom: 50px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.45);
+        }
 
-        .contact-title {{
+        .contact-title {
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: .7rem;
-        }}
+            margin-bottom: 0.7rem;
+        }
 
-        .contact-text {{
+        .contact-text {
             font-size: 1.1rem;
             color: #cbd5e1;
             margin-bottom: 20px;
-        }}
+        }
 
         </style>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
 
-    # =====================================================
-    # HERO SECTION
-    # =====================================================
-    st.markdown("""
-        <div class="hero">
-            <div class="hero-title">Portfolio construction made clear.</div>
-            <div class="hero-sub">
-                We turn your preferences into a disciplined, explainable portfolio. 
-                Every lever is transparent — the exact engine we use for our own capital.
-            </div>
-            <a class="hero-btn" href="#contact">Book an introduction call</a>
-        </div>
-    """, unsafe_allow_html=True)
+    # ---------------------------------------------------------
+    # SECTION 1 — WHO WE ARE
+    # ---------------------------------------------------------
+    st.markdown('<div class="section-title">Who we are</div>', unsafe_allow_html=True)
 
-
-    # =====================================================
-    # FEATURE SECTION
-    # =====================================================
-    st.markdown('<div class="about-section">', unsafe_allow_html=True)
-    st.markdown("## Who we are")
-
-    st.markdown("""
+    st.markdown(
+        """
         <div class="feature-container">
+
             <div class="feature-card">
                 <div class="feature-title">Philosophy</div>
-                <div class="feature-text">We start from risk — volatility, liquidity, drawdowns and robustness — always before chasing returns.</div>
+                <div class="feature-text">
+                    We start from risk — volatility, liquidity, drawdowns and robustness —
+                    always before chasing returns.
+                </div>
             </div>
 
             <div class="feature-card">
                 <div class="feature-title">Process</div>
-                <div class="feature-text">Our engine is systematic, constraint-aware and repeatable. You see every assumption and every step.</div>
+                <div class="feature-text">
+                    Our engine is systematic, constraint-aware and repeatable.
+                    Every assumption is visible — nothing is a black box.
+                </div>
             </div>
 
             <div class="feature-card">
                 <div class="feature-title">Client Experience</div>
-                <div class="feature-text">Full transparency — from universe selection to backtesting and optimization.</div>
+                <div class="feature-text">
+                    Full transparency from universe selection to backtesting and optimization.
+                </div>
             </div>
+
         </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    # ---------------------------------------------------------
+    # SECTION 2 — JOURNEY
+    # ---------------------------------------------------------
+    st.markdown('<div class="section-title">Your journey with us</div>', unsafe_allow_html=True)
 
-
-    # =====================================================
-    # STEPS SECTION
-    # =====================================================
-    st.markdown("## Your journey with us")
-
-    st.markdown("""
+    st.markdown(
+        """
         <div class="step-grid">
 
             <div class="step-card">
                 <div class="step-num">1</div>
                 <div class="step-title">Understand your profile</div>
-                <div class="step-text">We quantify your tolerance for losses, horizon and constraints.</div>
+                <div class="step-text">
+                    We quantify your tolerance for drawdowns, constraints and horizon.
+                </div>
             </div>
 
             <div class="step-card">
                 <div class="step-num">2</div>
                 <div class="step-title">Design the universe</div>
-                <div class="step-text">We select asset classes, equity universes and ESG rules.</div>
+                <div class="step-text">
+                    We select asset classes, equity universes and ESG rules.
+                </div>
             </div>
 
             <div class="step-card">
                 <div class="step-num">3</div>
                 <div class="step-title">Optimize with discipline</div>
-                <div class="step-text">We search for allocations balancing return, volatility and drawdown.</div>
+                <div class="step-text">
+                    We search for allocations balancing return, volatility and drawdown.
+                </div>
             </div>
 
             <div class="step-card">
                 <div class="step-num">4</div>
                 <div class="step-title">Monitor & adapt</div>
-                <div class="step-text">We update only when markets justify it — never arbitrary changes.</div>
+                <div class="step-text">
+                    We update only when markets justify it — never arbitrary changes.
+                </div>
             </div>
 
         </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
 
-
-    # =====================================================
+    # ---------------------------------------------------------
     # CONTACT
-    # =====================================================
-    st.markdown("""
+    # ---------------------------------------------------------
+    st.markdown(
+        """
         <div class="contact" id="contact">
             <div class="contact-title">Let’s talk about your portfolio</div>
             <div class="contact-text">
@@ -307,7 +279,10 @@ def page_about():
             </div>
             <div><b>contact@phi-investment.com</b></div>
         </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 
 
