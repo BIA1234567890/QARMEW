@@ -92,35 +92,37 @@ def page_about():
             }
 
             .section-heading {
-                font-size: 26px;
+                font-size: 28px;
                 font-weight: 600;
-                margin-bottom: 10px;
+                margin-bottom: 12px;
                 color: #111;
-                margin-top: 30px;
+                margin-top: 35px;
             }
 
             .paragraph {
-                font-size: 17.5px;
-                color: #333;
-                line-height: 1.75;
-                margin-bottom: 24px;
+                font-size: 19px;
+                color: #2c2c2c;
+                line-height: 1.85;
+                margin-bottom: 28px;
             }
 
             .paragraph ul {
-                margin-top: 8px;
-                margin-bottom: 8px;
-                padding-left: 20px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding-left: 24px;
             }
 
             .image-frame {
-                border-radius: 16px;
+                padding: 16px;
+                border-radius: 20px;
                 overflow: hidden;
                 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-                transition: transform 0.3s ease;
+                background-color: #f5f5f5;
             }
 
-            .image-frame:hover {
-                transform: scale(1.01);
+            .image-frame img {
+                border-radius: 14px;
+                object-fit: cover;
             }
 
             .contact-box {
@@ -167,7 +169,6 @@ def page_about():
     col1, col2 = st.columns([1.4, 1])
 
     with col1:
-        # WHO WE ARE
         st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
@@ -177,7 +178,6 @@ def page_about():
             </div>
         """, unsafe_allow_html=True)
 
-        # WHAT WE DO
         st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
@@ -194,7 +194,6 @@ def page_about():
             </div>
         """, unsafe_allow_html=True)
 
-        # WHY PHI
         st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
@@ -206,7 +205,6 @@ def page_about():
             </div>
         """, unsafe_allow_html=True)
 
-        # WHO WE SERVE (optional)
         st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
@@ -220,7 +218,6 @@ def page_about():
             </div>
         """, unsafe_allow_html=True)
 
-        # PHILOSOPHY (optional)
         st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
@@ -245,7 +242,6 @@ def page_about():
         </div>
     """, unsafe_allow_html=True)
 
-    # TAGLINE FOOTER
     st.markdown("<div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>", unsafe_allow_html=True)
 
 
