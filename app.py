@@ -64,7 +64,7 @@ def page_about():
     from pathlib import Path
 
     # ------------------------------------------------------
-    # LOAD IMAGES (MUST be in the same folder as app.py)
+    # LOAD IMAGES
     # ------------------------------------------------------
     hero_path = Path("hero_bg.png")
     hero_b64 = base64.b64encode(hero_path.read_bytes()).decode()
@@ -77,7 +77,6 @@ def page_about():
     # ------------------------------------------------------
     css = f"""
     <style>
-    """
 
     body {{
         font-family: -apple-system, BlinkMacSystemFont, system-ui;
@@ -87,7 +86,6 @@ def page_about():
         font-weight: 700;
     }}
 
-    /* ------------------------ HERO ------------------------ */
     .hero {{
         background-image: url("data:image/png;base64,{hero_b64}");
         background-size: cover;
@@ -132,7 +130,6 @@ def page_about():
         background: rgba(255,255,255,0.25);
     }}
 
-    /* ------------------- TWO-COLUMN SECTION ------------------- */
     .section-container {{
         display: flex;
         gap: 40px;
@@ -160,7 +157,6 @@ def page_about():
         box-shadow: 0 6px 26px rgba(0,0,0,0.15);
     }}
 
-    /* ------------------------ STEP CARDS ------------------------ */
     .steps-grid {{
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -199,7 +195,6 @@ def page_about():
         color: #444;
     }}
 
-    /* ------------------------ CONTACT ------------------------ */
     .contact {{
         background: #020617;
         padding: 45px 32px;
@@ -229,7 +224,7 @@ def page_about():
     }}
 
     </style>
-    """
+    """  # ✅ <-- THIS closing quote was missing
 
     st.markdown(css, unsafe_allow_html=True)
 
@@ -279,7 +274,6 @@ def page_about():
         """,
         unsafe_allow_html=True,
     )
-
 
     # ------------------------------------------------------
     # YOUR JOURNEY WITH US
