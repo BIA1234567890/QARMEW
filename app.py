@@ -58,169 +58,210 @@ def get_llm_client():
 
 # --------------- PAGE 1: ABOUT US ---------------
 def page_about():
-    st.markdown(
-        """
+    st.markdown("""
         <style>
-        .about-root {
-            padding-top: 0.5rem;
-            padding-bottom: 3rem;
-            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        }
-        .hero-wrapper {
-            position: relative;
-            border-radius: 32px;
-            overflow: hidden;
-            min-height: 340px;
-            margin-bottom: 2.2rem;
-            background:
-                linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
-            box-shadow: 0 24px 60px rgba(15,23,42,0.65);
-            color: #e5e7eb;
-        }
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            padding: 2.6rem 3rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            align-items: center;
-        }
-        .hero-left {
-            flex: 2 1 260px;
-        }
-        .hero-right {
-            flex: 1.3 1 220px;
-        }
-        .hero-card {
-            border-radius: 20px;
-            padding: 1.2rem 1.4rem;
-            background: radial-gradient(circle at top left,
-                        rgba(56,189,248,0.45),
-                        rgba(15,23,42,0.95));
-            border: 1px solid rgba(148,163,184,0.7);
-            box-shadow: 0 16px 40px rgba(15,23,42,0.9);
-        }
-        .step {
-            border-radius: 18px;
-            padding: 1rem 1.05rem 0.95rem 1.05rem;
+        .section {
             background: #ffffff;
-            box-shadow: 0 10px 22px rgba(148,163,184,0.32);
+            border-radius: 22px;
+            padding: 3rem 3rem 2.5rem 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+            font-family: -apple-system, BlinkMacSystemFont, system-ui;
         }
-        .journey-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.2rem;
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
         }
-        @media (max-width: 1024px) {
-            .journey-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #4b5563;
+            margin-bottom: 1.6rem;
+            max-width: 50rem;
+            line-height: 1.6;
         }
-        @media (max-width: 768px) {
-            .journey-grid { grid-template-columns: 1fr; }
+
+        .pill {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            background: #eef6ff;
+            color: #2563eb;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-box {
+            background: #f9fafb;
+            padding: 1.6rem 1.6rem;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #111827;
+        }
+
+        .feature-text {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.55;
+        }
+
+        .step-card {
+            background: white;
+            padding: 1.6rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            height: 100%;
+            border: 1px solid #e5e7eb;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            color: white;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+        }
+
+        .contact-box {
+            background: #111827;
+            padding: 2rem;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .contact-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-text {
+            font-size: 1rem;
+            color: #e5e7eb;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            max-width: 40rem;
         }
         </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    """, unsafe_allow_html=True)
 
-    st.markdown('<div class="about-root">', unsafe_allow_html=True)
+    # ======================================================
+    # SECTION 1 — Intro
+    # ======================================================
+    st.markdown('<div class="section">', unsafe_allow_html=True)
 
+    st.markdown('<div class="pill">PHI INVESTMENT CAPITAL</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">Portfolio construction made clear.</div>', unsafe_allow_html=True)
     st.markdown(
-        """
-        <section class="hero-wrapper">
-          <div class="hero-inner">
-            <div class="hero-left">
-              <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                PHI INVESTMENT CAPITAL
-              </div>
-              <div class="hero-title">
-                Portfolio construction<br/>
-                <span>that feels clear and controlled.</span>
-              </div>
-              <div class="hero-subtitle">
-                Phi Investment Capital focuses on one thing: turning your answers into a
-                disciplined, explainable portfolio. Every lever you see in this app echoes
-                the process we use for our own capital.
-              </div>
-              <div class="hero-cta-row">
-                <a href="#contact" class="hero-cta-primary">Book an introduction call</a>
-                <div class="hero-cta-secondary">
-                  A short conversation to walk through the engine, how we estimate risk and return,
-                  and how your profile becomes an allocation.
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-right">
-              <div class="hero-card">
-                <div class="hero-card-label">Our promise</div>
-                <div class="hero-card-main">Every allocation has a reason.</div>
-                <div class="hero-card-text">
-                  From universe selection to constraints and backtests, nothing is a black box.
-                  The app is designed so you can see – and challenge – each step of the process.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        """,
-        unsafe_allow_html=True,
+        '<div class="subtitle">We build transparent, disciplined portfolios using the same '
+        'framework we apply to our own capital. No noise, no storytelling — just a clean process '
+        'you can understand and challenge.</div>',
+        unsafe_allow_html=True
     )
 
-    st.markdown(
-        """
-        <section class="journey">
-          <div class="journey-badge">Our journey together</div>
-          <div class="journey-title">How we transform your profile into a portfolio</div>
+    if st.button("Book an introduction call"):
+        st.success("We will reach out to you shortly.")
 
-          <div class="journey-grid">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="step-title">Understand your profile</div>
-              <div class="step-text">
-                Your answers to the questionnaire and your constraints define a
-                quantitative risk profile. The sliders you see in the app are the
-                digital version of that first conversation.
-              </div>
-            </div>
+    st.markdown('</div>', unsafe_allow_html=True)
 
-            <div class="step">
-              <div class="step-num">2</div>
-              <div class="step-title">Design the universe</div>
-              <div class="step-text">
-                Together we choose the equity universe, complementary asset classes
-                and any ESG or exclusion rules that matter for you, and turn them
-                into an investable universe.
-              </div>
-            </div>
+    # ======================================================
+    # SECTION 2 — Who We Are
+    # ======================================================
+    st.markdown('<div class="section">', unsafe_allow_html=True)
+    st.markdown('<div class="title">Who we are</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">A quantitative investment practice focused on clarity, discipline and transparency.</div>', unsafe_allow_html=True)
 
-            <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-title">Optimise with discipline</div>
-              <div class="step-text">
-                Using historical data, robust statistics and realistic constraints,
-                we search for allocations that balance expected return, volatility
-                and drawdown – no hidden knobs.
-              </div>
-            </div>
+    colA, colB, colC = st.columns(3)
 
-            <div class="step">
-              <div class="step-num">4</div>
-              <div class="step-title">Monitor &amp; adapt</div>
-              <div class="step-text">
-                Portfolios are reviewed on a clear schedule. When markets change,
-                parameters are updated – but the underlying discipline and philosophy
-                stay the same.
-              </div>
-            </div>
-          </div>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
+    with colA:
+        st.markdown('<div class="feature-box">', unsafe_allow_html=True)
+        st.markdown('<div class="feature-title">Philosophy</div>', unsafe_allow_html=True)
+        st.markdown('<div class="feature-text">We start from risk: volatility, drawdowns, liquidity and robustness — always before chasing returns.</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    with colB:
+        st.markdown('<div class="feature-box">', unsafe_allow_html=True)
+        st.markdown('<div class="feature-title">Process</div>', unsafe_allow_html=True)
+        st.markdown('<div class="feature-text">Our engine is systematic, constraint-aware and repeatable. You see every assumption and every step.</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with colC:
+        st.markdown('<div class="feature-box">', unsafe_allow_html=True)
+        st.markdown('<div class="feature-title">Client Experience</div>', unsafe_allow_html=True)
+        st.markdown('<div class="feature-text">We provide full transparency — from universe design to backtests and optimization logic.</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ======================================================
+    # SECTION 3 — Journey
+    # ======================================================
+    st.markdown('<div class="section">', unsafe_allow_html=True)
+    st.markdown('<div class="title">Your journey with us</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">How we translate your profile into a disciplined allocation.</div>', unsafe_allow_html=True)
+
+    step1, step2 = st.columns(2)
+    step3, step4 = st.columns(2)
+
+    with step1:
+        st.markdown('<div class="step-card">', unsafe_allow_html=True)
+        st.markdown('<div class="step-num">1</div>', unsafe_allow_html=True)
+        st.markdown('**Understand your profile**', unsafe_allow_html=True)
+        st.markdown('We quantify your tolerance for losses, horizon and constraints into a measurable risk profile.', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with step2:
+        st.markdown('<div class="step-card">', unsafe_allow_html=True)
+        st.markdown('<div class="step-num">2</div>', unsafe_allow_html=True)
+        st.markdown('**Design the universe**', unsafe_allow_html=True)
+        st.markdown('We select equity universes, asset classes and any ESG rules to form your investable universe.', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with step3:
+        st.markdown('<div class="step-card">', unsafe_allow_html=True)
+        st.markdown('<div class="step-num">3</div>', unsafe_allow_html=True)
+        st.markdown('**Optimize with discipline**', unsafe_allow_html=True)
+        st.markdown('We search for portfolios that balance return, volatility and drawdown — no hidden knobs.', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with step4:
+        st.markdown('<div class="step-card">', unsafe_allow_html=True)
+        st.markdown('<div class="step-num">4</div>', unsafe_allow_html=True)
+        st.markdown('**Monitor & adapt**', unsafe_allow_html=True)
+        st.markdown('Your allocation is reviewed regularly and adjusted only when justified by the data.', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ======================================================
+    # SECTION 4 — Contact
+    # ======================================================
+    st.markdown('<div class="contact-box">', unsafe_allow_html=True)
+    st.markdown('<div class="contact-title">Let’s talk about your portfolio</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contact-text">If our philosophy resonates with you, we’d be happy to walk you through the engine and review your objectives.</div>', unsafe_allow_html=True)
+    st.markdown("**contact@phi-investment.com**")
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
