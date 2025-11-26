@@ -106,6 +106,12 @@ def page_about():
                 margin-bottom: 24px;
             }
 
+            .paragraph ul {
+                margin-top: 8px;
+                margin-bottom: 8px;
+                padding-left: 20px;
+            }
+
             .image-frame {
                 border-radius: 16px;
                 overflow: hidden;
@@ -139,6 +145,14 @@ def page_about():
                 margin-right: 8px;
                 font-size: 18px;
             }
+
+            .tagline {
+                font-style: italic;
+                color: #444;
+                font-size: 15px;
+                text-align: center;
+                margin-top: 60px;
+            }
         </style>
     """, unsafe_allow_html=True)
 
@@ -153,30 +167,66 @@ def page_about():
     col1, col2 = st.columns([1.4, 1])
 
     with col1:
+        # WHO WE ARE
         st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
-            Phi is an independent technology-led firm focused on empowering institutional and advanced investors through intelligent portfolio construction. 
-            We blend deep financial expertise with modern engineering to help clients make strategic allocation decisions rooted in robust quantitative foundations.
+            Founded by a team of former asset managers, quant engineers, and financial architects, Phi Investment Capital was built around a shared belief: portfolio design should be intentional, data-driven, and uncompromisingly clear.
+            <br><br>
+            We operate at the intersection of finance, technology, and behavioral insight — equipping institutional investors and advisors with the tools to design smarter, risk-aware strategies in a world of complexity.
             </div>
         """, unsafe_allow_html=True)
 
+        # WHAT WE DO
         st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
-            Our platform provides a guided workflow to design, backtest, and implement fully customized portfolios. 
-            Whether you're running a diversified mandate or a thematic tilt, Phi allows you to specify your investment universe, 
-            apply granular constraints, select an estimation regime, and analyze risk-return tradeoffs with precision.
+            Phi is a portfolio design engine — blending capital markets research, statistical models, and intuitive UX.
+            <br><br>
+            We enable clients to:
+            <ul>
+                <li>Define custom investment universes (equities, multi-asset, thematic)</li>
+                <li>Set constraints across sectors, ESG, asset classes, or individual holdings</li>
+                <li>Run robust optimizations using Ledoit-Wolf shrinkage, rolling windows, and rebalancing logic</li>
+                <li>Simulate and backtest performance across different regimes</li>
+            </ul>
+            All within a few clicks, without ever compromising on model transparency or portfolio flexibility.
             </div>
         """, unsafe_allow_html=True)
 
+        # WHY PHI
         st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
         st.markdown("""
             <div class="paragraph">
-            Most tools simplify too much — or overcomplicate what should be intuitive. 
-            Phi exists to bridge that gap: grounded in academic models, optimized for practitioner needs, 
-            and accessible through an interface that respects your workflow. 
-            From hedge funds to family offices, we are proud to support professionals who demand clarity, control, and rigor.
+            Most platforms fall into one of two traps: too simplistic for professionals, or too complex for real workflows. Phi was designed differently.
+            <br><br>
+            We give power back to the allocator. No black boxes. No rigid defaults. Just a clean, explainable engine that lets you control your investment logic — and iterate in real time.
+            <br><br>
+            Whether you're running an active mandate, a long-only strategic mix, or managing internal models for clients, Phi is your quantitative co-pilot — built by practitioners, for practitioners.
+            </div>
+        """, unsafe_allow_html=True)
+
+        # WHO WE SERVE (optional)
+        st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="paragraph">
+            Our platform is trusted by:
+            <ul>
+                <li>Family offices seeking full transparency and control</li>
+                <li>Wealth managers balancing risk and personalization</li>
+                <li>Institutional allocators validating internal models</li>
+                <li>Independent advisors building strategy for clients</li>
+            </ul>
+            </div>
+        """, unsafe_allow_html=True)
+
+        # PHILOSOPHY (optional)
+        st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="paragraph">
+            We believe clarity is the foundation of good investing. Every allocation choice should be intentional, every risk visible, and every result explainable.
+            <br><br>
+            That’s why we built Phi — to make quantitative portfolio design as usable as it is rigorous.
             </div>
         """, unsafe_allow_html=True)
 
@@ -194,6 +244,10 @@ def page_about():
             <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
         </div>
     """, unsafe_allow_html=True)
+
+    # TAGLINE FOOTER
+    st.markdown("<div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>", unsafe_allow_html=True)
+
 
 
 
