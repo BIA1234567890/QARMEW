@@ -71,41 +71,44 @@ def page_about():
             }
 
             .hero {
-                background: linear-gradient(135deg, #0000ff 0%, #00ebff 100%);
-                height: 280px;
-                border-radius: 16px;
+                background: linear-gradient(120deg, #1c1c1c 0%, #2f2f2f 100%);
+                height: 220px;
+                border-radius: 14px;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
+                padding-left: 40px;
                 margin-bottom: 50px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             }
 
             .hero h1 {
                 color: white;
-                font-size: 40px;
-                font-weight: 600;
+                font-size: 48px;
+                font-weight: 700;
+                margin: 0;
+                padding: 0;
                 text-shadow: 1px 1px 6px rgba(0,0,0,0.2);
             }
 
-            .section-title {
+            .section-heading {
                 font-size: 26px;
                 font-weight: 600;
-                margin-bottom: 12px;
+                margin-bottom: 10px;
                 color: #111;
             }
 
-            .about-text {
-                font-size: 16.5px;
+            .narrative-text {
+                font-size: 18px;
                 color: #333;
-                line-height: 1.7;
-                margin-bottom: 28px;
+                line-height: 1.8;
+                margin-bottom: 30px;
             }
 
             .image-frame {
                 border-radius: 16px;
                 overflow: hidden;
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
                 transition: transform 0.3s ease;
             }
 
@@ -116,14 +119,14 @@ def page_about():
             .contact-box {
                 margin-top: 70px;
                 padding: 30px;
-                background: linear-gradient(135deg, #f4f4f4 0%, #fefefe 100%);
+                background: linear-gradient(145deg, #f9f9f9, #ffffff);
                 border-radius: 14px;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+                box-shadow: 0 4px 14px rgba(0,0,0,0.05);
             }
 
             .contact-box h3 {
                 font-size: 22px;
-                margin-bottom: 16px;
+                margin-bottom: 18px;
             }
 
             .contact-box p {
@@ -138,32 +141,41 @@ def page_about():
         </style>
     """, unsafe_allow_html=True)
 
-    # Hero section
+    # HERO SECTION (Left-aligned, premium dark)
     st.markdown("""
         <div class="hero">
             <h1>Phi Investment Capital</h1>
         </div>
     """, unsafe_allow_html=True)
 
-    # Columns
-    col1, col2 = st.columns([1.3, 1])
+    # LAYOUT: Columns
+    col1, col2 = st.columns([1.4, 1])
 
     with col1:
-        st.markdown('<div class="section-title">Who We Are</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-text">We are a team of quantitative thinkers and investment technologists dedicated to making portfolio optimization accessible, transparent, and reliable. Our platform is built for asset managers, advisors, and sophisticated investors who want to control their strategy while leveraging academic-grade methods.</p>', unsafe_allow_html=True)
+        st.markdown('<div class="section-heading">Rethinking Portfolio Construction</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="narrative-text">
+            At Phi, we believe the future of asset management lies in the union of data, design, and discipline. 
+            We started with a simple question: how can we empower investors to construct portfolios with conviction — not guesswork?
+            </div>
 
-        st.markdown('<div class="section-title">What We Do</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-text">Phi offers a flexible interface to run constraint-aware portfolio construction, backed by rolling return estimates, robust covariance shrinkage, and a fully constrained optimizer that works with your beliefs and rules. It’s not just a tool — it’s a framework.</p>', unsafe_allow_html=True)
+            <div class="narrative-text">
+            Most tools in the market are either overly simplistic or frustratingly rigid. Our platform bridges this gap — 
+            combining quantitative rigor with a design that adapts to your logic, not the other way around.
+            </div>
 
-        st.markdown('<div class="section-title">How We Deliver</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-text">We blend high-performance computing with simple UX — empowering users to customize constraints, view risk/return trade-offs clearly, and backtest performance over various market regimes. All with a few clicks.</p>', unsafe_allow_html=True)
+            <div class="narrative-text">
+            Whether you're managing a family office, a wealth mandate, or your own portfolio, Phi offers you a robust yet intuitive way 
+            to explore risk, test strategies, and optimize allocations — all backed by research-grade math and real-world usability.
+            </div>
+        """, unsafe_allow_html=True)
 
     with col2:
         st.markdown('<div class="image-frame">', unsafe_allow_html=True)
         st.image("invest_future.png", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Contact Section
+    # CONTACT BOX
     st.markdown("""
         <div class="contact-box">
             <h3>Contact Us</h3>
@@ -172,6 +184,7 @@ def page_about():
             <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
         </div>
     """, unsafe_allow_html=True)
+
 
 
 
