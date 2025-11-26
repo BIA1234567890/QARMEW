@@ -60,8 +60,6 @@ def get_llm_client():
 
 
 def page_about():
-
-    import streamlit as st
     import base64
     from pathlib import Path
 
@@ -75,7 +73,7 @@ def page_about():
     about_img_b64 = base64.b64encode(about_img_path.read_bytes()).decode()
 
     # ------------------------------------------------------
-    # CSS — FINAL ERROR-FREE VERSION
+    # CSS
     # ------------------------------------------------------
     css = f"""
     <style>
@@ -200,6 +198,30 @@ def page_about():
         color: #444;
     }}
 
+    /* ------------------------ CONTACT ------------------------ */
+    .contact {{
+        background: #020617;
+        padding: 45px 32px;
+        color: white;
+        border-radius: 22px;
+        text-align: center;
+        margin-top: 55px;
+        box-shadow: 0px 18px 40px rgba(15,23,42,0.85);
+        animation: fadeIn 1.2s ease;
+    }}
+
+    .contact-title {{
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }}
+
+    .contact-text {{
+        font-size: 1.05rem;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+    }}
+
     /* ----------------------- Animations ----------------------- */
     @keyframes fadeIn {{
         from {{ opacity: 0; transform: translateY(20px); }}
@@ -214,43 +236,49 @@ def page_about():
     # ------------------------------------------------------
     # HERO SECTION
     # ------------------------------------------------------
-    st.markdown("""
-    <div class="hero">
-        <div class="hero-title">Portfolio construction made clear.</div>
-        <div class="hero-sub">
-            We build transparent, disciplined portfolios using the same framework we apply to our own capital.
-            No noise, no storytelling — just a clean process you can understand and challenge.
+    st.markdown(
+        """
+        <div class="hero">
+            <div class="hero-title">Portfolio construction made clear.</div>
+            <div class="hero-sub">
+                We build transparent, disciplined portfolios using the same framework we apply to our own capital.
+                No noise, no storytelling — just a clean process you can understand and challenge.
+            </div>
+            <a class="hero-btn" href="#contact">Book an introduction call</a>
         </div>
-        <a class="hero-btn" href="#">Book an introduction call</a>
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ------------------------------------------------------
-    # WHO WE ARE — Option D (TEXT LEFT, IMAGE RIGHT)
+    # WHO WE ARE — TEXT LEFT, IMAGE RIGHT
     # ------------------------------------------------------
     st.markdown("## Who we are")
 
-    st.markdown(f"""
-    <div class="section-container">
+    st.markdown(
+        f"""
+        <div class="section-container">
 
-        <div class="section-text">
-            <h3>Clarity, discipline and transparency.</h3>
-            <p>
-                Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness —
-                always before chasing returns.
-            </p>
-            <p>
-                Every allocation you see in this app is based on robust statistics,
-                systematic rules and clear constraints — nothing is a black box.
-            </p>
+            <div class="section-text">
+                <h3>Clarity, discipline and transparency.</h3>
+                <p>
+                    Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness —
+                    always before chasing returns.
+                </p>
+                <p>
+                    Every allocation you see in this app is based on robust statistics,
+                    systematic rules and clear constraints — nothing is a black box.
+                </p>
+            </div>
+
+            <div class="section-image">
+                <img src="data:image/png;base64,{about_img_b64}" alt="Invest in your future">
+            </div>
+
         </div>
-
-        <div class="section-image">
-            <img src="data:image/png;base64,{about_img_b64}">
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ------------------------------------------------------
     # YOUR JOURNEY WITH US — STEP CARDS
@@ -258,43 +286,63 @@ def page_about():
     st.markdown("## Your journey with us")
     st.markdown("How we translate your profile into a disciplined allocation.")
 
-    st.markdown("""
-    <div class="steps-grid">
+    st.markdown(
+        """
+        <div class="steps-grid">
 
-        <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-title">Understand your profile</div>
-            <div class="step-text">
-                We quantify your tolerance for losses, investment horizon, and constraints.
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-title">Understand your profile</div>
+                <div class="step-text">
+                    We quantify your tolerance for losses, investment horizon, and constraints.
+                </div>
             </div>
-        </div>
 
-        <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-title">Design your universe</div>
-            <div class="step-text">
-                We select equity universes, asset classes and ESG rules to form your investable universe.
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-title">Design your universe</div>
+                <div class="step-text">
+                    We select equity universes, asset classes and ESG rules to form your investable universe.
+                </div>
             </div>
-        </div>
 
-        <div class="step-card">
-            <div class="step-num">3</div>
-            <div class="step-title">Optimize with discipline</div>
-            <div class="step-text">
-                We balance expected return, volatility and drawdown using a systematic, constraint-aware engine.
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-title">Optimize with discipline</div>
+                <div class="step-text">
+                    We balance expected return, volatility and drawdown using a systematic, constraint-aware engine.
+                </div>
             </div>
-        </div>
 
-        <div class="step-card">
-            <div class="step-num">4</div>
-            <div class="step-title">Monitor & adapt</div>
-            <div class="step-text">
-                Your allocation is updated only when the data justifies it — never arbitrary changes.
+            <div class="step-card">
+                <div class="step-num">4</div>
+                <div class="step-title">Monitor & adapt</div>
+                <div class="step-text">
+                    Your allocation is updated only when the data justifies it — never arbitrary changes.
+                </div>
             </div>
-        </div>
 
-    </div>
-    """, unsafe_allow_html=True)
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------------------------------------------------------
+    # CONTACT SECTION (BACK AT THE BOTTOM)
+    # ------------------------------------------------------
+    st.markdown(
+        """
+        <div class="contact" id="contact">
+            <div class="contact-title">Let’s talk about your portfolio</div>
+            <div class="contact-text">
+                If our approach resonates, we would be delighted to walk you through the engine.
+            </div>
+            <div><b>contact@phi-investment.com</b></div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 
 
