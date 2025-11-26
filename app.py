@@ -249,13 +249,13 @@ def page_about():
         unsafe_allow_html=True,
     )
 
+       # ------------------------------------------------------
+    # WHO WE ARE — FIXED
     # ------------------------------------------------------
-    # WHO WE ARE (TEXT LEFT / IMAGE RIGHT)
-    # ------------------------------------------------------
-    st.markdown("## Who we are")
-
     st.markdown(
         f"""
+<h2 style="margin-top: 60px;">Who we are</h2>
+
 <div class="section-container">
 
     <div class="section-text">
@@ -278,6 +278,7 @@ def page_about():
         """,
         unsafe_allow_html=True,
     )
+
 
     # ------------------------------------------------------
     # YOUR JOURNEY WITH US
