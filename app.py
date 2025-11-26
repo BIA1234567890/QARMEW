@@ -63,88 +63,86 @@ def page_about():
         """
         <style>
         .about-root {
-            padding-top: 0.5rem;
-            padding-bottom: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.5rem 0 4rem 0;
             font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         }
 
         /* ---------------- HERO ---------------- */
         .hero-wrapper {
             position: relative;
-            border-radius: 32px;
-            overflow: hidden;
-            min-height: 340px;
-            margin-bottom: 2.2rem;
+            border-radius: 28px;
+            padding: 2.6rem 2.4rem;
+            margin-bottom: 2.4rem;
             background:
-                linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75)),
-                url("hero_bg") center/cover no-repeat;
-            box-shadow: 0 24px 60px rgba(15,23,42,0.65);
-            color: #e5e7eb;
+                radial-gradient(circle at top left, #dbeafe, #e0f2fe 45%, #eef2ff 85%);
+            box-shadow: 0 22px 60px rgba(15,23,42,0.20);
+            overflow: hidden;
         }
 
         .hero-inner {
-            position: relative;
-            z-index: 1;
-            padding: 2.6rem 3rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 2.5rem;
+            gap: 2.4rem;
             align-items: center;
         }
 
         .hero-left {
             flex: 2 1 260px;
+            color: #020617;
         }
 
         .hero-pill {
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            padding: 0.25rem 0.85rem;
+            padding: 0.28rem 0.9rem;
             border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.65);
-            background: rgba(15,23,42,0.8);
+            border: 1px solid rgba(15,23,42,0.12);
+            background: rgba(255,255,255,0.9);
             text-transform: uppercase;
             letter-spacing: 0.16em;
             font-size: 0.72rem;
             font-weight: 600;
-            color: #e5e7eb;
+            color: #0f172a;
         }
 
         .hero-pill-dot {
             width: 7px;
             height: 7px;
             border-radius: 999px;
-            background: #22c55e;
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
         }
 
         .hero-title {
-            margin-top: 1.2rem;
-            font-size: 2.6rem;
+            margin-top: 1.4rem;
+            font-size: 2.5rem;
             line-height: 1.12;
             letter-spacing: 0.01em;
             font-weight: 700;
+            color: #020617;
         }
 
         .hero-title span {
-            background: linear-gradient(90deg, #38bdf8, #22c55e, #facc15);
+            background: linear-gradient(90deg, #0ea5e9, #22c55e, #f97316);
             -webkit-background-clip: text;
             color: transparent;
         }
 
         .hero-subtitle {
-            margin-top: 0.9rem;
+            margin-top: 1rem;
             max-width: 32rem;
             font-size: 1.02rem;
             line-height: 1.7;
-            color: #d1d5db;
+            color: #334155;
         }
 
         .hero-cta-row {
-            margin-top: 1.8rem;
+            margin-top: 1.9rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 1.1rem;
+            gap: 1rem;
             align-items: center;
         }
 
@@ -152,73 +150,96 @@ def page_about():
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.78rem 1.9rem;
+            padding: 0.85rem 2rem;
             border-radius: 999px;
             border: none;
-            background: linear-gradient(135deg, #38bdf8, #22c55e);
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
             color: #0b1120 !important;
             font-weight: 600;
             font-size: 0.95rem;
             text-decoration: none;
-            box-shadow: 0 18px 40px rgba(34,197,94,0.45);
+            box-shadow: 0 18px 40px rgba(34,197,94,0.40);
         }
 
         .hero-cta-secondary {
             font-size: 0.9rem;
-            max-width: 21rem;
-            color: #cbd5f5;
+            max-width: 20rem;
+            color: #475569;
         }
 
         .hero-right {
-            flex: 1.3 1 220px;
+            flex: 1.4 1 220px;
         }
 
-        .hero-card {
+        .hero-badge-card {
             border-radius: 20px;
             padding: 1.2rem 1.4rem;
-            background: radial-gradient(circle at top left,
-                        rgba(56,189,248,0.45),
-                        rgba(15,23,42,0.95));
-            border: 1px solid rgba(148,163,184,0.7);
-            box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+            background: rgba(255,255,255,0.96);
+            border: 1px solid rgba(148,163,184,0.5);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.12);
         }
 
-        .hero-card-label {
-            font-size: 0.76rem;
+        .hero-badge-label {
+            font-size: 0.78rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: #d1d5db;
-            margin-bottom: 0.4rem;
-        }
-
-        .hero-card-main {
-            font-size: 1.02rem;
-            font-weight: 600;
-            color: #f9fafb;
+            color: #64748b;
             margin-bottom: 0.3rem;
         }
 
-        .hero-card-text {
+        .hero-badge-main {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-badge-text {
             font-size: 0.9rem;
-            color: #e5e7eb;
+            color: #475569;
+        }
+
+        .hero-mini-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.1rem;
+        }
+
+        .hero-mini-item {
+            border-radius: 14px;
+            padding: 0.6rem 0.7rem;
+            background: #f8fafc;
+        }
+
+        .hero-mini-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 0.1rem;
+        }
+
+        .hero-mini-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f172a;
         }
 
         @media (max-width: 900px) {
-            .hero-inner {
-                padding: 2.1rem 1.8rem 2.3rem 1.8rem;
+            .hero-wrapper {
+                padding: 2.2rem 1.8rem;
             }
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.1rem;
             }
         }
 
         /* --------------- QUICK STRIP --------------- */
         .quick-strip {
-            margin-bottom: 2.2rem;
-            border-radius: 24px;
-            padding: 1.1rem 2rem 1.2rem 2rem;
-            background: linear-gradient(120deg, #f9fafb, #fef7ec);
-            box-shadow: 0 16px 40px rgba(15,23,42,0.12);
+            margin-bottom: 2.3rem;
+            border-radius: 22px;
+            padding: 1.1rem 1.9rem 1.2rem 1.9rem;
+            background: linear-gradient(120deg, #f9fafb, #fefce8);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.07);
         }
 
         .quick-grid {
@@ -232,7 +253,7 @@ def page_about():
             text-transform: uppercase;
             letter-spacing: 0.16em;
             color: #9ca3af;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
         }
 
         .quick-value {
@@ -247,12 +268,18 @@ def page_about():
             }
         }
 
-        /* --------------- SECTIONS / CARDS --------------- */
+        @media (max-width: 640px) {
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --------------- SECTION TITLES --------------- */
         .section-title {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 650;
             color: #020617;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.3rem;
         }
 
         .section-subtitle {
@@ -262,11 +289,12 @@ def page_about():
             max-width: 46rem;
         }
 
+        /* --------------- INFO CARDS --------------- */
         .info-row {
             display: flex;
             flex-wrap: wrap;
             gap: 1.3rem;
-            margin-bottom: 2.4rem;
+            margin-bottom: 2.6rem;
         }
 
         .info-card {
@@ -275,7 +303,7 @@ def page_about():
             padding: 1.4rem 1.5rem 1.3rem 1.5rem;
             background: linear-gradient(135deg, #ffffff, #f5f7ff);
             border: 1px solid #e5e7eb;
-            box-shadow: 0 14px 28px rgba(15,23,42,0.08);
+            box-shadow: 0 14px 28px rgba(15,23,42,0.06);
         }
 
         .info-card-label {
@@ -283,11 +311,11 @@ def page_about():
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: #6b7280;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
         }
 
         .info-card-title {
-            font-size: 1.05rem;
+            font-size: 1.03rem;
             font-weight: 600;
             color: #111827;
             margin-bottom: 0.35rem;
@@ -298,13 +326,13 @@ def page_about():
             color: #4b5563;
         }
 
-        /* --------------- JOURNEY --------------- */
+        /* --------------- JOURNEY / STEPS --------------- */
         .journey {
-            margin-bottom: 2.7rem;
+            margin-bottom: 2.8rem;
             border-radius: 24px;
-            padding: 1.8rem 1.8rem 1.7rem 1.8rem;
-            background: linear-gradient(130deg, #fef7ec, #f9fafb);
-            border: 1px solid #f3f4f6;
+            padding: 1.9rem 1.8rem 1.8rem 1.8rem;
+            background: linear-gradient(130deg, #f9fafb, #ecfeff);
+            border: 1px solid #e5e7eb;
         }
 
         .journey-badge {
@@ -316,10 +344,10 @@ def page_about():
         }
 
         .journey-title {
-            font-size: 1.15rem;
+            font-size: 1.18rem;
             font-weight: 600;
             color: #111827;
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
         }
 
         .journey-grid {
@@ -332,21 +360,21 @@ def page_about():
             border-radius: 18px;
             padding: 1rem 1.05rem 0.95rem 1.05rem;
             background: #ffffff;
-            box-shadow: 0 10px 22px rgba(148,163,184,0.32);
+            box-shadow: 0 10px 22px rgba(148,163,184,0.25);
         }
 
         .step-num {
             width: 26px;
             height: 26px;
             border-radius: 999px;
-            background: linear-gradient(135deg, #38bdf8, #22c55e);
+            background: linear-gradient(135deg, #0ea5e9, #22c55e);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.8rem;
             font-weight: 700;
             color: #0b1120;
-            margin-bottom: 0.45rem;
+            margin-bottom: 0.4rem;
         }
 
         .step-title {
@@ -375,7 +403,7 @@ def page_about():
 
         /* --------------- CONTACT --------------- */
         .contact {
-            margin-top: 1.2rem;
+            margin-top: 1.4rem;
             border-radius: 26px;
             padding: 1.9rem 2rem 1.8rem 2rem;
             background: linear-gradient(135deg, #020617, #020617);
@@ -454,29 +482,50 @@ def page_about():
               </div>
               <div class="hero-title">
                 Portfolio construction<br/>
-                <span>built like an instrument panel.</span>
+                <span>that feels clear and controlled.</span>
               </div>
               <div class="hero-subtitle">
-                Phi Investment Capital focuses on one thing: turning your profile into a
-                clear, disciplined portfolio. No stories, no noise – just a process that
-                you can understand, test and challenge.
+                Phi Investment Capital focuses on one thing: turning your answers into a
+                disciplined, explainable portfolio. Every lever you see in this app echoes
+                the process we use for our own capital.
               </div>
               <div class="hero-cta-row">
                 <a href="#contact" class="hero-cta-primary">Book an introduction call</a>
                 <div class="hero-cta-secondary">
-                  A short conversation to walk through the engine behind this app and
-                  see how it translates your answers into an allocation.
+                  A short conversation to walk through the engine,
+                  how we estimate risk and return, and how your profile
+                  becomes an allocation.
                 </div>
               </div>
             </div>
 
             <div class="hero-right">
-              <div class="hero-card">
-                <div class="hero-card-label">Our promise</div>
-                <div class="hero-card-main">Every decision can be explained.</div>
-                <div class="hero-card-text">
+              <div class="hero-badge-card">
+                <div class="hero-badge-label">Our promise</div>
+                <div class="hero-badge-main">Every allocation has a reason.</div>
+                <div class="hero-badge-text">
                   From universe selection to constraints and backtests, nothing is a
-                  black box. You see the same logic we use for our own capital.
+                  black box. The app is designed so you can see – and challenge –
+                  each step of the process.
+                </div>
+
+                <div class="hero-mini-metrics">
+                  <div class="hero-mini-item">
+                    <div class="hero-mini-label">Style</div>
+                    <div class="hero-mini-value">Risk-aware, long-only</div>
+                  </div>
+                  <div class="hero-mini-item">
+                    <div class="hero-mini-label">Framework</div>
+                    <div class="hero-mini-value">Markowitz + robust covariances</div>
+                  </div>
+                  <div class="hero-mini-item">
+                    <div class="hero-mini-label">Universe</div>
+                    <div class="hero-mini-value">Global equity & multi-asset</div>
+                  </div>
+                  <div class="hero-mini-item">
+                    <div class="hero-mini-label">Focus</div>
+                    <div class="hero-mini-value">Transparency & discipline</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -493,19 +542,19 @@ def page_about():
           <div class="quick-grid">
             <div>
               <div class="quick-label">Diversified universe</div>
-              <div class="quick-value">7 asset classes</div>
+              <div class="quick-value">7+ asset classes</div>
             </div>
             <div>
               <div class="quick-label">Equity coverage</div>
               <div class="quick-value">S&P 500 &amp; MSCI World</div>
             </div>
             <div>
-              <div class="quick-label">Portfolio style</div>
-              <div class="quick-value">Risk-aware, long-only</div>
+              <div class="quick-label">Risk model</div>
+              <div class="quick-value">Robust covariance estimators</div>
             </div>
             <div>
-              <div class="quick-label">Process</div>
-              <div class="quick-value">Markowitz + robust covariances</div>
+              <div class="quick-label">Implementation</div>
+              <div class="quick-value">Fully systematic process</div>
             </div>
           </div>
         </section>
@@ -520,9 +569,9 @@ def page_about():
           <h2 class="section-title">Who we are &amp; what we do</h2>
           <p class="section-subtitle">
             Phi Investment Capital serves investors who want institutional-grade
-            portfolio construction without marketing jargon. We blend global market
-            experience with a rigorous quantitative framework and express it in a
-            way that is easy to follow.
+            portfolio construction without marketing jargon. We combine market
+            experience with a rigorous quantitative engine and present it in a
+            way that is easy to follow inside this application.
           </p>
         </section>
         """,
@@ -536,9 +585,9 @@ def page_about():
             <div class="info-card-label">Philosophy</div>
             <div class="info-card-title">Risk is the starting point</div>
             <div class="info-card-body">
-              We first look at what can go wrong: liquidity, drawdowns and structural
-              breaks. Only then do we seek risk premia that are robust out of sample
-              and after costs.
+              We first look at what can go wrong: liquidity, drawdowns, and structural
+              breaks. Only then do we search for risk premia that remain robust
+              after costs and over different market regimes.
             </div>
           </article>
 
@@ -557,8 +606,8 @@ def page_about():
             <div class="info-card-title">Transparent by design</div>
             <div class="info-card-body">
               Every key assumption – universe, filters, estimation window, constraints
-              and fees – is visible and adjustable. You see how each choice affects
-              the resulting portfolio.
+              and fees – is visible and adjustable. You see how each choice moves
+              the portfolio, in real time.
             </div>
           </article>
         </section>
@@ -576,11 +625,11 @@ def page_about():
           <div class="journey-grid">
             <div class="step">
               <div class="step-num">1</div>
-              <div class="step-title">Understand your objectives</div>
+              <div class="step-title">Understand your profile</div>
               <div class="step-text">
-                We translate your goals, constraints and tolerance for losses into a
-                quantitative risk profile. The questionnaire in this app is the
-                digital version of that first discussion.
+                Your answers to the questionnaire and your constraints define a
+                quantitative risk profile. The sliders you see in the app are the
+                digital version of that first conversation.
               </div>
             </div>
 
@@ -588,8 +637,9 @@ def page_about():
               <div class="step-num">2</div>
               <div class="step-title">Design the universe</div>
               <div class="step-text">
-                Together we choose the equity universe, complementary asset classes
-                and any ESG or exclusion rules that matter for you.
+                Together we choose the equity universe, complementary asset classes,
+                and any ESG or exclusion rules that matter for you, then translate
+                them into an investable universe.
               </div>
             </div>
 
@@ -599,7 +649,7 @@ def page_about():
               <div class="step-text">
                 Using historical data, robust statistics and realistic constraints,
                 we search for allocations that balance expected return with
-                volatility and drawdown.
+                volatility and drawdown – no hidden knobs.
               </div>
             </div>
 
@@ -607,8 +657,9 @@ def page_about():
               <div class="step-num">4</div>
               <div class="step-title">Monitor &amp; adapt</div>
               <div class="step-text">
-                Portfolios are reviewed on a clear schedule. When markets change, the
-                parameters are updated – but the underlying discipline stays the same.
+                Portfolios are reviewed on a clear schedule. When markets change,
+                parameters are updated – but the underlying discipline and risk
+                philosophy stay the same.
               </div>
             </div>
           </div>
@@ -648,8 +699,6 @@ def page_about():
     )
 
     st.markdown("</div>", unsafe_allow_html=True)
-
-
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
