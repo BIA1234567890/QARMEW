@@ -64,7 +64,7 @@ def page_about():
     from pathlib import Path
 
     # ------------------------------------------------------
-    # LOAD IMAGES
+    # LOAD IMAGES (MUST be in the same folder as app.py)
     # ------------------------------------------------------
     hero_path = Path("hero_bg.png")
     hero_b64 = base64.b64encode(hero_path.read_bytes()).decode()
@@ -131,7 +131,7 @@ def page_about():
         background: rgba(255,255,255,0.25);
     }}
 
-    /* ------------------- TWO-COLUMN "WHO WE ARE" ------------------- */
+    /* ------------------- TWO-COLUMN SECTION ------------------- */
     .section-container {{
         display: flex;
         gap: 40px;
@@ -222,7 +222,6 @@ def page_about():
         margin-bottom: 18px;
     }}
 
-    /* ----------------------- Animations ----------------------- */
     @keyframes fadeIn {{
         from {{ opacity: 0; transform: translateY(20px); }}
         to   {{ opacity: 1; transform: translateY(0); }}
@@ -230,10 +229,11 @@ def page_about():
 
     </style>
     """
+
     st.markdown(css, unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # HERO SECTION
+    # HERO
     # ------------------------------------------------------
     st.markdown(
         """
@@ -250,7 +250,7 @@ def page_about():
     )
 
     # ------------------------------------------------------
-    # WHO WE ARE — TEXT LEFT, IMAGE RIGHT
+    # WHO WE ARE (TEXT LEFT / IMAGE RIGHT)
     # ------------------------------------------------------
     st.markdown("## Who we are")
 
@@ -280,7 +280,7 @@ def page_about():
     )
 
     # ------------------------------------------------------
-    # YOUR JOURNEY WITH US — STEP CARDS
+    # YOUR JOURNEY WITH US
     # ------------------------------------------------------
     st.markdown("## Your journey with us")
     st.markdown("How we translate your profile into a disciplined allocation.")
@@ -327,7 +327,7 @@ def page_about():
     )
 
     # ------------------------------------------------------
-    # CONTACT SECTION
+    # CONTACT
     # ------------------------------------------------------
     st.markdown(
         """
