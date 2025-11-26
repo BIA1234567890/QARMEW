@@ -61,88 +61,86 @@ def get_llm_client():
 
 def page_about():
     import streamlit as st
-    from base64 import b64encode
+    from PIL import Image
 
-    # Load images and encode them in base64
-    def load_image_base64(path):
-        with open(path, "rb") as f:
-            return b64encode(f.read()).decode()
+    # Set spacing
+    st.markdown("""
+        <style>
+            .hero {
+                background-image: url('hero_bg.png');
+                background-size: cover;
+                background-position: center;
+                height: 180px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                margin-bottom: 50px;
+            }
+            .hero h1 {
+                color: white;
+                font-size: 36px;
+                font-family: 'Helvetica Neue', sans-serif;
+            }
+            .two-col {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+            .text-col {
+                flex: 1;
+                font-family: 'Helvetica Neue', sans-serif;
+                color: #1c1c1c;
+            }
+            .text-col h2 {
+                margin-bottom: 8px;
+                color: #111;
+            }
+            .text-col p {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            .image-col {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .image-col img {
+                max-width: 100%;
+                border-radius: 12px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            }
+            .contact-box {
+                margin-top: 40px;
+                background-color: #f2f2f2;
+                padding: 30px;
+                border-radius: 12px;
+                font-family: 'Helvetica Neue', sans-serif;
+            }
+            .contact-box h3 {
+                margin-bottom: 10px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
-    hero_bg_base64 = load_image_base64("hero_bg.png")
-    invest_img_base64 = load_image_base64("invest_future.png")
+    # Hero
+    st.markdown("""
+        <div class="hero">
+            <h1>Phi Investment Capital</h1>
+        </div>
+    """, unsafe_allow_html=True)
 
-    # HTML layout
-    html = f"""
-    <style>
-        .hero {{
-            background-image: url("data:image/png;base64,{hero_bg_base64}");
-            background-size: cover;
-            background-position: center;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 36px;
-            font-weight: bold;
-            border-radius: 10px;
-            margin-bottom: 40px;
-        }}
+    # Two-column layout
+    st.markdown('<div class="two-col">', unsafe_allow_html=True)
 
-        .container {{
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 60px;
-            margin-bottom: 60px;
-        }}
-
-        .left-text {{
-            flex: 1;
-            font-family: 'Helvetica Neue', sans-serif;
-            color: #1a1a1a;
-        }}
-
-        .left-text h2 {{
-            color: #000000;
-            margin-bottom: 8px;
-        }}
-
-        .left-text p {{
-            font-size: 16px;
-            line-height: 1.6;
-        }}
-
-        .right-image {{
-            flex: 1;
-        }}
-
-        .right-image img {{
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }}
-
-        .contact {{
-            margin-top: 60px;
-            padding: 30px;
-            background-color: #f2f2f2;
-            border-radius: 10px;
-            font-family: 'Helvetica Neue', sans-serif;
-            color: #333;
-        }}
-
-        .contact h3 {{
-            margin-bottom: 10px;
-        }}
-    </style>
-
-    <div class="hero">
-        Phi Investment Capital
-    </div>
-
-    <div class="container">
-        <div class="left-text">
+    # Left Column: Text
+    st.markdown("""
+        <div class="text-col">
             <h2>Who we are</h2>
             <p>Phi is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors who demand transparency, flexibility, and performance.</p>
 
@@ -155,21 +153,23 @@ def page_about():
             <h2>Why it matters</h2>
             <p>Most portfolio tools are either too rigid or too superficial. Phi bridges the gap between academic rigor and practical usability, enabling informed portfolio construction grounded in data.</p>
         </div>
+    """, unsafe_allow_html=True)
 
-        <div class="right-image">
-            <img src="data:image/png;base64,{invest_img_base64}" alt="Invest in the future">
+    # Right Column: Image (load directly from file)
+    st.markdown('<div class="image-col">', unsafe_allow_html=True)
+    st.image("invest_future.png", use_column_width=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+    # Contact Box
+    st.markdown("""
+        <div class="contact-box">
+            <h3>Contact Us</h3>
+            <p><strong>Email:</strong> contact@phi-investment.com</p>
+            <p><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
+            <p><strong>Phone:</strong> +41 22 123 45 67</p>
         </div>
-    </div>
+    """, unsafe_allow_html=True)
 
-    <div class="contact">
-        <h3>Contact Us</h3>
-        <p><strong>Email:</strong> contact@phi-investment.com</p>
-        <p><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
-        <p><strong>Phone:</strong> +41 22 123 45 67</p>
-    </div>
-    """
-
-    st.markdown(html, unsafe_allow_html=True)
 
 
 
