@@ -71,96 +71,134 @@ def page_about():
     hero_bg_b64 = base64.b64encode(hero_bg).decode()
     invest_img_b64 = base64.b64encode(invest_img).decode()
 
-    # --- Custom CSS layout ---
     st.markdown(
         f"""
         <style>
         .hero {{
-            background-image: url("data:image/png;base64,{hero_bg_b64}");
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url("data:image/png;base64,{hero_bg_b64}");
             background-size: cover;
             background-position: center;
             height: 400px;
-            border-radius: 16px;
-            position: relative;
-            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            margin-bottom: 60px;
         }}
 
-        .hero-text {{
-            position: absolute;
-            top: 50%;
-            left: 8%;
-            transform: translateY(-50%);
+        .hero h1 {{
             color: white;
-            font-size: 40px;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-size: 48px;
+            font-weight: 800;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
         }}
 
-        .content-section {{
-            padding: 30px 10% 10px 10%;
+        .section {{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 30px 8%;
+            flex-wrap: wrap;
         }}
 
-        .content-section h2 {{
-            font-size: 26px;
-            margin-top: 30px;
+        .section-text {{
+            flex: 1 1 55%;
+            padding-right: 40px;
+        }}
+
+        .section-text h2 {{
+            font-size: 28px;
+            margin-top: 10px;
+            margin-bottom: 12px;
             color: #111;
         }}
 
-        .content-section p {{
-            font-size: 18px;
-            line-height: 1.6;
+        .section-text p {{
+            font-size: 17px;
+            line-height: 1.7;
             color: #333;
+            margin-bottom: 25px;
         }}
 
-        .image-wrapper {{
+        .section-img {{
+            flex: 1 1 35%;
             text-align: center;
-            margin-top: 50px;
         }}
 
-        .image-wrapper img {{
-            max-width: 700px;
-            width: 90%;
+        .section-img img {{
+            max-width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+        }}
+
+        .contact {{
+            background-color: #f4f4f4;
+            padding: 40px 10%;
+            margin-top: 60px;
+            border-top: 1px solid #ddd;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }}
+
+        .contact h3 {{
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 16px;
+        }}
+
+        .contact p {{
+            font-size: 16px;
+            color: #444;
+            line-height: 1.6;
         }}
         </style>
 
         <div class="hero">
-            <div class="hero-text">QARM Portfolio Manager</div>
+            <h1>Phi Investment Capital</h1>
+        </div>
+
+        <div class="section">
+            <div class="section-text">
+                <h2>Who we are</h2>
+                <p>
+                    Phi is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors
+                    who demand transparency, flexibility, and performance.
+                </p>
+
+                <h2>What we do</h2>
+                <p>
+                    We provide an intuitive interface for building efficient portfolios using a robust Markowitz optimization engine.
+                    Users can set constraints, preferences, and investment horizons to generate allocations aligned with their goals.
+                </p>
+
+                <h2>How we do it</h2>
+                <p>
+                    We use rolling windows of historical returns to estimate expected returns and covariances, apply Ledoit-Wolf shrinkage
+                    for stability, and solve a quadratic program to optimize weights under user-defined constraints.
+                </p>
+
+                <h2>Why it matters</h2>
+                <p>
+                    Most portfolio tools are either too rigid, too opaque, or too superficial. Phi bridges the gap between academic rigor
+                    and practical usability, enabling informed portfolio construction grounded in data.
+                </p>
+            </div>
+
+            <div class="section-img">
+                <img src="data:image/png;base64,{invest_img_b64}">
+            </div>
+        </div>
+
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <p>Email: contact@phi-investment.com</p>
+            <p>Address: 123 Financial Street, Geneva, Switzerland</p>
+            <p>Phone: +41 22 123 45 67</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    # --- Textual content with same structure you had before ---
-    st.markdown('<div class="content-section">', unsafe_allow_html=True)
-
-    st.markdown("## Who we are")
-    st.markdown(
-        "QARM is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors who demand transparency, flexibility, and performance."
-    )
-
-    st.markdown("## What we do")
-    st.markdown(
-        "We provide an intuitive interface for building efficient portfolios using a robust Markowitz optimization engine. Users can set constraints, preferences, and investment horizons to generate allocations aligned with their goals."
-    )
-
-    st.markdown("## How we do it")
-    st.markdown(
-        "We use rolling windows of historical returns to estimate expected returns and covariances, apply Ledoit-Wolf shrinkage for stability, and solve a quadratic program to optimize weights under user-defined constraints. ESG filters and management fees are supported."
-    )
-
-    st.markdown("## Why it matters")
-    st.markdown(
-        "Most portfolio tools are either too rigid, too opaque, or too superficial. QARM bridges the gap between academic rigor and practical usability, enabling informed portfolio construction grounded in data."
-    )
-
-    # --- Insert your second image visually ---
-    st.markdown('<div class="image-wrapper">', unsafe_allow_html=True)
-    st.markdown(f'<img src="data:image/png;base64,{invest_img_b64}">', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
