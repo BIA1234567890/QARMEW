@@ -62,107 +62,114 @@ def get_llm_client():
 def page_about():
     import streamlit as st
 
-    # Apply custom CSS for a modern layout
     st.markdown("""
         <style>
-            /* Fonts & Layout */
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-            html, body, [class*="css"]  {
+            html, body, [class*="css"] {
                 font-family: 'Open Sans', sans-serif;
             }
 
             .hero {
-                background-image: url('hero_bg.png');
-                background-size: cover;
-                background-position: center;
-                height: 300px;
-                border-radius: 10px;
+                background: linear-gradient(135deg, #0000ff 0%, #00ebff 100%);
+                height: 280px;
+                border-radius: 16px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-bottom: 40px;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                margin-bottom: 50px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             }
 
             .hero h1 {
                 color: white;
-                font-size: 42px;
+                font-size: 40px;
                 font-weight: 600;
-                background: rgba(0, 0, 0, 0.4);
-                padding: 10px 30px;
-                border-radius: 8px;
+                text-shadow: 1px 1px 6px rgba(0,0,0,0.2);
             }
 
             .section-title {
-                font-size: 28px;
+                font-size: 26px;
                 font-weight: 600;
-                margin-bottom: 16px;
-                color: #111111;
+                margin-bottom: 12px;
+                color: #111;
             }
 
-            .about-paragraph {
-                font-size: 16px;
-                line-height: 1.6;
-                margin-bottom: 20px;
-                color: #333333;
+            .about-text {
+                font-size: 16.5px;
+                color: #333;
+                line-height: 1.7;
+                margin-bottom: 28px;
+            }
+
+            .image-frame {
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+            }
+
+            .image-frame:hover {
+                transform: scale(1.01);
             }
 
             .contact-box {
-                margin-top: 60px;
+                margin-top: 70px;
                 padding: 30px;
-                background-color: #f7f7f9;
-                border-radius: 12px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                background: linear-gradient(135deg, #f4f4f4 0%, #fefefe 100%);
+                border-radius: 14px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.05);
             }
 
             .contact-box h3 {
                 font-size: 22px;
-                margin-bottom: 20px;
+                margin-bottom: 16px;
             }
 
             .contact-box p {
-                margin: 6px 0;
                 font-size: 16px;
+                margin: 6px 0;
             }
 
-            .contact-icon {
+            .emoji {
                 margin-right: 8px;
-                color: #4BA3FF;
+                font-size: 18px;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Hero Section
+    # Hero section
     st.markdown("""
         <div class="hero">
             <h1>Phi Investment Capital</h1>
         </div>
     """, unsafe_allow_html=True)
 
-    # Main Content — Split Columns
+    # Columns
     col1, col2 = st.columns([1.3, 1])
 
     with col1:
         st.markdown('<div class="section-title">Who We Are</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-paragraph">We are a team of quantitative thinkers and investment technologists dedicated to making portfolio optimization accessible, transparent, and reliable. Our platform is built for asset managers, advisors, and sophisticated investors who want to control their strategy while leveraging academic-grade methods.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="about-text">We are a team of quantitative thinkers and investment technologists dedicated to making portfolio optimization accessible, transparent, and reliable. Our platform is built for asset managers, advisors, and sophisticated investors who want to control their strategy while leveraging academic-grade methods.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="section-title">What We Do</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-paragraph">Phi offers a flexible interface to run constraint-aware portfolio construction, backed by rolling return estimates, robust covariance shrinkage, and a fully constrained optimizer that works with your beliefs and rules. It’s not just a tool — it’s a framework.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="about-text">Phi offers a flexible interface to run constraint-aware portfolio construction, backed by rolling return estimates, robust covariance shrinkage, and a fully constrained optimizer that works with your beliefs and rules. It’s not just a tool — it’s a framework.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="section-title">How We Deliver</div>', unsafe_allow_html=True)
-        st.markdown('<p class="about-paragraph">We blend high-performance computing with simple UX — empowering users to customize constraints, view risk/return trade-offs clearly, and backtest performance over various market regimes. All with a few clicks.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="about-text">We blend high-performance computing with simple UX — empowering users to customize constraints, view risk/return trade-offs clearly, and backtest performance over various market regimes. All with a few clicks.</p>', unsafe_allow_html=True)
 
     with col2:
+        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
         st.image("invest_future.png", use_column_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # Contact Section
     st.markdown("""
         <div class="contact-box">
             <h3>Contact Us</h3>
-            <p><span class="contact-icon">📧</span><strong>Email:</strong> contact@phi-investment.com</p>
-            <p><span class="contact-icon">📍</span><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
-            <p><span class="contact-icon">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
+            <p><span class="emoji">📧</span><strong>Email:</strong> contact@phi-investment.com</p>
+            <p><span class="emoji">📍</span><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
+            <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
         </div>
     """, unsafe_allow_html=True)
 
