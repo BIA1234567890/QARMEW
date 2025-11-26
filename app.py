@@ -59,267 +59,138 @@ def get_llm_client():
     return client
 
 
+import streamlit as st
+import base64
+
 def page_about():
-    import base64
-    from pathlib import Path
+    # Load and encode the hero image
+    with open("assets/hero-image.png", "rb") as f:
+        hero_b64 = base64.b64encode(f.read()).decode()
 
-    # ------------------------------------------------------
-    # LOAD IMAGES
-    # ------------------------------------------------------
-    hero_path = Path("hero_bg.png")
-    hero_b64 = base64.b64encode(hero_path.read_bytes()).decode()
-
-    about_img_path = Path("invest_future.png")
-    about_img_b64 = base64.b64encode(about_img_path.read_bytes()).decode()
-
-    # ------------------------------------------------------
-    # CSS
-    # ------------------------------------------------------
+    # Inject custom CSS (no indentation inside f-string!)
     css = f"""
-    <style>
+<style>
 
-    body {{
-        font-family: -apple-system, BlinkMacSystemFont, system-ui;
-    }}
+body {{
+    font-family: -apple-system, BlinkMacSystemFont, system-ui;
+}}
 
-    h2, h3 {{
-        font-weight: 700;
-    }}
+h2, h3 {{
+    font-weight: 700;
+}}
 
-    .hero {{
-        background-image: url("data:image/png;base64,{hero_b64}");
-        background-size: cover;
-        background-position: center;
-        padding: 110px 60px;
-        border-radius: 26px;
-        color: white;
-        margin-bottom: 55px;
-        box-shadow: 0px 25px 60px rgba(0,0,0,0.35);
-        animation: fadeIn 1s ease;
-    }}
+.hero {{
+    background-image: url("data:image/png;base64,{hero_b64}");
+    background-size: cover;
+    background-position: center;
+    padding: 110px 60px;
+    border-radius: 26px;
+    color: white;
+    margin-bottom: 55px;
+    box-shadow: 0px 25px 60px rgba(0,0,0,0.35);
+    animation: fadeIn 1s ease;
+}}
 
-    .hero-title {{
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        text-shadow: 0px 3px 12px rgba(0,0,0,0.6);
-    }}
+.section {{
+    background: #f7f9fc;
+    border-radius: 20px;
+    padding: 60px 50px;
+    margin-bottom: 60px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
+}}
 
-    .hero-sub {{
-        font-size: 1.15rem;
-        max-width: 680px;
-        line-height: 1.55;
-        text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
-        margin-bottom: 25px;
-    }}
+.section h3 {{
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #000000;
+}}
 
-    .hero-btn {{
-        display: inline-block;
-        padding: 10px 22px;
-        background: rgba(255,255,255,0.15);
-        border-radius: 12px;
-        color: white;
-        font-weight: 600;
-        border: 1px solid rgba(255,255,255,0.45);
-        backdrop-filter: blur(6px);
-        text-decoration: none;
-        transition: 0.2s;
-    }}
+.section p {{
+    font-size: 17px;
+    line-height: 1.6;
+    color: #333;
+}}
 
-    .hero-btn:hover {{
-        background: rgba(255,255,255,0.25);
-    }}
+.step-card {{
+    background: white;
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}}
 
-    .section-container {{
-        display: flex;
-        gap: 40px;
-        align-items: center;
-        padding: 30px 5px 60px 5px;
-        animation: fadeIn 1.2s ease;
-    }}
+.step-num {{
+    font-size: 22px;
+    font-weight: 600;
+    color: #0000ff;
+    margin-bottom: 10px;
+}}
 
-    .section-text {{
-        flex: 1;
-        background: white;
-        padding: 32px;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        line-height: 1.55;
-    }}
+.step-title {{
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}}
 
-    .section-image {{
-        flex: 1;
-    }}
+.step-text {{
+    font-size: 16px;
+    color: #444;
+}}
 
-    .section-image img {{
-        width: 100%;
-        border-radius: 18px;
-        box-shadow: 0 6px 26px rgba(0,0,0,0.15);
-    }}
-
-    .steps-grid {{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-        margin-top: 25px;
-    }}
-
-    .step-card {{
-        background: white;
-        padding: 26px;
-        border-radius: 16px;
-        box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
-        animation: fadeIn 1.1s ease;
-    }}
-
-    .step-num {{
-        width: 36px;
-        height: 36px;
-        background: #0055ff;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        margin-bottom: 14px;
-    }}
-
-    .step-title {{
-        font-weight: 700;
-        margin-bottom: 6px;
-    }}
-
-    .step-text {{
-        line-height: 1.55;
-        color: #444;
-    }}
-
-    .contact {{
-        background: #020617;
-        padding: 45px 32px;
-        color: white;
-        border-radius: 22px;
-        text-align: center;
-        margin-top: 55px;
-        box-shadow: 0px 18px 40px rgba(15,23,42,0.85);
-        animation: fadeIn 1.2s ease;
-    }}
-
-    .contact-title {{
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }}
-
-    .contact-text {{
-        font-size: 1.05rem;
-        color: #cbd5e1;
-        margin-bottom: 18px;
-    }}
-
-    @keyframes fadeIn {{
-        from {{ opacity: 0; transform: translateY(20px); }}
-        to   {{ opacity: 1; transform: translateY(0); }}
-    }}
-
-    </style>
-    """  # ✅ <-- THIS closing quote was missing
-
+</style>
+    """
     st.markdown(css, unsafe_allow_html=True)
 
-    # ------------------------------------------------------
-    # HERO
-    # ------------------------------------------------------
+    # Hero Banner
     st.markdown(
         """
-<div class="hero">
-    <div class="hero-title">Portfolio construction made clear.</div>
-    <div class="hero-sub">
-        We build transparent, disciplined portfolios using the same framework we apply to our own capital.
-        No noise, no storytelling — just a clean process you can understand and challenge.
-    </div>
-    <a class="hero-btn" href="#contact">Book an introduction call</a>
-</div>
+        <div class="hero">
+            <h1 style="font-size: 50px; margin-bottom: 15px;">QARM Portfolio Manager</h1>
+            <p style="font-size: 22px;">Your institutional-grade engine for disciplined investing.</p>
+        </div>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
 
-    # ------------------------------------------------------
-    # WHO WE ARE — FIXED
-    # ------------------------------------------------------
-    st.markdown(
-        f"""
-<h2 style="margin-top: 60px;">Who we are</h2>
-
-<div class="section-container">
-
-    <div class="section-text">
-        <h3>Clarity, discipline and transparency.</h3>
-        <p>
-            Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness —
-            always before chasing returns.
-        </p>
-        <p>
-            Every allocation you see in this app is based on robust statistics,
-            systematic rules and clear constraints — nothing is a black box.
-        </p>
-    </div>
-
-    <div class="section-image">
-        <img src="data:image/png;base64,{about_img_b64}" alt="Invest in your future">
-    </div>
-
-</div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # ------------------------------------------------------
-    # YOUR JOURNEY WITH US
-    # ------------------------------------------------------
-    st.markdown("## Your journey with us")
-    st.markdown("How we translate your profile into a disciplined allocation.")
-
+    # Section: Who we are
     st.markdown(
         """
-<div class="steps-grid">
-
-    <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-title">Understand your profile</div>
-        <div class="step-text">
-            We quantify your tolerance for losses, investment horizon, and constraints.
+        <div class="section">
+            <h3>Who we are</h3>
+            <p>
+                Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness — always before chasing returns.
+            </p>
+            <p>
+                Every allocation you see in this app is based on robust statistics, systematic rules, and clear constraints — nothing is a black box.
+            </p>
         </div>
-    </div>
-
-    <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-title">Design your universe</div>
-        <div class="step-text">
-            We select equity universes, asset classes and ESG rules to form your investable universe.
-        </div>
-    </div>
-
-    <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-title">Optimize with discipline</div>
-        <div class="step-text">
-            We balance expected return, volatility and drawdown using a systematic, constraint-aware engine.
-        </div>
-    </div>
-
-    <div class="step-card">
-        <div class="step-num">4</div>
-        <div class="step-title">Monitor & adapt</div>
-        <div class="step-text">
-            Your allocation is updated only when the data justifies it — never arbitrary changes.
-        </div>
-    </div>
-
-</div>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
+    )
+
+    # Section: Your journey with us
+    st.markdown(
+        """
+        <div class="section">
+            <h3>Your journey with us</h3>
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-title">Understand your profile</div>
+                <div class="step-text">We quantify your tolerance for losses, investment horizon, and constraints.</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-title">Design your universe</div>
+                <div class="step-text">We select equity universes, asset classes, and ESG rules to form your investable universe.</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-title">Optimize with discipline</div>
+                <div class="step-text">We balance expected return, volatility, and drawdown using a realistic, constraint-aware engine.</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     # ------------------------------------------------------
@@ -337,9 +208,6 @@ def page_about():
         """,
         unsafe_allow_html=True,
     )
-
-
-
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
