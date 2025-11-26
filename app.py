@@ -59,145 +59,117 @@ def get_llm_client():
     return client
 
 
-from pathlib import Path
-import streamlit as st
-import base64
-
 def page_about():
-    # Load and encode local images
-    hero_bg = Path("hero_bg.png").read_bytes()
-    invest_img = Path("invest_future.png").read_bytes()
+    import streamlit as st
+    from base64 import b64encode
 
-    hero_bg_b64 = base64.b64encode(hero_bg).decode()
-    invest_img_b64 = base64.b64encode(invest_img).decode()
+    # Load images and encode them in base64
+    def load_image_base64(path):
+        with open(path, "rb") as f:
+            return b64encode(f.read()).decode()
 
-    st.markdown(
-        f"""
-        <style>
+    hero_bg_base64 = load_image_base64("hero_bg.png")
+    invest_img_base64 = load_image_base64("invest_future.png")
+
+    # HTML layout
+    html = f"""
+    <style>
         .hero {{
-            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
-                        url("data:image/png;base64,{hero_bg_b64}");
+            background-image: url("data:image/png;base64,{hero_bg_base64}");
             background-size: cover;
             background-position: center;
-            height: 400px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 18px;
-            margin-bottom: 60px;
-        }}
-
-        .hero h1 {{
             color: white;
-            font-size: 48px;
-            font-weight: 800;
-            text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+            font-size: 36px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 40px;
         }}
 
-        .section {{
+        .container {{
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 30px 8%;
-            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 60px;
         }}
 
-        .section-text {{
-            flex: 1 1 55%;
-            padding-right: 40px;
+        .left-text {{
+            flex: 1;
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #1a1a1a;
         }}
 
-        .section-text h2 {{
-            font-size: 28px;
-            margin-top: 10px;
-            margin-bottom: 12px;
-            color: #111;
+        .left-text h2 {{
+            color: #000000;
+            margin-bottom: 8px;
         }}
 
-        .section-text p {{
-            font-size: 17px;
-            line-height: 1.7;
-            color: #333;
-            margin-bottom: 25px;
+        .left-text p {{
+            font-size: 16px;
+            line-height: 1.6;
         }}
 
-        .section-img {{
-            flex: 1 1 35%;
-            text-align: center;
+        .right-image {{
+            flex: 1;
         }}
 
-        .section-img img {{
+        .right-image img {{
             max-width: 100%;
-            border-radius: 14px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }}
 
         .contact {{
-            background-color: #f4f4f4;
-            padding: 40px 10%;
             margin-top: 60px;
-            border-top: 1px solid #ddd;
-            border-radius: 12px;
+            padding: 30px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #333;
         }}
 
         .contact h3 {{
-            font-size: 24px;
-            color: #000;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }}
+    </style>
 
-        .contact p {{
-            font-size: 16px;
-            color: #444;
-            line-height: 1.6;
-        }}
-        </style>
+    <div class="hero">
+        Phi Investment Capital
+    </div>
 
-        <div class="hero">
-            <h1>Phi Investment Capital</h1>
+    <div class="container">
+        <div class="left-text">
+            <h2>Who we are</h2>
+            <p>Phi is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors who demand transparency, flexibility, and performance.</p>
+
+            <h2>What we do</h2>
+            <p>We provide an intuitive interface for building efficient portfolios using a robust Markowitz optimization engine. Users can set constraints, preferences, and investment horizons to generate allocations aligned with their goals.</p>
+
+            <h2>How we do it</h2>
+            <p>We use rolling windows of historical returns to estimate expected returns and covariances, apply Ledoit-Wolf shrinkage for stability, and solve a quadratic program to optimize weights under user-defined constraints.</p>
+
+            <h2>Why it matters</h2>
+            <p>Most portfolio tools are either too rigid or too superficial. Phi bridges the gap between academic rigor and practical usability, enabling informed portfolio construction grounded in data.</p>
         </div>
 
-        <div class="section">
-            <div class="section-text">
-                <h2>Who we are</h2>
-                <p>
-                    Phi is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors
-                    who demand transparency, flexibility, and performance.
-                </p>
-
-                <h2>What we do</h2>
-                <p>
-                    We provide an intuitive interface for building efficient portfolios using a robust Markowitz optimization engine.
-                    Users can set constraints, preferences, and investment horizons to generate allocations aligned with their goals.
-                </p>
-
-                <h2>How we do it</h2>
-                <p>
-                    We use rolling windows of historical returns to estimate expected returns and covariances, apply Ledoit-Wolf shrinkage
-                    for stability, and solve a quadratic program to optimize weights under user-defined constraints.
-                </p>
-
-                <h2>Why it matters</h2>
-                <p>
-                    Most portfolio tools are either too rigid, too opaque, or too superficial. Phi bridges the gap between academic rigor
-                    and practical usability, enabling informed portfolio construction grounded in data.
-                </p>
-            </div>
-
-            <div class="section-img">
-                <img src="data:image/png;base64,{invest_img_b64}">
-            </div>
+        <div class="right-image">
+            <img src="data:image/png;base64,{invest_img_base64}" alt="Invest in the future">
         </div>
+    </div>
 
-        <div class="contact">
-            <h3>Contact Us</h3>
-            <p>Email: contact@phi-investment.com</p>
-            <p>Address: 123 Financial Street, Geneva, Switzerland</p>
-            <p>Phone: +41 22 123 45 67</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    <div class="contact">
+        <h3>Contact Us</h3>
+        <p><strong>Email:</strong> contact@phi-investment.com</p>
+        <p><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
+        <p><strong>Phone:</strong> +41 22 123 45 67</p>
+    </div>
+    """
+
+    st.markdown(html, unsafe_allow_html=True)
 
 
 
