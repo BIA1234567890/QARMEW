@@ -61,116 +61,90 @@ def get_llm_client():
 
 def page_about():
 
-    # ---------- Load image ----------
-    def get_base64(file_path):
-        with open(file_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-
-    hero_image = get_base64("hero_bg.png")
-
-    # ---------- CSS ----------
-    st.markdown(
-        """
+    # --------------------------------
+    # CSS FOR PREMIUM CARDS + FADE-IN
+    # --------------------------------
+    st.markdown("""
         <style>
 
-        body, p, div {
-            font-family: -apple-system, BlinkMacSystemFont, system-ui;
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* TITLE STYLE */
+        .fade {
+            animation: fadeIn 0.9s ease-out forwards;
+        }
+
+        /* Card Style */
+        .card {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0px 18px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #111827;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #4b5563;
+            line-height: 1.55;
+        }
+
+        /* Section title */
         .section-title {
             font-size: 2.2rem;
             font-weight: 700;
             margin-top: 40px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
-        /* 3 COLUMN WHO-WE-ARE SECTION */
-        .feature-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-top: 25px;
-            margin-bottom: 40px;
-        }
-
-        .feature-card {
-            background: #ffffff;
-            padding: 28px;
-            border-radius: 18px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0px 6px 18px rgba(0,0,0,0.06);
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .feature-text {
-            font-size: 1rem;
-            color: #4b5563;
-            line-height: 1.55;
-        }
-
-        /* 4 STEP GRID */
-        .step-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .step-card {
-            background: white;
-            padding: 26px;
-            border-radius: 18px;
-            box-shadow: 0px 6px 18px rgba(0,0,0,0.06);
-            border: 1px solid #e5e7eb;
-        }
-
-        .step-num {
-            width: 40px;
-            height: 40px;
+        /* Step number */
+        .step-number {
             background: #1e3a8a;
             color: white;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
         }
 
-        .step-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .step-text {
-            font-size: 1rem;
-            color: #4b5563;
-            line-height: 1.55;
-        }
-
-        /* CONTACT BOX */
-        .contact {
+        /* Contact Box */
+        .contact-box {
             background: #0f172a;
             padding: 45px;
             color: white;
             border-radius: 22px;
-            text-align: center;
             margin-top: 60px;
             margin-bottom: 50px;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.45);
+            text-align: center;
+            box-shadow: 0px 18px 35px rgba(0,0,0,0.45);
         }
 
         .contact-title {
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 0.7rem;
+            margin-bottom: .7rem;
         }
 
         .contact-text {
@@ -180,108 +154,114 @@ def page_about():
         }
 
         </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    """, unsafe_allow_html=True)
 
-    # ---------------------------------------------------------
-    # SECTION 1 — WHO WE ARE
-    # ---------------------------------------------------------
-    st.markdown('<div class="section-title">Who we are</div>', unsafe_allow_html=True)
+    # ------------------------------
+    # SECTION 1 — WHO WE ARE (CARDS)
+    # ------------------------------
+    st.markdown('<div class="section-title fade">Who we are</div>', unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        <div class="feature-container">
+    col1, col2, col3 = st.columns(3)
 
-            <div class="feature-card">
-                <div class="feature-title">Philosophy</div>
-                <div class="feature-text">
-                    We start from risk — volatility, liquidity, drawdowns and robustness —
-                    always before chasing returns.
+    with col1:
+        st.markdown("""
+            <div class="card fade">
+                <div class="card-title">Philosophy</div>
+                <div class="card-text">
+                    We start from risk — volatility, liquidity, drawdowns  
+                    and robustness — always before chasing returns.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="feature-card">
-                <div class="feature-title">Process</div>
-                <div class="feature-text">
-                    Our engine is systematic, constraint-aware and repeatable.
-                    Every assumption is visible — nothing is a black box.
+    with col2:
+        st.markdown("""
+            <div class="card fade">
+                <div class="card-title">Process</div>
+                <div class="card-text">
+                    Our engine is systematic, constraint-aware and repeatable.  
+                    Every assumption is visible — nothing is hidden.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="feature-card">
-                <div class="feature-title">Client Experience</div>
-                <div class="feature-text">
-                    Full transparency from universe selection to backtesting and optimization.
+    with col3:
+        st.markdown("""
+            <div class="card fade">
+                <div class="card-title">Client Experience</div>
+                <div class="card-text">
+                    Full transparency from universe selection  
+                    to backtesting and optimization.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    # -----------------------------------------
+    # SECTION 2 — THE JOURNEY (4-Step Timeline)
+    # -----------------------------------------
+    st.markdown('<div class="section-title fade">Your journey with us</div>', unsafe_allow_html=True)
 
-    # ---------------------------------------------------------
-    # SECTION 2 — JOURNEY
-    # ---------------------------------------------------------
-    st.markdown('<div class="section-title">Your journey with us</div>', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
 
-    st.markdown(
-        """
-        <div class="step-grid">
-
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <div class="step-title">Understand your profile</div>
-                <div class="step-text">
-                    We quantify your tolerance for drawdowns, constraints and horizon.
+    with c1:
+        st.markdown("""
+            <div class="card fade">
+                <div class="step-number">1</div>
+                <div class="card-title">Understand your profile</div>
+                <div class="card-text">
+                    We quantify your tolerance for drawdowns,  
+                    constraints, and investment horizon.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <div class="step-title">Design the universe</div>
-                <div class="step-text">
+        st.markdown("""
+            <div class="card fade">
+                <div class="step-number">2</div>
+                <div class="card-title">Design the universe</div>
+                <div class="card-text">
                     We select asset classes, equity universes and ESG rules.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <div class="step-title">Optimize with discipline</div>
-                <div class="step-text">
-                    We search for allocations balancing return, volatility and drawdown.
+    with c2:
+        st.markdown("""
+            <div class="card fade">
+                <div class="step-number">3</div>
+                <div class="card-title">Optimize with discipline</div>
+                <div class="card-text">
+                    We search for allocations balancing return,  
+                    volatility and drawdown.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="step-card">
-                <div class="step-num">4</div>
-                <div class="step-title">Monitor & adapt</div>
-                <div class="step-text">
-                    We update only when markets justify it — never arbitrary changes.
+        st.markdown("""
+            <div class="card fade">
+                <div class="step-number">4</div>
+                <div class="card-title">Monitor & adapt</div>
+                <div class="card-text">
+                    We adjust only when markets justify it —  
+                    never arbitrary changes.
                 </div>
             </div>
+        """, unsafe_allow_html=True)
 
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # ---------------------------------------------------------
-    # CONTACT
-    # ---------------------------------------------------------
-    st.markdown(
-        """
-        <div class="contact" id="contact">
+    # -------------------------
+    # SECTION 3 — CONTACT BOX
+    # -------------------------
+    st.markdown("""
+        <div class="contact-box fade">
             <div class="contact-title">Let’s talk about your portfolio</div>
             <div class="contact-text">
-                If our approach resonates, we would be delighted to walk you through the engine.
+                If our approach resonates, we would be delighted  
+                to walk you through the engine.
             </div>
             <div><b>contact@phi-investment.com</b></div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """, unsafe_allow_html=True)
+
 
 
 
