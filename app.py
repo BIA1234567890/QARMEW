@@ -59,155 +59,108 @@ def get_llm_client():
     return client
 
 
+from pathlib import Path
 import streamlit as st
 import base64
 
 def page_about():
-    # Load and encode the hero image
-    with open("assets/hero-image.png", "rb") as f:
-        hero_b64 = base64.b64encode(f.read()).decode()
+    # Load and encode local images
+    hero_bg = Path("hero_bg.png").read_bytes()
+    invest_img = Path("invest_future.png").read_bytes()
 
-    # Inject custom CSS (no indentation inside f-string!)
-    css = f"""
-<style>
+    hero_bg_b64 = base64.b64encode(hero_bg).decode()
+    invest_img_b64 = base64.b64encode(invest_img).decode()
 
-body {{
-    font-family: -apple-system, BlinkMacSystemFont, system-ui;
-}}
-
-h2, h3 {{
-    font-weight: 700;
-}}
-
-.hero {{
-    background-image: url("data:image/png;base64,{hero_b64}");
-    background-size: cover;
-    background-position: center;
-    padding: 110px 60px;
-    border-radius: 26px;
-    color: white;
-    margin-bottom: 55px;
-    box-shadow: 0px 25px 60px rgba(0,0,0,0.35);
-    animation: fadeIn 1s ease;
-}}
-
-.section {{
-    background: #f7f9fc;
-    border-radius: 20px;
-    padding: 60px 50px;
-    margin-bottom: 60px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
-}}
-
-.section h3 {{
-    font-size: 26px;
-    margin-bottom: 20px;
-    color: #000000;
-}}
-
-.section p {{
-    font-size: 17px;
-    line-height: 1.6;
-    color: #333;
-}}
-
-.step-card {{
-    background: white;
-    border-radius: 16px;
-    padding: 25px 30px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-}}
-
-.step-num {{
-    font-size: 22px;
-    font-weight: 600;
-    color: #0000ff;
-    margin-bottom: 10px;
-}}
-
-.step-title {{
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
-}}
-
-.step-text {{
-    font-size: 16px;
-    color: #444;
-}}
-
-</style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
-
-    # Hero Banner
+    # --- Custom CSS layout ---
     st.markdown(
-        """
+        f"""
+        <style>
+        .hero {{
+            background-image: url("data:image/png;base64,{hero_bg_b64}");
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            border-radius: 16px;
+            position: relative;
+            margin-bottom: 50px;
+        }}
+
+        .hero-text {{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }}
+
+        .content-section {{
+            padding: 30px 10% 10px 10%;
+        }}
+
+        .content-section h2 {{
+            font-size: 26px;
+            margin-top: 30px;
+            color: #111;
+        }}
+
+        .content-section p {{
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }}
+
+        .image-wrapper {{
+            text-align: center;
+            margin-top: 50px;
+        }}
+
+        .image-wrapper img {{
+            max-width: 700px;
+            width: 90%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }}
+        </style>
+
         <div class="hero">
-            <h1 style="font-size: 50px; margin-bottom: 15px;">QARM Portfolio Manager</h1>
-            <p style="font-size: 22px;">Your institutional-grade engine for disciplined investing.</p>
+            <div class="hero-text">QARM Portfolio Manager</div>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Section: Who we are
-    st.markdown(
-        """
-        <div class="section">
-            <h3>Who we are</h3>
-            <p>
-                Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness — always before chasing returns.
-            </p>
-            <p>
-                Every allocation you see in this app is based on robust statistics, systematic rules, and clear constraints — nothing is a black box.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Section: Your journey with us
-    st.markdown(
-        """
-        <div class="section">
-            <h3>Your journey with us</h3>
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <div class="step-title">Understand your profile</div>
-                <div class="step-text">We quantify your tolerance for losses, investment horizon, and constraints.</div>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <div class="step-title">Design your universe</div>
-                <div class="step-text">We select equity universes, asset classes, and ESG rules to form your investable universe.</div>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <div class="step-title">Optimize with discipline</div>
-                <div class="step-text">We balance expected return, volatility, and drawdown using a realistic, constraint-aware engine.</div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # ------------------------------------------------------
-    # CONTACT
-    # ------------------------------------------------------
-    st.markdown(
-        """
-<div class="contact" id="contact">
-    <div class="contact-title">Let’s talk about your portfolio</div>
-    <div class="contact-text">
-        If our approach resonates, we would be delighted to walk you through the engine.
-    </div>
-    <div><b>contact@phi-investment.com</b></div>
-</div>
         """,
         unsafe_allow_html=True,
     )
+
+    # --- Textual content with same structure you had before ---
+    st.markdown('<div class="content-section">', unsafe_allow_html=True)
+
+    st.markdown("## Who we are")
+    st.markdown(
+        "QARM is a quantitative portfolio optimizer built for asset managers, wealth advisors, and advanced retail investors who demand transparency, flexibility, and performance."
+    )
+
+    st.markdown("## What we do")
+    st.markdown(
+        "We provide an intuitive interface for building efficient portfolios using a robust Markowitz optimization engine. Users can set constraints, preferences, and investment horizons to generate allocations aligned with their goals."
+    )
+
+    st.markdown("## How we do it")
+    st.markdown(
+        "We use rolling windows of historical returns to estimate expected returns and covariances, apply Ledoit-Wolf shrinkage for stability, and solve a quadratic program to optimize weights under user-defined constraints. ESG filters and management fees are supported."
+    )
+
+    st.markdown("## Why it matters")
+    st.markdown(
+        "Most portfolio tools are either too rigid, too opaque, or too superficial. QARM bridges the gap between academic rigor and practical usability, enabling informed portfolio construction grounded in data."
+    )
+
+    # --- Insert your second image visually ---
+    st.markdown('<div class="image-wrapper">', unsafe_allow_html=True)
+    st.markdown(f'<img src="data:image/png;base64,{invest_img_b64}">', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # --------------- PAGE 2: PORTFOLIO OPTIMIZATION ---------------
