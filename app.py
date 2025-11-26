@@ -230,7 +230,6 @@ def page_about():
 
     </style>
     """
-
     st.markdown(css, unsafe_allow_html=True)
 
     # ------------------------------------------------------
@@ -238,14 +237,14 @@ def page_about():
     # ------------------------------------------------------
     st.markdown(
         """
-        <div class="hero">
-            <div class="hero-title">Portfolio construction made clear.</div>
-            <div class="hero-sub">
-                We build transparent, disciplined portfolios using the same framework we apply to our own capital.
-                No noise, no storytelling — just a clean process you can understand and challenge.
-            </div>
-            <a class="hero-btn" href="#contact">Book an introduction call</a>
-        </div>
+<div class="hero">
+    <div class="hero-title">Portfolio construction made clear.</div>
+    <div class="hero-sub">
+        We build transparent, disciplined portfolios using the same framework we apply to our own capital.
+        No noise, no storytelling — just a clean process you can understand and challenge.
+    </div>
+    <a class="hero-btn" href="#contact">Book an introduction call</a>
+</div>
         """,
         unsafe_allow_html=True,
     )
@@ -257,25 +256,25 @@ def page_about():
 
     st.markdown(
         f"""
-        <div class="section-container">
+<div class="section-container">
 
-            <div class="section-text">
-                <h3>Clarity, discipline and transparency.</h3>
-                <p>
-                    Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness —
-                    always before chasing returns.
-                </p>
-                <p>
-                    Every allocation you see in this app is based on robust statistics,
-                    systematic rules and clear constraints — nothing is a black box.
-                </p>
-            </div>
+    <div class="section-text">
+        <h3>Clarity, discipline and transparency.</h3>
+        <p>
+            Our philosophy starts from risk: volatility, drawdowns, liquidity, and robustness —
+            always before chasing returns.
+        </p>
+        <p>
+            Every allocation you see in this app is based on robust statistics,
+            systematic rules and clear constraints — nothing is a black box.
+        </p>
+    </div>
 
-            <div class="section-image">
-                <img src="data:image/png;base64,{about_img_b64}" alt="Invest in your future">
-            </div>
+    <div class="section-image">
+        <img src="data:image/png;base64,{about_img_b64}" alt="Invest in your future">
+    </div>
 
-        </div>
+</div>
         """,
         unsafe_allow_html=True,
     )
@@ -288,60 +287,61 @@ def page_about():
 
     st.markdown(
         """
-        <div class="steps-grid">
+<div class="steps-grid">
 
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <div class="step-title">Understand your profile</div>
-                <div class="step-text">
-                    We quantify your tolerance for losses, investment horizon, and constraints.
-                </div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <div class="step-title">Design your universe</div>
-                <div class="step-text">
-                    We select equity universes, asset classes and ESG rules to form your investable universe.
-                </div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <div class="step-title">Optimize with discipline</div>
-                <div class="step-text">
-                    We balance expected return, volatility and drawdown using a systematic, constraint-aware engine.
-                </div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-num">4</div>
-                <div class="step-title">Monitor & adapt</div>
-                <div class="step-text">
-                    Your allocation is updated only when the data justifies it — never arbitrary changes.
-                </div>
-            </div>
-
+    <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-title">Understand your profile</div>
+        <div class="step-text">
+            We quantify your tolerance for losses, investment horizon, and constraints.
         </div>
+    </div>
+
+    <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-title">Design your universe</div>
+        <div class="step-text">
+            We select equity universes, asset classes and ESG rules to form your investable universe.
+        </div>
+    </div>
+
+    <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-title">Optimize with discipline</div>
+        <div class="step-text">
+            We balance expected return, volatility and drawdown using a systematic, constraint-aware engine.
+        </div>
+    </div>
+
+    <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-title">Monitor & adapt</div>
+        <div class="step-text">
+            Your allocation is updated only when the data justifies it — never arbitrary changes.
+        </div>
+    </div>
+
+</div>
         """,
         unsafe_allow_html=True,
     )
 
     # ------------------------------------------------------
-    # CONTACT SECTION (BACK AT THE BOTTOM)
+    # CONTACT SECTION
     # ------------------------------------------------------
     st.markdown(
         """
-        <div class="contact" id="contact">
-            <div class="contact-title">Let’s talk about your portfolio</div>
-            <div class="contact-text">
-                If our approach resonates, we would be delighted to walk you through the engine.
-            </div>
-            <div><b>contact@phi-investment.com</b></div>
-        </div>
+<div class="contact" id="contact">
+    <div class="contact-title">Let’s talk about your portfolio</div>
+    <div class="contact-text">
+        If our approach resonates, we would be delighted to walk you through the engine.
+    </div>
+    <div><b>contact@phi-investment.com</b></div>
+</div>
         """,
         unsafe_allow_html=True,
     )
+
 
 
 
