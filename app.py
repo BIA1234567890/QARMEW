@@ -96,13 +96,14 @@ def page_about():
                 font-weight: 600;
                 margin-bottom: 10px;
                 color: #111;
+                margin-top: 30px;
             }
 
-            .narrative-text {
-                font-size: 18px;
+            .paragraph {
+                font-size: 17.5px;
                 color: #333;
-                line-height: 1.8;
-                margin-bottom: 30px;
+                line-height: 1.75;
+                margin-bottom: 24px;
             }
 
             .image-frame {
@@ -141,32 +142,41 @@ def page_about():
         </style>
     """, unsafe_allow_html=True)
 
-    # HERO SECTION (Left-aligned, premium dark)
+    # HERO
     st.markdown("""
         <div class="hero">
             <h1>Phi Investment Capital</h1>
         </div>
     """, unsafe_allow_html=True)
 
-    # LAYOUT: Columns
+    # TWO COLUMNS
     col1, col2 = st.columns([1.4, 1])
 
     with col1:
-        st.markdown('<div class="section-heading">Rethinking Portfolio Construction</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
         st.markdown("""
-            <div class="narrative-text">
-            At Phi, we believe the future of asset management lies in the union of data, design, and discipline. 
-            We started with a simple question: how can we empower investors to construct portfolios with conviction — not guesswork?
+            <div class="paragraph">
+            Phi is an independent technology-led firm focused on empowering institutional and advanced investors through intelligent portfolio construction. 
+            We blend deep financial expertise with modern engineering to help clients make strategic allocation decisions rooted in robust quantitative foundations.
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="narrative-text">
-            Most tools in the market are either overly simplistic or frustratingly rigid. Our platform bridges this gap — 
-            combining quantitative rigor with a design that adapts to your logic, not the other way around.
+        st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="paragraph">
+            Our platform provides a guided workflow to design, backtest, and implement fully customized portfolios. 
+            Whether you're running a diversified mandate or a thematic tilt, Phi allows you to specify your investment universe, 
+            apply granular constraints, select an estimation regime, and analyze risk-return tradeoffs with precision.
             </div>
+        """, unsafe_allow_html=True)
 
-            <div class="narrative-text">
-            Whether you're managing a family office, a wealth mandate, or your own portfolio, Phi offers you a robust yet intuitive way 
-            to explore risk, test strategies, and optimize allocations — all backed by research-grade math and real-world usability.
+        st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="paragraph">
+            Most tools simplify too much — or overcomplicate what should be intuitive. 
+            Phi exists to bridge that gap: grounded in academic models, optimized for practitioner needs, 
+            and accessible through an interface that respects your workflow. 
+            From hedge funds to family offices, we are proud to support professionals who demand clarity, control, and rigor.
             </div>
         """, unsafe_allow_html=True)
 
