@@ -133,12 +133,11 @@ def page_about():
             }
 
             .image-frame img {
-              padding: 18px;
+                width: 100%;
+                height: 320px;           /* <<–– FIXED HEIGHT */
+                object-fit: cover;       /* <<–– CROPS CLEANLY LIKE INVEST_FUTURE */
                 border-radius: 22px;
-                overflow: hidden;
                 box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
-                background: radial-gradient(circle at top left, #f7f9ff 0%, #eef1f5 35%, #e2e5ec 100%);
-                margin-top: 30px;
             }
 
             /* CONTACT BOX */
