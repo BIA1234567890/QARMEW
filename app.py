@@ -1,3 +1,5 @@
+Do not create the image, I want the code for that. Here is the code that I have for the moment. 
+
 # app.py
 import streamlit as st
 import pandas as pd
@@ -73,6 +75,7 @@ def page_about():
                 font-family: 'Open Sans', sans-serif;
             }
 
+            /* HERO */
             .hero {
                 background: linear-gradient(120deg, #151515 0%, #262626 55%, #303640 100%);
                 height: 230px;
@@ -81,7 +84,7 @@ def page_about():
                 flex-direction: column;
                 justify-content: center;
                 padding: 32px 46px;
-                margin-bottom: 20px;
+                margin-bottom: 50px;
                 box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
             }
 
@@ -100,32 +103,7 @@ def page_about():
                 max-width: 520px;
             }
 
-            .nav-container {
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 20px;
-                max-width: 900px;
-                margin: 0 auto 50px auto;
-            }
-
-            .nav-btn {
-                background-color: #000;
-                color: white !important;
-                padding: 12px 22px;
-                border-radius: 12px;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 16px;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-                transition: all 0.2s ease;
-            }
-
-            .nav-btn:hover {
-                background-color: #222;
-                transform: translateY(-2px);
-            }
-
+            /* SECTION TYPOGRAPHY */
             .section-heading {
                 font-size: 30px;
                 font-weight: 600;
@@ -139,13 +117,14 @@ def page_about():
                 color: #1f2933;
                 line-height: 1.9;
                 margin-bottom: 30px;
-                max-width: 780px;
+                max-width: 780px;   /* keeps lines from being too long */
             }
 
             .paragraph strong {
                 font-weight: 600;
             }
 
+            /* IMAGE CARD */
             .image-frame {
                 padding: 18px;
                 border-radius: 22px;
@@ -161,6 +140,7 @@ def page_about():
                 width: 100%;
             }
 
+            /* CONTACT BOX */
             .contact-box {
                 margin-top: 70px;
                 padding: 28px 30px;
@@ -199,7 +179,7 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # HERO
+    # ------- HERO -------
     st.markdown(
         """
         <div class="hero">
@@ -213,26 +193,11 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # NAVIGATION BUTTONS
-    st.markdown(
-        """
-        <div class="nav-container">
-            <a href="#about" class="nav-btn">About Us</a>
-            <a href="#client" class="nav-btn">Client Profile</a>
-            <a href="#optimizer" class="nav-btn">Portfolio Optimiser</a>
-            <a href="#phi-ai" class="nav-btn">Phi AI</a>
-            <a href="#contact" class="nav-btn">Contact Us</a>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # BODY CONTENT
+    # ------- TWO COLUMNS -------
     col1, col2 = st.columns([1.5, 1])
 
     with col1:
-        # About Us
-        st.markdown('<div id="about"></div>', unsafe_allow_html=True)
+        # WHO WE ARE
         st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
         st.markdown(
             """
@@ -241,64 +206,81 @@ def page_about():
             and risk engineers who all shared the same frustration: too many tools either hide the 
             investment process in a black box, or drown users in complexity without improving decisions.
             </div>
+            <div class="paragraph">
+            We built Phi as a firm where technology, financial theory, and real-world portfolio practice
+            meet. Our role is not to replace the allocator, but to give them a precise, transparent engine
+            to express their own views while keeping risk under control.
+            </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # Client Profile
-        st.markdown('<div id="client"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-heading">Client Profile</div>', unsafe_allow_html=True)
+        # WHAT WE DO
+        st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
         st.markdown(
             """
             <div class="paragraph">
-            We work primarily with <strong>family offices, institutional allocators, and independent wealth managers</strong> 
-            who require high transparency and full control over investment decisions. Our tools are built to serve those who 
-            answer to committees, regulators, and clients — and must justify every allocation.
+            <strong>Phi is a portfolio design engine.</strong> 
+            Starting from a clean investment universe, clients can encode their own investment beliefs, 
+            risk appetite, and constraints directly into the model. The platform then translates those 
+            inputs into fully specified, implementable portfolios using robust quantitative techniques.
+            </div>
+            <div class="paragraph">
+            Behind the interface, we combine capital markets research, covariance shrinkage, rolling
+            estimation windows, and disciplined rebalancing rules. On the surface, clients see only what
+            matters: clear trade-offs, intuitive analytics, and portfolios that can be explained to an 
+            investment committee without hand-waving.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # Optimiser
-        st.markdown('<div id="optimizer"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-heading">Portfolio Optimiser</div>', unsafe_allow_html=True)
+        # WHY PHI
+        st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
         st.markdown(
             """
             <div class="paragraph">
-            Starting from a defined universe, users input their beliefs, constraints, and risk profile.
-            The optimiser translates that into robust, explainable portfolios using modern quantitative techniques:
-            covariance shrinkage, rolling windows, constraint-aware optimization, and more.
+            Most portfolio tools fall at one of two extremes: simple but rigid templates designed for 
+            retail, or powerful engines that require a quant team to operate. Phi sits deliberately 
+            in the middle. It is <strong>institutional in depth</strong> but <strong>practical in use</strong>.
+            </div>
+            <div class="paragraph">
+            Every setting — from the estimation window to ESG filters and sector constraints — is visible, 
+            documented, and under the allocator’s control. No hidden knobs, no unexplained overrides. 
+            Phi is there as a quantitative co-pilot, not an opaque source of answers.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # Phi AI
-        st.markdown('<div id="phi-ai"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-heading">Phi AI</div>', unsafe_allow_html=True)
+        # WHO WE SERVE
+        st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
         st.markdown(
             """
             <div class="paragraph">
-            Our digital assistant, Phi AI, helps users understand the entire investment process. From model settings 
-            to backtest interpretation, it explains every metric, choice, and result — in a clear and client-ready tone. 
-            Built on LLMs and investment domain knowledge.
+            We primarily work with family offices, wealth managers, institutional allocators, and 
+            independent advisors who need to justify every portfolio decision. Our users care about 
+            transparency, auditability, and being able to explain “why this portfolio” in clear language 
+            to investment committees and end clients.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # Contact Us
-        st.markdown('<div id="contact"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-heading">Contact Us</div>', unsafe_allow_html=True)
+        # OUR PHILOSOPHY
+        st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
         st.markdown(
             """
-            <div class="contact-box">
-                <h3>Contact Us</h3>
-                <p><span class="emoji">📧</span><strong>Email:</strong> contact@phi-investment.com</p>
-                <p><span class="emoji">📍</span><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
-                <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
+            <div class="paragraph">
+            We believe that good investing is less about prediction and more about discipline. 
+            Every allocation should have a reason, every risk should be visible, and every path of 
+            returns should be understood before capital is put to work.
             </div>
-            <div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>
+            <div class="paragraph">
+            Phi was built to make that discipline tangible. By turning rigorous quantitative methods 
+            into a clear, controllable workflow, we help investors move from “I think” to 
+            “here is exactly how this portfolio behaves, and why”.
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -307,6 +289,29 @@ def page_about():
         st.markdown('<div class="image-frame">', unsafe_allow_html=True)
         st.image("invest_future.png", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------- CONTACT -------
+    st.markdown(
+        """
+        <div class="contact-box">
+            <h3>Contact Us</h3>
+            <p><span class="emoji">📧</span><strong>Email:</strong> contact@phi-investment.com</p>
+            <p><span class="emoji">📍</span><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
+            <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        "<div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>",
+        unsafe_allow_html=True,
+    )
+
+
+
+
+
 
 
 
