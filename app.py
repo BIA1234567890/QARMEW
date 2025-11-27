@@ -64,26 +64,260 @@ def get_llm_client():
 
 
 # --------------- PAGE 1: ABOUT US ---------------
-def page_about():
-    st.title("Our Investment Firm")
+from PIL import Image
+import streamlit as st
+import base64
 
+def page_about():
     st.markdown(
         """
-        ### Who we are
-        We are a quantitative asset & risk management boutique.
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-        Our mission is to build **transparent, rule-based portfolios**
-        tailored to each client's risk profile, constraints and ESG preferences.
+            html, body, [class*="css"] {
+                font-family: 'Open Sans', sans-serif;
+            }
 
-        ### What this app does
-        - Builds a diversified multi-asset portfolio (Equity, Fixed Income, Commodities, Alternatives)
-        - Applies **sector** and **ESG** constraints inside the equity bucket
-        - Applies **asset-class** constraints at the total portfolio level
-        - Optimizes using a **Markowitz mean–variance** model with a robust covariance estimator (Ledoit–Wolf)
-        - Backtests the strategy over the selected horizon
+            /* HERO */
+            .hero {
+                background: linear-gradient(120deg, #151515 0%, #262626 55%, #303640 100%);
+                height: 230px;
+                border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 32px 46px;
+                margin-bottom: 50px;
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+            }
 
-        Use the *Portfolio optimization* page from the sidebar to try it.
+            .hero-title {
+                color: #ffffff;
+                font-size: 44px;
+                font-weight: 700;
+                margin: 0;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+            }
+
+            .hero-subtitle {
+                margin-top: 10px;
+                color: #d9dde7;
+                font-size: 18px;
+                max-width: 520px;
+            }
+
+            /* SECTION TYPOGRAPHY */
+            .section-heading {
+                font-size: 30px;
+                font-weight: 600;
+                margin-bottom: 8px;
+                color: #101827;
+                margin-top: 36px;
+            }
+
+            .paragraph {
+                font-size: 20px;
+                color: #1f2933;
+                line-height: 1.9;
+                margin-bottom: 30px;
+                max-width: 780px;
+            }
+
+            .paragraph strong {
+                font-weight: 600;
+            }
+
+            /* IMAGE CARD */
+            .image-frame {
+                padding: 18px;
+                border-radius: 22px;
+                overflow: hidden;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
+                background: radial-gradient(circle at top left, #f7f9ff 0%, #eef1f5 35%, #e2e5ec 100%);
+                margin-top: 30px;
+            }
+
+            .image-frame img {
+                width: 100%;
+                height: 320px;           /* <<–– FIXED HEIGHT */
+                object-fit: cover;       /* <<–– CROPS CLEANLY LIKE INVEST_FUTURE */
+                border-radius: 22px;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
+            }
+
+            /* CONTACT BOX */
+            .contact-box {
+                margin-top: 70px;
+                padding: 28px 30px;
+                background: linear-gradient(145deg, #f9fafb, #ffffff);
+                border-radius: 16px;
+                box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+                max-width: 880px;
+            }
+
+            .contact-box h3 {
+                font-size: 24px;
+                margin-bottom: 12px;
+                color: #111827;
+            }
+
+            .contact-box p {
+                font-size: 18px;
+                margin: 6px 0;
+                color: #374151;
+            }
+
+            .emoji {
+                margin-right: 8px;
+                font-size: 18px;
+            }
+
+            .tagline {
+                font-style: italic;
+                color: #4b5563;
+                font-size: 16px;
+                text-align: center;
+                margin-top: 55px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------- HERO -------
+    st.markdown(
         """
+        <div class="hero">
+            <div class="hero-title">Phi Investment Capital</div>
+            <div class="hero-subtitle">
+                A quantitative portfolio design studio that turns institutional research
+                into clear, usable portfolios for sophisticated investors.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------- WHO WE ARE -------
+    col1, col2 = st.columns([1.5, 1])
+
+    with col1:
+        st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="paragraph">
+            Phi Investment Capital was founded by former asset managers, quantitative researchers, 
+            and risk engineers who all shared the same frustration: too many tools either hide the 
+            investment process in a black box, or drown users in complexity without improving decisions.
+            </div>
+            <div class="paragraph">
+            We built Phi as a firm where technology, financial theory, and real-world portfolio practice
+            meet. Our role is not to replace the allocator, but to give them a precise, transparent engine
+            to express their own views while keeping risk under control.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
+        st.image("invest_future.png", use_column_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------- WHAT WE DO -------
+    col3, col4 = st.columns([1, 1.5])
+
+    with col3:
+        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
+        st.image("invest.jpg", use_column_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col4:
+        st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="paragraph">
+            <strong>Phi is a portfolio design engine.</strong> 
+            Starting from a clean investment universe, clients can encode their own investment beliefs, 
+            risk appetite, and constraints directly into the model. The platform then translates those 
+            inputs into fully specified, implementable portfolios using robust quantitative techniques.
+            </div>
+            <div class="paragraph">
+            Behind the interface, we combine capital markets research, covariance shrinkage, rolling
+            estimation windows, and disciplined rebalancing rules. On the surface, clients see only what
+            matters: clear trade-offs, intuitive analytics, and portfolios that can be explained to an 
+            investment committee without hand-waving.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # ------- WHY PHI -------
+    st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        Most portfolio tools fall at one of two extremes: simple but rigid templates designed for 
+        retail, or powerful engines that require a quant team to operate. Phi sits deliberately 
+        in the middle. It is <strong>institutional in depth</strong> but <strong>practical in use</strong>.
+        </div>
+        <div class="paragraph">
+        Every setting — from the estimation window to ESG filters and sector constraints — is visible, 
+        documented, and under the allocator’s control. No hidden knobs, no unexplained overrides. 
+        Phi is there as a quantitative co-pilot, not an opaque source of answers.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------- WHO WE SERVE -------
+    st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        We primarily work with family offices, wealth managers, institutional allocators, and 
+        independent advisors who need to justify every portfolio decision. Our users care about 
+        transparency, auditability, and being able to explain “why this portfolio” in clear language 
+        to investment committees and end clients.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------- OUR PHILOSOPHY -------
+    st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        We believe that good investing is less about prediction and more about discipline. 
+        Every allocation should have a reason, every risk should be visible, and every path of 
+        returns should be understood before capital is put to work.
+        </div>
+        <div class="paragraph">
+        Phi was built to make that discipline tangible. By turning rigorous quantitative methods 
+        into a clear, controllable workflow, we help investors move from “I think” to 
+        “here is exactly how this portfolio behaves, and why”.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ------- CONTACT -------
+    st.markdown(
+        """
+        <div class="contact-box">
+            <h3>Contact Us</h3>
+            <p><span class="emoji">📧</span><strong>Email:</strong> contact@phi-investment.com</p>
+            <p><span class="emoji">📍</span><strong>Address:</strong> 123 Financial Street, Geneva, Switzerland</p>
+            <p><span class="emoji">📞</span><strong>Phone:</strong> +41 22 123 45 67</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        "<div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>",
+        unsafe_allow_html=True,
     )
 
 
