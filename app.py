@@ -133,10 +133,12 @@ def page_about():
             }
 
             .image-frame img {
-                border-radius: 16px;
-                width: 100%;
-                height: auto;
-                object-fit: cover;
+              padding: 18px;
+                border-radius: 22px;
+                overflow: hidden;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
+                background: radial-gradient(circle at top left, #f7f9ff 0%, #eef1f5 35%, #e2e5ec 100%);
+                margin-top: 30px;
             }
 
             /* CONTACT BOX */
