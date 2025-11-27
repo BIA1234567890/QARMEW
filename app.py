@@ -213,7 +213,15 @@ def page_about():
             unsafe_allow_html=True,
         )
 
-        # WHAT WE DO
+        # WHAT WE DO (image left, text right)
+    col3, col4 = st.columns([1, 1.5])
+
+    with col3:
+        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
+        st.image("invest.jpg", use_column_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col4:
         st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
         st.markdown(
             """
