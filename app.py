@@ -115,7 +115,7 @@ def page_about():
                 color: #1f2933;
                 line-height: 1.9;
                 margin-bottom: 30px;
-                max-width: 780px;   /* keeps lines from being too long */
+                max-width: 780px;
             }
 
             .paragraph strong {
@@ -129,13 +129,14 @@ def page_about():
                 overflow: hidden;
                 box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
                 background: radial-gradient(circle at top left, #f7f9ff 0%, #eef1f5 35%, #e2e5ec 100%);
+                margin-top: 30px;
             }
 
             .image-frame img {
                 border-radius: 16px;
-                object-fit: cover;
-                height: 10px;
                 width: 100%;
+                height: auto;
+                object-fit: cover;
             }
 
             /* CONTACT BOX */
@@ -191,11 +192,10 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # ------- TWO COLUMNS -------
+    # ------- WHO WE ARE -------
     col1, col2 = st.columns([1.5, 1])
 
     with col1:
-        # WHO WE ARE
         st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
         st.markdown(
             """
@@ -213,7 +213,12 @@ def page_about():
             unsafe_allow_html=True,
         )
 
-        # WHAT WE DO (image left, text right)
+    with col2:
+        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
+        st.image("invest_future.png", use_column_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------- WHAT WE DO -------
     col3, col4 = st.columns([1, 1.5])
 
     with col3:
@@ -241,60 +246,55 @@ def page_about():
             unsafe_allow_html=True,
         )
 
-        # WHY PHI
-        st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            Most portfolio tools fall at one of two extremes: simple but rigid templates designed for 
-            retail, or powerful engines that require a quant team to operate. Phi sits deliberately 
-            in the middle. It is <strong>institutional in depth</strong> but <strong>practical in use</strong>.
-            </div>
-            <div class="paragraph">
-            Every setting — from the estimation window to ESG filters and sector constraints — is visible, 
-            documented, and under the allocator’s control. No hidden knobs, no unexplained overrides. 
-            Phi is there as a quantitative co-pilot, not an opaque source of answers.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    # ------- WHY PHI -------
+    st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        Most portfolio tools fall at one of two extremes: simple but rigid templates designed for 
+        retail, or powerful engines that require a quant team to operate. Phi sits deliberately 
+        in the middle. It is <strong>institutional in depth</strong> but <strong>practical in use</strong>.
+        </div>
+        <div class="paragraph">
+        Every setting — from the estimation window to ESG filters and sector constraints — is visible, 
+        documented, and under the allocator’s control. No hidden knobs, no unexplained overrides. 
+        Phi is there as a quantitative co-pilot, not an opaque source of answers.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        # WHO WE SERVE
-        st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            We primarily work with family offices, wealth managers, institutional allocators, and 
-            independent advisors who need to justify every portfolio decision. Our users care about 
-            transparency, auditability, and being able to explain “why this portfolio” in clear language 
-            to investment committees and end clients.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    # ------- WHO WE SERVE -------
+    st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        We primarily work with family offices, wealth managers, institutional allocators, and 
+        independent advisors who need to justify every portfolio decision. Our users care about 
+        transparency, auditability, and being able to explain “why this portfolio” in clear language 
+        to investment committees and end clients.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        # OUR PHILOSOPHY
-        st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            We believe that good investing is less about prediction and more about discipline. 
-            Every allocation should have a reason, every risk should be visible, and every path of 
-            returns should be understood before capital is put to work.
-            </div>
-            <div class="paragraph">
-            Phi was built to make that discipline tangible. By turning rigorous quantitative methods 
-            into a clear, controllable workflow, we help investors move from “I think” to 
-            “here is exactly how this portfolio behaves, and why”.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
-        st.image("invest_future.png", use_column_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # ------- OUR PHILOSOPHY -------
+    st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="paragraph">
+        We believe that good investing is less about prediction and more about discipline. 
+        Every allocation should have a reason, every risk should be visible, and every path of 
+        returns should be understood before capital is put to work.
+        </div>
+        <div class="paragraph">
+        Phi was built to make that discipline tangible. By turning rigorous quantitative methods 
+        into a clear, controllable workflow, we help investors move from “I think” to 
+        “here is exactly how this portfolio behaves, and why”.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ------- CONTACT -------
     st.markdown(
