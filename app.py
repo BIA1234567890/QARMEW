@@ -1,5 +1,3 @@
-Do not create the image, I want the code for that. Here is the code that I have for the moment. 
-
 # app.py
 import streamlit as st
 import pandas as pd
