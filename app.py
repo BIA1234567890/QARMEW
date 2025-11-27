@@ -100,29 +100,30 @@ def page_about():
                 max-width: 520px;
             }
 
-            /* NAVIGATION BUTTONS */
             .nav-container {
                 display: flex;
                 justify-content: center;
-                gap: 18px;
-                margin: 20px 0 50px 0;
                 flex-wrap: wrap;
+                gap: 20px;
+                max-width: 900px;
+                margin: 0 auto 50px auto;
             }
 
             .nav-btn {
                 background-color: #000;
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
+                color: white !important;
+                padding: 12px 22px;
+                border-radius: 12px;
                 text-decoration: none;
                 font-weight: 600;
                 font-size: 16px;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-                transition: background-color 0.3s ease;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+                transition: all 0.2s ease;
             }
 
             .nav-btn:hover {
-                background-color: #333;
+                background-color: #222;
+                transform: translateY(-2px);
             }
 
             .section-heading {
@@ -306,11 +307,6 @@ def page_about():
         st.markdown('<div class="image-frame">', unsafe_allow_html=True)
         st.image("invest_future.png", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
-
 
 
 
