@@ -73,7 +73,6 @@ def page_about():
                 font-family: 'Open Sans', sans-serif;
             }
 
-            /* HERO */
             .hero {
                 background: linear-gradient(120deg, #151515 0%, #262626 55%, #303640 100%);
                 height: 230px;
@@ -101,44 +100,51 @@ def page_about():
                 max-width: 520px;
             }
 
-            /* SECTION TYPOGRAPHY */
-            .section-heading {
+            .section {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 80px;
+                flex-wrap: wrap;
+            }
+
+            .section:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+
+            .text-block {
+                width: 48%;
+                padding: 20px;
+            }
+
+            .text-block h2 {
                 font-size: 30px;
                 font-weight: 600;
-                margin-bottom: 8px;
+                margin-bottom: 12px;
                 color: #101827;
-                margin-top: 36px;
             }
 
-            .paragraph {
+            .text-block p {
                 font-size: 20px;
                 color: #1f2933;
-                line-height: 1.9;
-                margin-bottom: 30px;
-                max-width: 780px;   /* keeps lines from being too long */
+                line-height: 1.8;
+                margin-bottom: 20px;
             }
 
-            .paragraph strong {
-                font-weight: 600;
+            .image-block {
+                width: 48%;
+                display: flex;
+                justify-content: center;
             }
 
-            /* IMAGE CARD */
-            .image-frame {
-                padding: 18px;
-                border-radius: 22px;
-                overflow: hidden;
-                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
-                background: radial-gradient(circle at top left, #f7f9ff 0%, #eef1f5 35%, #e2e5ec 100%);
-            }
-
-            .image-frame img {
-                border-radius: 16px;
+            .image-block img {
+                border-radius: 20px;
                 object-fit: cover;
-                height: 700px;
                 width: 100%;
+                max-height: 600px;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
             }
 
-            /* CONTACT BOX */
             .contact-box {
                 margin-top: 70px;
                 padding: 28px 30px;
@@ -177,7 +183,7 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # ------- HERO -------
+    # ---------- HERO ----------
     st.markdown(
         """
         <div class="hero">
@@ -191,104 +197,57 @@ def page_about():
         unsafe_allow_html=True,
     )
 
-    # ------- TWO COLUMNS -------
-    col1, col2 = st.columns([1.5, 1])
+    # ---------- SECTION 1: WHO WE ARE ----------
+    st.markdown(
+        """
+        <div class="section">
+            <div class="text-block">
+                <h2>Who We Are</h2>
+                <p>
+                    Phi Investment Capital was founded by former asset managers, quantitative researchers, 
+                    and risk engineers who all shared the same frustration: too many tools either hide the 
+                    investment process in a black box, or drown users in complexity without improving decisions.
+                </p>
+                <p>
+                    We built Phi as a firm where technology, financial theory, and real-world portfolio practice
+                    meet. Our role is not to replace the allocator, but to give them a precise, transparent engine
+                    to express their own views while keeping risk under control.
+                </p>
+            </div>
+            <div class="image-block">
+                <img src="invest_future.png">
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    with col1:
-        # WHO WE ARE
-        st.markdown('<div class="section-heading">Who We Are</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            Phi Investment Capital was founded by former asset managers, quantitative researchers, 
-            and risk engineers who all shared the same frustration: too many tools either hide the 
-            investment process in a black box, or drown users in complexity without improving decisions.
+    # ---------- SECTION 2: WHAT WE DO ----------
+    st.markdown(
+        """
+        <div class="section">
+            <div class="text-block">
+                <h2>What We Do</h2>
+                <p>
+                    Phi is a portfolio design engine. Starting from a clean investment universe, clients can encode their own investment beliefs, 
+                    risk appetite, and constraints directly into the model. The platform then translates those inputs into fully specified, 
+                    implementable portfolios using robust quantitative techniques.
+                </p>
+                <p>
+                    Behind the interface, we combine capital markets research, covariance shrinkage, rolling estimation windows, and disciplined 
+                    rebalancing rules. On the surface, clients see only what matters: clear trade-offs, intuitive analytics, and portfolios that 
+                    can be explained to an investment committee without hand-waving.
+                </p>
             </div>
-            <div class="paragraph">
-            We built Phi as a firm where technology, financial theory, and real-world portfolio practice
-            meet. Our role is not to replace the allocator, but to give them a precise, transparent engine
-            to express their own views while keeping risk under control.
+            <div class="image-block">
+                <img src="invest.jpg">
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        # WHAT WE DO
-        st.markdown('<div class="section-heading">What We Do</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            <strong>Phi is a portfolio design engine.</strong> 
-            Starting from a clean investment universe, clients can encode their own investment beliefs, 
-            risk appetite, and constraints directly into the model. The platform then translates those 
-            inputs into fully specified, implementable portfolios using robust quantitative techniques.
-            </div>
-            <div class="paragraph">
-            Behind the interface, we combine capital markets research, covariance shrinkage, rolling
-            estimation windows, and disciplined rebalancing rules. On the surface, clients see only what
-            matters: clear trade-offs, intuitive analytics, and portfolios that can be explained to an 
-            investment committee without hand-waving.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # WHY PHI
-        st.markdown('<div class="section-heading">Why Phi</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            Most portfolio tools fall at one of two extremes: simple but rigid templates designed for 
-            retail, or powerful engines that require a quant team to operate. Phi sits deliberately 
-            in the middle. It is <strong>institutional in depth</strong> but <strong>practical in use</strong>.
-            </div>
-            <div class="paragraph">
-            Every setting — from the estimation window to ESG filters and sector constraints — is visible, 
-            documented, and under the allocator’s control. No hidden knobs, no unexplained overrides. 
-            Phi is there as a quantitative co-pilot, not an opaque source of answers.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # WHO WE SERVE
-        st.markdown('<div class="section-heading">Who We Serve</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            We primarily work with family offices, wealth managers, institutional allocators, and 
-            independent advisors who need to justify every portfolio decision. Our users care about 
-            transparency, auditability, and being able to explain “why this portfolio” in clear language 
-            to investment committees and end clients.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # OUR PHILOSOPHY
-        st.markdown('<div class="section-heading">Our Philosophy</div>', unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div class="paragraph">
-            We believe that good investing is less about prediction and more about discipline. 
-            Every allocation should have a reason, every risk should be visible, and every path of 
-            returns should be understood before capital is put to work.
-            </div>
-            <div class="paragraph">
-            Phi was built to make that discipline tangible. By turning rigorous quantitative methods 
-            into a clear, controllable workflow, we help investors move from “I think” to 
-            “here is exactly how this portfolio behaves, and why”.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown('<div class="image-frame">', unsafe_allow_html=True)
-        st.image("invest_future.png", use_column_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # ------- CONTACT -------
+    # ---------- CONTACT ----------
     st.markdown(
         """
         <div class="contact-box">
@@ -305,6 +264,7 @@ def page_about():
         "<div class='tagline'>Built with integrity. Driven by data. Designed for clarity.</div>",
         unsafe_allow_html=True,
     )
+
 
 
 
